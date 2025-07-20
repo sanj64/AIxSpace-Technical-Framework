@@ -1,13 +1,13 @@
-# AI-RRA (Risk & Resource Allocation)
+# AI-FP (Failure Prediction)
 
-This module acts as the logic core for assessing risk and allocating resources efficiently.
+This module is responsible for forecasting component failures before they occur.
 
 ## Purpose
-The Risk & Resource Allocation (RRA) module evaluates alerts from other systems. It assesses the overall risk to the mission and determines the best way to allocate resources to mitigate the risk.
+The Failure Prediction (FP) module analyzes historical and real-time telemetry data to identify patterns indicative of an upcoming hardware or software fault.
 
 ## Inputs
-- Structured alerts (e.g., from AI-FP).
-- A database of mission priorities and resource availability.
+- Raw telemetry data streams (temperature, voltage, etc.).
+- Component maintenance logs.
 
 ## Outputs
-- A recommendation for resource allocation or a corrective action plan.
+- A structured alert containing the component at risk, probability of failure, and estimated time-to-failure.
