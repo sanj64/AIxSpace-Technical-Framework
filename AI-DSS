@@ -1,0 +1,10 @@
+ AI-DSS 
+
+ Goals
+- Enhance decision-making processes
+- Integrate machine learning pipelines
+
+Tools Considered
+- Python
+- TensorFlow
+- FastAPI
