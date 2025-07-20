@@ -1,0 +1,8 @@
+# AI-DSS:
+ ##Objective
+This module is aimed at building a decision support system that leverages AI/ML techniques to assist operators in real-time monitoring and response, using satellite telemetry data.
+
+## Features
+- Recommends actions based on system states.
+- Classifies and ranks anomalies.
+- Integrates with anomaly and failure modules.
