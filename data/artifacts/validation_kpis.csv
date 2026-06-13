@@ -1,0 +1,10 @@
+KPI,Measured,Target,Status
+"F1 (Combined, thermal)",0.487,>= 0.80,FAIL
+"Precision (Combined, thermal)",1.000,>= 0.75,PASS
+"Recall (Combined, thermal)",0.322,>= 0.85,FAIL
+FAR/hr (Combined),0.0,<= 5.0,PASS
+"Detection Latency (Combined, samples)",31,<= 30,FAIL
+Runtime (segments_clean.csv),7.93s,<= 120s,PASS
+Reproducibility (segments_clean.csv),YES,100%,PASS
+Runtime (dataset_clean.csv),0.19s,<= 120s,PASS
+Reproducibility (dataset_clean.csv),YES,100%,PASS
