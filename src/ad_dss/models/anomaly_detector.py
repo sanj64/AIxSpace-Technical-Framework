@@ -10,7 +10,6 @@ import joblib
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import IsolationForest
-from sklearn.preprocessing import MinMaxScaler
 
 from ad_dss.common.logging_config import get_logger
 from ad_dss.common.schemas import AnomalyResult
@@ -35,7 +34,9 @@ class AnomalyDetector:
         self.window_size: int = ad_cfg.get("window_size", 30)
         self.latent_dim: int = ad_cfg.get("latent_dim", 32)
         self.model_path = Path(ad_cfg.get("model_path", "models/lstm_autoencoder.keras"))
-        self.thresholds: dict[str, float] = ad_cfg.get("reconstruction_thresholds", {"default": 0.1})
+        self.thresholds: dict[str, float] = ad_cfg.get(
+            "reconstruction_thresholds", {"default": 0.1}
+        )
         self.threshold_pct: float = float(ad_cfg.get("threshold_percentile", 95.0))
         train_cfg = config.get("training", {})
         self.epochs: int = int(train_cfg.get("epochs", 20))
@@ -142,7 +143,13 @@ class AnomalyDetector:
 
     def _train_lstm(self, df: pd.DataFrame) -> None:
         from tensorflow.keras.callbacks import EarlyStopping  # type: ignore[import]
-        from tensorflow.keras.layers import LSTM, Dense, Input, RepeatVector, TimeDistributed  # type: ignore[import]
+        from tensorflow.keras.layers import (  # type: ignore[import]
+            LSTM,
+            Dense,
+            Input,
+            RepeatVector,
+            TimeDistributed,
+        )
         from tensorflow.keras.models import Model  # type: ignore[import]
 
         normed, self._scaler = normalize(df, method="minmax")
@@ -157,10 +164,13 @@ class AnomalyDetector:
         model = Model(inp, out)
         model.compile(optimizer="adam", loss="mse")
 
-        cb = EarlyStopping(monitor="loss", patience=self.early_stopping_patience, restore_best_weights=True)
+        cb = EarlyStopping(
+            monitor="loss", patience=self.early_stopping_patience, restore_best_weights=True
+        )
         val_split = self.val_split if len(X) > 20 else 0.0
         model.fit(
-            X, X,
+            X,
+            X,
             epochs=self.epochs,
             batch_size=self.batch_size,
             validation_split=val_split,
@@ -213,7 +223,7 @@ class AnomalyDetector:
         sigma = df.rolling(win, min_periods=min_periods).std().replace(0, 1e-9)
         z = ((df - mu) / sigma).abs()
         # Max z-score across all channels per row
-        return z.max(axis=1).fillna(0).values
+        return z.max(axis=1).fillna(0).values  # type: ignore[return-value]
 
     # ── Threshold helpers ────────────────────────────────────────────────────
 
@@ -223,7 +233,11 @@ class AnomalyDetector:
         if self.method == "zscore":
             return float(self._zscore_cfg.get("z_threshold", 3.5))
         if self.method == "isolation_forest":
-            return float(cfg_thr) if cfg_thr is not None else float(np.percentile(scores, self.threshold_pct))
+            return (
+                float(cfg_thr)
+                if cfg_thr is not None
+                else float(np.percentile(scores, self.threshold_pct))
+            )
         # LSTM: prefer learned threshold, fall back to config
         if self._threshold is not None:
             return self._threshold

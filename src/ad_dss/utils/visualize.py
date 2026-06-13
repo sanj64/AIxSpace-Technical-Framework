@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 import matplotlib
+
 matplotlib.use("Agg")  # force non-interactive backend before any other matplotlib import
 
-import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
-from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.figure import Figure
 
 from ad_dss.common.schemas import AnomalyResult, MissionPhase, RiskResult
 
@@ -32,7 +33,7 @@ def plot_telemetry(
     if anomalies:
         anom_ts = [a.timestamp for a in anomalies if a.anomaly_flag == 1]
         for ts in anom_ts:
-            ax.axvline(ts, color="#e74c3c", alpha=0.4, lw=0.7)
+            ax.axvline(ts, color="#e74c3c", alpha=0.4, lw=0.7)  # type: ignore[arg-type]
 
     if phases:
         n = len(df)
@@ -66,10 +67,19 @@ def plot_risk_timeline(
     colors = [_LEVEL_COLORS.get(r.level, "#95a5a6") for r in risk_results]
 
     fig, ax = plt.subplots(figsize=figsize)
-    ax.scatter(ts, scores, c=colors, s=20, zorder=3)
-    ax.plot(ts, scores, color="#7f8c8d", lw=0.5, alpha=0.6)
-    ax.axhline(0.30, color=_LEVEL_COLORS["MEDIUM"], ls="--", lw=0.8, alpha=0.7, label="MEDIUM threshold")
-    ax.axhline(0.70, color=_LEVEL_COLORS["CRITICAL"], ls="--", lw=0.8, alpha=0.7, label="CRITICAL threshold")
+    ax.scatter(ts, scores, c=colors, s=20, zorder=3)  # type: ignore[arg-type]
+    ax.plot(ts, scores, color="#7f8c8d", lw=0.5, alpha=0.6)  # type: ignore[arg-type]
+    ax.axhline(
+        0.30, color=_LEVEL_COLORS["MEDIUM"], ls="--", lw=0.8, alpha=0.7, label="MEDIUM threshold"
+    )
+    ax.axhline(
+        0.70,
+        color=_LEVEL_COLORS["CRITICAL"],
+        ls="--",
+        lw=0.8,
+        alpha=0.7,
+        label="CRITICAL threshold",
+    )
     patches = [mpatches.Patch(color=v, label=k) for k, v in _LEVEL_COLORS.items()]
     ax.legend(handles=patches, loc="upper left", fontsize=8)
     ax.set_ylim(0, 1.05)
@@ -93,7 +103,9 @@ def plot_anomaly_scores(
     ax.plot(x, scores, lw=0.8, color="#3498db", label="Anomaly score")
     if threshold is not None:
         ax.axhline(threshold, color="#e74c3c", ls="--", lw=1.0, label=f"Threshold={threshold:.4f}")
-    ax.fill_between(x, scores, threshold or 0, where=(scores > (threshold or 0)), color="#e74c3c", alpha=0.2)
+    ax.fill_between(
+        x, scores, threshold or 0, where=(scores > (threshold or 0)), color="#e74c3c", alpha=0.2  # type: ignore[arg-type]
+    )
     ax.set_title("Anomaly Scores")
     ax.set_xlabel("Time / Step")
     ax.set_ylabel("Reconstruction Error")

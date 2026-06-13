@@ -29,7 +29,7 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
 
 def interpolate_gaps(df: pd.DataFrame, method: str = "linear") -> pd.DataFrame:
     """Interpolate remaining NaN values along the time axis."""
-    return df.interpolate(method=method, axis=0).ffill().bfill()
+    return df.interpolate(method=method, axis=0).ffill().bfill()  # type: ignore[arg-type]
 
 
 def normalize(
@@ -65,9 +65,7 @@ def create_windows(data: np.ndarray, window_size: int) -> np.ndarray:
     n_samples, n_features = data.shape
     n_windows = n_samples - window_size + 1
     if n_windows <= 0:
-        raise ValueError(
-            f"Not enough samples ({n_samples}) for window_size={window_size}"
-        )
+        raise ValueError(f"Not enough samples ({n_samples}) for window_size={window_size}")
     windows = np.lib.stride_tricks.sliding_window_view(data, (window_size, n_features))
     return windows.reshape(-1, window_size, n_features)
 

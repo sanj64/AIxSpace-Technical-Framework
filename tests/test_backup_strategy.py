@@ -4,7 +4,7 @@ import pandas as pd
 import pytest
 import yaml
 
-from ad_dss.common.schemas import BackupAction, Decision, MissionPhase, RiskResult
+from ad_dss.common.schemas import BackupAction, Decision, RiskResult
 from ad_dss.decision.backup_strategy import BackupStrategyManager
 
 
@@ -16,7 +16,11 @@ def config() -> dict:
 
 def _risk(level: str, subsystem: str) -> RiskResult:
     return RiskResult(
-        level=level, score=0.9, reason="test", subsystem=subsystem, timestamp=pd.Timestamp("2025-01-01")
+        level=level,
+        score=0.9,
+        reason="test",
+        subsystem=subsystem,
+        timestamp=pd.Timestamp("2025-01-01"),
     )
 
 

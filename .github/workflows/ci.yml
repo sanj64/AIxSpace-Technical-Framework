@@ -43,7 +43,7 @@ jobs:
           pip install -e ".[dev]"
       - name: Run tests with coverage
         run: |
-          pytest --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=60 -v
+          pytest --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v
         env:
           TF_ENABLE_ONEDNN_OPTS: "0"
           MPLBACKEND: "Agg"

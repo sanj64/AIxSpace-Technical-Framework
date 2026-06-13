@@ -4,7 +4,6 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import pytest
 
 from ad_dss.common.schemas import AnomalyResult, BackupAction, Decision, RiskResult
 from ad_dss.reports.generate_report import generate_report
@@ -15,7 +14,13 @@ def _make_run_results(n: int = 40) -> dict:
     df = pd.DataFrame({"ch0": np.random.default_rng(0).standard_normal(n)}, index=idx)
 
     anomalies = [
-        AnomalyResult(timestamp=idx[i], subsystem="EPS", reconstruction_error=0.1 * i, anomaly_flag=int(i > 30), score=0.1 * i / n)
+        AnomalyResult(
+            timestamp=idx[i],
+            subsystem="EPS",
+            reconstruction_error=0.1 * i,
+            anomaly_flag=int(i > 30),
+            score=0.1 * i / n,
+        )
         for i in range(n)
     ]
     risks = [
@@ -23,7 +28,15 @@ def _make_run_results(n: int = 40) -> dict:
         RiskResult(level="CRITICAL", score=0.9, reason="high!", subsystem="EPS", timestamp=idx[35]),
     ]
     decisions = [Decision(action="SAFE_MODE", reason="critical", timestamp=idx[35])]
-    backups = [BackupAction(component="primary_power", fallback_component="backup_battery", activated=True, reason="test", timestamp=idx[35])]
+    backups = [
+        BackupAction(
+            component="primary_power",
+            fallback_component="backup_battery",
+            activated=True,
+            reason="test",
+            timestamp=idx[35],
+        )
+    ]
 
     return {
         "dataset": "test",

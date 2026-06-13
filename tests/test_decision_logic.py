@@ -16,7 +16,11 @@ def config() -> dict:
 
 def _risk(level: str, subsystem: str = "EPS") -> RiskResult:
     return RiskResult(
-        level=level, score=0.8 if level == "CRITICAL" else 0.4, reason="test", subsystem=subsystem, timestamp=pd.Timestamp("2025-01-01")
+        level=level,
+        score=0.8 if level == "CRITICAL" else 0.4,
+        reason="test",
+        subsystem=subsystem,
+        timestamp=pd.Timestamp("2025-01-01"),
     )
 
 
@@ -69,3 +73,93 @@ def test_rl_fallback_without_model(config: dict) -> None:
     decision = engine.decide_rl(0.9)
     assert isinstance(decision, Decision)
     assert decision.action in ("IGNORE", "LOG", "NOTIFY_GROUND", "SAFE_MODE", "ABORT_PAYLOAD")
+
+
+def test_rl_fallback_low_score(config: dict) -> None:
+    engine = DecisionEngine(config, mode="rl")
+    decision = engine.decide_rl(0.1)
+    assert decision.action == "LOG"
+    assert "fallback" in decision.reason.lower()
+
+
+def test_anomaly_env_init_and_reset() -> None:
+    """AnomalyEnv wraps a gymnasium Env that resets correctly."""
+    import numpy as np
+
+    from ad_dss.decision.decision_logic import AnomalyEnv
+
+    scores = np.linspace(0.0, 1.0, 50, dtype=np.float32)
+    aenv = AnomalyEnv(scores, threshold=0.5)
+    assert aenv._gym_available, "gymnasium must be available in test environment"
+    env = aenv.env
+    obs, info = env.reset()
+    assert obs.shape == (1,)
+    assert float(obs[0]) == pytest.approx(scores[0], abs=1e-5)
+
+
+def test_anomaly_env_step() -> None:
+    """AnomalyEnv.step returns correct reward for anomalous score + action."""
+    import numpy as np
+
+    from ad_dss.decision.decision_logic import AnomalyEnv
+
+    scores = np.ones(10, dtype=np.float32)  # all scores = 1.0 (anomalous)
+    aenv = AnomalyEnv(scores, threshold=0.5)
+    env = aenv.env
+    env.reset()
+    obs, reward, done, truncated, info = env.step(1)  # LOG = correct for anomaly
+    assert reward == pytest.approx(1.0)
+    obs2, reward2, done2, _, _ = env.step(0)  # IGNORE = wrong for anomaly
+    assert reward2 == pytest.approx(-1.0)
+
+
+def test_train_rl_creates_model(config: dict) -> None:
+    """train_rl runs without error and sets _rl_model."""
+    import numpy as np
+
+    engine = DecisionEngine(config, mode="rl")
+    # Override timesteps to tiny value for test speed
+    engine.rl_timesteps = 50
+    scores = np.random.default_rng(42).uniform(0.0, 1.0, 100).astype(np.float32)
+    engine.train_rl(scores, seed=42)
+    assert engine._rl_model is not None
+
+
+def test_decide_rl_with_trained_model(config: dict) -> None:
+    """decide_rl uses PPO model when one is loaded."""
+    import numpy as np
+
+    engine = DecisionEngine(config, mode="rl")
+    engine.rl_timesteps = 50
+    scores = np.random.default_rng(7).uniform(0.0, 1.0, 100).astype(np.float32)
+    engine.train_rl(scores, seed=7)
+    assert engine._rl_model is not None
+
+    decision = engine.decide_rl(0.8)
+    assert isinstance(decision, Decision)
+    assert decision.action in ("IGNORE", "LOG", "NOTIFY_GROUND", "SAFE_MODE")
+
+
+def test_decide_with_rl_model_active(config: dict) -> None:
+    """decide() routes through RL policy when mode='rl' and model is loaded."""
+    import numpy as np
+
+    engine = DecisionEngine(config, mode="rl")
+    engine.rl_timesteps = 50
+    scores = np.random.default_rng(3).uniform(0.0, 1.0, 100).astype(np.float32)
+    engine.train_rl(scores, seed=3)
+
+    risk = _risk("CRITICAL")
+    phase = _phase("Operations")
+    decision = engine.decide(risk, phase)
+    assert isinstance(decision, Decision)
+
+
+def test_load_rl_missing_file(config: dict) -> None:
+    """load_rl with a nonexistent path logs a warning and doesn't crash."""
+    from pathlib import Path
+
+    engine = DecisionEngine(config, mode="rl")
+    engine.rl_model_path = Path("nonexistent_model_path_xyz")
+    engine.load_rl()  # must not raise
+    assert engine._rl_model is None

@@ -30,13 +30,19 @@ def small_df() -> pd.DataFrame:
 
 # ── LSTM AE ──────────────────────────────────────────────────────────────────
 
+
 def test_lstm_train_and_score(config: dict, small_df: pd.DataFrame, tmp_path: Path) -> None:
     cfg = dict(config)
     cfg["anomaly_detector"] = dict(cfg["anomaly_detector"])
     cfg["anomaly_detector"]["window_size"] = 10
     cfg["anomaly_detector"]["latent_dim"] = 8
     cfg["anomaly_detector"]["model_path"] = str(tmp_path / "lstm.keras")
-    cfg["training"] = {"epochs": 2, "batch_size": 8, "validation_split": 0.0, "early_stopping_patience": 1}
+    cfg["training"] = {
+        "epochs": 2,
+        "batch_size": 8,
+        "validation_split": 0.0,
+        "early_stopping_patience": 1,
+    }
 
     det = AnomalyDetector(cfg, method="lstm")
     det.train(small_df)
@@ -46,7 +52,9 @@ def test_lstm_train_and_score(config: dict, small_df: pd.DataFrame, tmp_path: Pa
     assert scores.min() >= 0
 
 
-def test_lstm_detect_returns_anomaly_results(config: dict, small_df: pd.DataFrame, tmp_path: Path) -> None:
+def test_lstm_detect_returns_anomaly_results(
+    config: dict, small_df: pd.DataFrame, tmp_path: Path
+) -> None:
     from ad_dss.common.schemas import AnomalyResult
 
     cfg = dict(config)
@@ -54,7 +62,12 @@ def test_lstm_detect_returns_anomaly_results(config: dict, small_df: pd.DataFram
     cfg["anomaly_detector"]["window_size"] = 10
     cfg["anomaly_detector"]["latent_dim"] = 8
     cfg["anomaly_detector"]["model_path"] = str(tmp_path / "lstm.keras")
-    cfg["training"] = {"epochs": 2, "batch_size": 8, "validation_split": 0.0, "early_stopping_patience": 1}
+    cfg["training"] = {
+        "epochs": 2,
+        "batch_size": 8,
+        "validation_split": 0.0,
+        "early_stopping_patience": 1,
+    }
 
     det = AnomalyDetector(cfg, method="lstm")
     det.train(small_df)
@@ -71,7 +84,12 @@ def test_lstm_save_load(config: dict, small_df: pd.DataFrame, tmp_path: Path) ->
     cfg["anomaly_detector"]["window_size"] = 10
     cfg["anomaly_detector"]["latent_dim"] = 8
     cfg["anomaly_detector"]["model_path"] = str(tmp_path / "lstm.keras")
-    cfg["training"] = {"epochs": 2, "batch_size": 8, "validation_split": 0.0, "early_stopping_patience": 1}
+    cfg["training"] = {
+        "epochs": 2,
+        "batch_size": 8,
+        "validation_split": 0.0,
+        "early_stopping_patience": 1,
+    }
 
     det = AnomalyDetector(cfg, method="lstm")
     det.train(small_df)
@@ -85,6 +103,7 @@ def test_lstm_save_load(config: dict, small_df: pd.DataFrame, tmp_path: Path) ->
 
 
 # ── Isolation Forest ──────────────────────────────────────────────────────────
+
 
 def test_if_train_and_score(config: dict, small_df: pd.DataFrame) -> None:
     det = AnomalyDetector(config, method="isolation_forest")
@@ -105,6 +124,7 @@ def test_if_detect_flags_injected_anomaly(config: dict, small_df: pd.DataFrame) 
 
 # ── Z-score ──────────────────────────────────────────────────────────────────
 
+
 def test_zscore_score_shape(config: dict, small_df: pd.DataFrame) -> None:
     det = AnomalyDetector(config, method="zscore")
     scores = det.score(small_df)
@@ -120,6 +140,7 @@ def test_zscore_detect_no_training_needed(config: dict, small_df: pd.DataFrame) 
 
 
 # ── Factory ───────────────────────────────────────────────────────────────────
+
 
 def test_build_detector_factory(config: dict) -> None:
     det = build_detector(config, method="zscore")

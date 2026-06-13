@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Generator
 
 import matplotlib
+
 matplotlib.use("Agg")
 
 import numpy as np
@@ -40,6 +41,7 @@ LEVEL_COLORS = {"LOW": "#2ecc71", "MEDIUM": "#f39c12", "CRITICAL": "#e74c3c"}
 
 # ── App entry point (also importable for headless smoke test) ─────────────────
 
+
 def build_app() -> None:
     """Configure the Streamlit page (importable without running the server)."""
     st.set_page_config(
@@ -66,9 +68,16 @@ def _ensure_thermal_csv() -> str:
     out_path = Path("data/artifacts/failure_scenario_thermal.csv")
     if not out_path.exists():
         import sys
+
         sys.path.insert(0, str(Path("_source/Week 6 - System Modules (Final)/version_0/tests")))
         try:
-            from failure_scenario_case_study import Config, generate_synthetic_telemetry, detector_rule_based, detector_zscore
+            from failure_scenario_case_study import (
+                Config,
+                generate_synthetic_telemetry,
+                detector_rule_based,
+                detector_zscore,
+            )
+
             cfg = Config(raw=_load_config())
             df = generate_synthetic_telemetry(cfg)
             df["alert_rule"] = detector_rule_based(df, cfg)
@@ -83,6 +92,7 @@ def _ensure_thermal_csv() -> str:
 
 def _generate_simple_thermal(out_path: Path) -> None:
     from ad_dss.telemetry.handler import TelemetryHandler
+
     h = TelemetryHandler(CONFIG_PATH)
     df = h.generate_synthetic(n_points=500)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -101,6 +111,7 @@ def _resolve_data_path(scenario_name: str) -> str:
 
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
+
 
 def _render_sidebar() -> tuple[str, str, int, float]:
     st.sidebar.title("AD-DSS Console")
@@ -127,6 +138,7 @@ def _render_sidebar() -> tuple[str, str, int, float]:
 
 
 # ── Main panel ────────────────────────────────────────────────────────────────
+
 
 def _render_controls() -> tuple[bool, bool, bool, bool]:
     cols = st.columns(4)
@@ -167,17 +179,24 @@ def _render_telemetry_panel(history: list[MissionEvent]) -> None:
     fig = go.Figure()
     for col in all_cols[:6]:  # limit to 6 channels for readability
         values = [e.telemetry_snapshot.get(col, 0.0) for e in history]
-        fig.add_trace(go.Scatter(x=timestamps, y=values, name=col, mode="lines", line=dict(width=1)))
+        fig.add_trace(
+            go.Scatter(x=timestamps, y=values, name=col, mode="lines", line=dict(width=1))
+        )
 
     # Anomaly markers
     anom_events = [e for e in history if e.timestamp in anomaly_ts]
     if anom_events:
         anom_x = [e.timestamp for e in anom_events]
         anom_y = [e.telemetry_snapshot.get(all_cols[0], 0.0) for e in anom_events]
-        fig.add_trace(go.Scatter(
-            x=anom_x, y=anom_y, name="Anomaly", mode="markers",
-            marker=dict(color="red", size=8, symbol="x")
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=anom_x,
+                y=anom_y,
+                name="Anomaly",
+                mode="markers",
+                marker=dict(color="red", size=8, symbol="x"),
+            )
+        )
 
     fig.update_layout(height=280, margin=dict(l=0, r=0, t=30, b=0), legend=dict(orientation="h"))
     st.plotly_chart(fig, use_container_width=True)
@@ -211,14 +230,27 @@ def _render_risk_panel(history: list[MissionEvent], current_event: MissionEvent 
             scores = [r.score for r in risks]
             colors = [LEVEL_COLORS.get(r.level, "#95a5a6") for r in risks]
             fig = go.Figure()
-            fig.add_trace(go.Scatter(
-                x=ts, y=scores, mode="lines+markers",
-                marker=dict(color=colors, size=5),
-                line=dict(color="#95a5a6", width=0.8),
-            ))
-            fig.add_hline(y=0.30, line_dash="dash", line_color=LEVEL_COLORS["MEDIUM"], annotation_text="MED")
-            fig.add_hline(y=0.70, line_dash="dash", line_color=LEVEL_COLORS["CRITICAL"], annotation_text="CRIT")
-            fig.update_layout(height=200, margin=dict(l=0, r=0, t=10, b=0), yaxis=dict(range=[0, 1.05]))
+            fig.add_trace(
+                go.Scatter(
+                    x=ts,
+                    y=scores,
+                    mode="lines+markers",
+                    marker=dict(color=colors, size=5),
+                    line=dict(color="#95a5a6", width=0.8),
+                )
+            )
+            fig.add_hline(
+                y=0.30, line_dash="dash", line_color=LEVEL_COLORS["MEDIUM"], annotation_text="MED"
+            )
+            fig.add_hline(
+                y=0.70,
+                line_dash="dash",
+                line_color=LEVEL_COLORS["CRITICAL"],
+                annotation_text="CRIT",
+            )
+            fig.update_layout(
+                height=200, margin=dict(l=0, r=0, t=10, b=0), yaxis=dict(range=[0, 1.05])
+            )
             st.plotly_chart(fig, use_container_width=True)
 
 
@@ -227,19 +259,23 @@ def _render_decision_log(history: list[MissionEvent]) -> None:
     rows = []
     for e in reversed(history[-20:]):  # last 20
         if e.decision:
-            rows.append({
-                "Time": str(e.timestamp)[:19],
-                "Phase": e.phase.name,
-                "Action": e.decision.action,
-                "Reason": e.decision.reason[:60],
-            })
+            rows.append(
+                {
+                    "Time": str(e.timestamp)[:19],
+                    "Phase": e.phase.name,
+                    "Action": e.decision.action,
+                    "Reason": e.decision.reason[:60],
+                }
+            )
         for b in e.backups:
-            rows.append({
-                "Time": str(b.timestamp)[:19],
-                "Phase": e.phase.name,
-                "Action": f"BACKUP: {b.component}→{b.fallback_component}",
-                "Reason": b.reason[:60],
-            })
+            rows.append(
+                {
+                    "Time": str(b.timestamp)[:19],
+                    "Phase": e.phase.name,
+                    "Action": f"BACKUP: {b.component}→{b.fallback_component}",
+                    "Reason": b.reason[:60],
+                }
+            )
     if rows:
         df = pd.DataFrame(rows)
         st.dataframe(df, use_container_width=True, height=180)
@@ -271,6 +307,7 @@ def _render_report_button(history: list[MissionEvent], scenario: str, method: st
                 "telemetry_df": snap_df,
             }
             import tempfile, os
+
             with tempfile.TemporaryDirectory() as tmpdir:
                 csv_p, pdf_p = generate_report(run_results, tmpdir)
                 with open(csv_p, "rb") as f:
@@ -278,11 +315,16 @@ def _render_report_button(history: list[MissionEvent], scenario: str, method: st
                 with open(pdf_p, "rb") as f:
                     pdf_bytes = f.read()
 
-        st.download_button("Download CSV", csv_bytes, file_name="ad_dss_report.csv", mime="text/csv")
-        st.download_button("Download PDF", pdf_bytes, file_name="ad_dss_report.pdf", mime="application/pdf")
+        st.download_button(
+            "Download CSV", csv_bytes, file_name="ad_dss_report.csv", mime="text/csv"
+        )
+        st.download_button(
+            "Download PDF", pdf_bytes, file_name="ad_dss_report.pdf", mime="application/pdf"
+        )
 
 
 # ── Replay state machine ──────────────────────────────────────────────────────
+
 
 def _init_replay(scenario: str, method: str, seed: int) -> None:
     data_path = _resolve_data_path(scenario)
@@ -323,6 +365,7 @@ def _advance_one_step() -> bool:
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
+
 def main() -> None:
     build_app()
 
@@ -332,7 +375,11 @@ def main() -> None:
     st.caption("Spacecraft Anomaly Detection & Decision Support System — TRL 5")
 
     # Init / reset check
-    if "replay_scenario" not in st.session_state or st.session_state.get("replay_scenario") != (scenario, method, seed):
+    if "replay_scenario" not in st.session_state or st.session_state.get("replay_scenario") != (
+        scenario,
+        method,
+        seed,
+    ):
         with st.spinner("Initialising engine and training detector..."):
             _init_replay(scenario, method, seed)
         st.session_state["replay_scenario"] = (scenario, method, seed)

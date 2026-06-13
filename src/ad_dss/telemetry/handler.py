@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -138,6 +137,8 @@ def _detect_subsystems(columns: list[str]) -> list[str]:
     return seen
 
 
-def load_telemetry(source_path: str | Path, config_path: str | Path = "config/settings.yaml") -> pd.DataFrame:
+def load_telemetry(
+    source_path: str | Path, config_path: str | Path = "config/settings.yaml"
+) -> pd.DataFrame:
     """Convenience function: load CSV/JSON telemetry without creating a handler."""
     return TelemetryHandler(config_path).load(source_path)

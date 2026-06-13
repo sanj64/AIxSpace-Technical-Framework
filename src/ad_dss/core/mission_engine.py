@@ -14,14 +14,13 @@ import yaml
 from ad_dss.common.logging_config import get_logger
 from ad_dss.common.schemas import MissionEvent, MissionPhase
 from ad_dss.common.seed import set_seed
-from ad_dss.data.preprocessing import clean, normalize
+from ad_dss.data.preprocessing import clean
 from ad_dss.decision.backup_strategy import BackupStrategyManager
 from ad_dss.decision.decision_logic import DecisionEngine
 from ad_dss.models.anomaly_detector import AnomalyDetector
 from ad_dss.models.risk_predictor import RiskPredictor, aggregate_risk
 from ad_dss.reports.generate_report import generate_report
 from ad_dss.telemetry.handler import TelemetryHandler
-from ad_dss.utils.visualize import plot_telemetry, plot_risk_timeline, save_figure
 
 logger = get_logger(__name__)
 
@@ -99,7 +98,11 @@ class MissionEngine:
         self._detector = detector  # type: ignore[possibly-undefined]
 
         combined_scores = np.concatenate(all_scores) if all_scores else np.array([])
-        threshold = float(detector._threshold or np.percentile(combined_scores, 95)) if len(combined_scores) else 0.0
+        threshold = (
+            float(detector._threshold or np.percentile(combined_scores, 95))
+            if len(combined_scores)
+            else 0.0
+        )
 
         # Risk + decision + backup (step through timeline)
         all_risks = []
@@ -114,7 +117,7 @@ class MissionEngine:
                 ts_groups.setdefault(str(a.timestamp), []).append(a)
 
             for ts_key, anoms in ts_groups.items():
-                phase = self._phase_for_ts(ts_key, df_clean.index, phases)
+                phase = self._phase_for_ts(ts_key, df_clean.index, phases)  # type: ignore[arg-type]
                 risks = self._risk_predictor.predict(anoms, phase)
                 all_risks.extend(risks)
                 top_risk = aggregate_risk(risks)
@@ -141,7 +144,12 @@ class MissionEngine:
             "Seed": seed,
         }
 
-        logger.info("run_batch complete: %d anomalies, %d risks, %.2fs", len(all_anomalies), len(all_risks), elapsed)
+        logger.info(
+            "run_batch complete: %d anomalies, %d risks, %.2fs",
+            len(all_anomalies),
+            len(all_risks),
+            elapsed,
+        )
 
         return {
             "anomalies": all_anomalies,
@@ -216,7 +224,9 @@ class MissionEngine:
             risks = self._risk_predictor.predict(step_anomalies, phase) if step_anomalies else []
             top_risk = aggregate_risk(risks)
             decision = self._decision_engine.decide(top_risk, phase) if top_risk else None
-            backups = self._backup_manager.evaluate(decision, top_risk) if (decision and top_risk) else []
+            backups = (
+                self._backup_manager.evaluate(decision, top_risk) if (decision and top_risk) else []
+            )
 
             snap = {col: float(df_clean.iloc[step][col]) for col in df_clean.columns}
 
@@ -231,7 +241,9 @@ class MissionEngine:
                 backups=backups,
             )
 
-    def generate_and_save_report(self, run_results: dict, output_dir: str | Path | None = None) -> tuple[Path, Path]:
+    def generate_and_save_report(
+        self, run_results: dict, output_dir: str | Path | None = None
+    ) -> tuple[Path, Path]:
         """Save the CSV + PDF report for a batch run."""
         if output_dir is None:
             output_dir = Path(self.config.get("paths", {}).get("reports", "data/artifacts/reports"))
@@ -249,7 +261,9 @@ class MissionEngine:
         for p in phase_cfgs:
             start = int(p["fraction_start"] * n_samples)
             end = int(p["fraction_end"] * n_samples)
-            phases.append(MissionPhase(name=p["name"], start_idx=start, end_idx=max(end, start + 1)))
+            phases.append(
+                MissionPhase(name=p["name"], start_idx=start, end_idx=max(end, start + 1))
+            )
         if not phases:
             phases = [MissionPhase("Operations", 0, n_samples)]
         self._phases = phases
@@ -284,23 +298,28 @@ class MissionEngine:
 
 # ── CLI entrypoint ────────────────────────────────────────────────────────────
 
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="AD-DSS Mission Engine")
     parser.add_argument("--config", default="config/settings.yaml", help="Path to settings.yaml")
-    parser.add_argument("--data", default=None, help="Path to telemetry CSV (overrides config default)")
+    parser.add_argument(
+        "--data", default=None, help="Path to telemetry CSV (overrides config default)"
+    )
     parser.add_argument("--method", default="lstm", choices=["lstm", "isolation_forest", "zscore"])
     parser.add_argument("--validate", action="store_true", help="Run validation suite")
     parser.add_argument("--no-report", action="store_true", help="Skip report generation")
     args = parser.parse_args()
 
     engine = MissionEngine(args.config)
-    cfg_paths = engine.config.get("datasets", {})
 
     if args.validate:
         _run_validation(engine, args.method)
         return
 
-    data_path = args.data or engine.config.get("paths", {}).get("data_raw", "data/raw") + "/segments_clean.csv"
+    data_path = (
+        args.data
+        or engine.config.get("paths", {}).get("data_raw", "data/raw") + "/segments_clean.csv"
+    )
     data_path = Path(data_path)
     if not data_path.exists():
         logger.error("Data file not found: %s", data_path)
@@ -320,8 +339,6 @@ def main() -> None:
 
 def _run_validation(engine: MissionEngine, method: str) -> None:
     """Run KPI measurement across available datasets."""
-    from ad_dss.reports.generate_report import generate_report
-    import json
 
     datasets = {
         "segments_clean": Path("data/raw/segments_clean.csv"),

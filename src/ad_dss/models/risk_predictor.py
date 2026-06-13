@@ -6,7 +6,6 @@ from collections import deque
 from typing import Any
 
 import numpy as np
-import pandas as pd
 
 from ad_dss.common.logging_config import get_logger
 from ad_dss.common.schemas import AnomalyResult, MissionPhase, RiskResult
@@ -67,7 +66,13 @@ class RiskPredictor:
             ts = anoms[-1].timestamp
             reason = self._reason(sub, phase.name, weight, persistence_score)
             results.append(
-                RiskResult(level=level, score=round(risk_score, 4), reason=reason, subsystem=sub, timestamp=ts)
+                RiskResult(
+                    level=level,  # type: ignore[arg-type]
+                    score=round(risk_score, 4),
+                    reason=reason,
+                    subsystem=sub,
+                    timestamp=ts,
+                )
             )
 
         return results
@@ -78,7 +83,11 @@ class RiskPredictor:
 
         self._classifier = LogisticRegression(max_iter=500, random_state=42)
         self._classifier.fit(X, y)
-        logger.info("Risk LogReg classifier trained on %d samples, classes=%s", len(X), self._classifier.classes_)
+        logger.info(
+            "Risk LogReg classifier trained on %d samples, classes=%s",
+            len(X),
+            self._classifier.classes_,
+        )
 
     def reset_history(self) -> None:
         """Clear persistence buffers (call at mission start or phase transition)."""

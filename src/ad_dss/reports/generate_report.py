@@ -5,13 +5,12 @@ from __future__ import annotations
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
-import matplotlib.table as mtable
-from matplotlib.backends.backend_pdf import PdfPages
-import numpy as np
 import pandas as pd
+from matplotlib.backends.backend_pdf import PdfPages
 
 from ad_dss.common.logging_config import get_logger
 from ad_dss.common.schemas import AnomalyResult, BackupAction, Decision, RiskResult
@@ -108,6 +107,7 @@ def generate_report(
 
 # ── Internals ─────────────────────────────────────────────────────────────────
 
+
 def _build_csv_rows(run_results: dict) -> list[dict]:
     rows: list[dict] = []
 
@@ -117,45 +117,53 @@ def _build_csv_rows(run_results: dict) -> list[dict]:
     backups: list[BackupAction] = run_results.get("backups", [])
 
     for a in anomalies:
-        rows.append({
-            "type": "anomaly",
-            "timestamp": str(a.timestamp),
-            "subsystem": a.subsystem,
-            "value": a.reconstruction_error,
-            "flag": a.anomaly_flag,
-            "score": a.score,
-            "detail": "",
-        })
+        rows.append(
+            {
+                "type": "anomaly",
+                "timestamp": str(a.timestamp),
+                "subsystem": a.subsystem,
+                "value": a.reconstruction_error,
+                "flag": a.anomaly_flag,
+                "score": a.score,
+                "detail": "",
+            }
+        )
     for r in risks:
-        rows.append({
-            "type": "risk",
-            "timestamp": str(r.timestamp),
-            "subsystem": r.subsystem,
-            "value": r.score,
-            "flag": 1 if r.level != "LOW" else 0,
-            "score": r.score,
-            "detail": f"{r.level}: {r.reason}",
-        })
+        rows.append(
+            {
+                "type": "risk",
+                "timestamp": str(r.timestamp),
+                "subsystem": r.subsystem,
+                "value": r.score,
+                "flag": 1 if r.level != "LOW" else 0,
+                "score": r.score,
+                "detail": f"{r.level}: {r.reason}",
+            }
+        )
     for d in decisions:
-        rows.append({
-            "type": "decision",
-            "timestamp": str(d.timestamp),
-            "subsystem": "",
-            "value": 0.0,
-            "flag": 1,
-            "score": 0.0,
-            "detail": f"{d.action}: {d.reason}",
-        })
+        rows.append(
+            {
+                "type": "decision",
+                "timestamp": str(d.timestamp),
+                "subsystem": "",
+                "value": 0.0,
+                "flag": 1,
+                "score": 0.0,
+                "detail": f"{d.action}: {d.reason}",
+            }
+        )
     for b in backups:
-        rows.append({
-            "type": "backup",
-            "timestamp": str(b.timestamp),
-            "subsystem": b.component,
-            "value": 0.0,
-            "flag": int(b.activated),
-            "score": 0.0,
-            "detail": f"{b.component}→{b.fallback_component}: {b.reason}",
-        })
+        rows.append(
+            {
+                "type": "backup",
+                "timestamp": str(b.timestamp),
+                "subsystem": b.component,
+                "value": 0.0,
+                "flag": int(b.activated),
+                "score": 0.0,
+                "detail": f"{b.component}→{b.fallback_component}: {b.reason}",
+            }
+        )
     return rows
 
 
@@ -172,7 +180,16 @@ def _pdf_title_page(pdf: PdfPages, run_results: dict, dataset: str, method: str,
     n_safe_mode = sum(1 for d in decisions if d.action == "SAFE_MODE")
 
     title_text = "AD-DSS Mission Report\nAnomaly Detection & Decision Support System"
-    ax.text(0.5, 0.92, title_text, ha="center", va="top", fontsize=16, fontweight="bold", transform=ax.transAxes)
+    ax.text(
+        0.5,
+        0.92,
+        title_text,
+        ha="center",
+        va="top",
+        fontsize=16,
+        fontweight="bold",
+        transform=ax.transAxes,
+    )
 
     lines = [
         f"Dataset: {dataset}",
@@ -185,8 +202,16 @@ def _pdf_title_page(pdf: PdfPages, run_results: dict, dataset: str, method: str,
         f"SAFE_MODE activations         : {n_safe_mode}",
         f"Total telemetry points        : {len(anomalies)}",
     ]
-    ax.text(0.1, 0.78, "\n".join(lines), ha="left", va="top", fontsize=11,
-            fontfamily="monospace", transform=ax.transAxes)
+    ax.text(
+        0.1,
+        0.78,
+        "\n".join(lines),
+        ha="left",
+        va="top",
+        fontsize=11,
+        fontfamily="monospace",
+        transform=ax.transAxes,
+    )
     pdf.savefig(fig, bbox_inches="tight")
     plt.close(fig)
 

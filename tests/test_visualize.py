@@ -2,7 +2,6 @@
 
 import numpy as np
 import pandas as pd
-import pytest
 from matplotlib.figure import Figure
 
 from ad_dss.common.schemas import AnomalyResult, MissionPhase, RiskResult
@@ -37,7 +36,13 @@ def _anomalies(df: pd.DataFrame) -> list[AnomalyResult]:
 def _risks(df: pd.DataFrame) -> list[RiskResult]:
     levels = ["LOW", "MEDIUM", "CRITICAL"]
     return [
-        RiskResult(level=levels[i % 3], score=0.1 + 0.4 * i, reason="test", subsystem="EPS", timestamp=df.index[i * 10])
+        RiskResult(
+            level=levels[i % 3],
+            score=0.1 + 0.4 * i,
+            reason="test",
+            subsystem="EPS",
+            timestamp=df.index[i * 10],
+        )
         for i in range(3)
     ]
 
@@ -100,4 +105,5 @@ def test_save_figure(tmp_path) -> None:
     out = str(tmp_path / "test.png")
     save_figure(fig, out)
     import os
+
     assert os.path.exists(out)

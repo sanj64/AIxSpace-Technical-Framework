@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import pandas as pd
-
 from ad_dss.common.logging_config import get_logger
 from ad_dss.common.schemas import BackupAction, Decision, RiskResult
 
