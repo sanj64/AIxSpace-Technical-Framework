@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: ["trl5-build", "main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install ruff black
+      - run: ruff check src/ tests/ app/
+      - run: black --check src/ tests/ app/
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install mypy types-PyYAML pandas-stubs numpy
+      - run: mypy src/ad_dss/ --ignore-missing-imports
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          pip install -e ".[dev]"
+      - name: Run tests with coverage
+        run: |
+          pytest --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=60 -v
+        env:
+          TF_ENABLE_ONEDNN_OPTS: "0"
+          MPLBACKEND: "Agg"
+
+  smoke-pipeline:
+    name: Smoke — Pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[dev]"
+      - name: Generate fixture and run pipeline smoke test
+        run: |
+          python -c "
+          import sys; sys.path.insert(0, 'src')
+          from ad_dss.telemetry.handler import TelemetryHandler
+          from ad_dss.data.preprocessing import clean, normalize
+          h = TelemetryHandler('config/settings.yaml')
+          df = h.generate_synthetic(n_points=100)
+          df2 = clean(df.drop(columns=['timestamp'], errors='ignore'))
+          print('Smoke OK, shape:', df2.shape)
+          "
+        env:
+          TF_ENABLE_ONEDNN_OPTS: "0"
+          MPLBACKEND: "Agg"

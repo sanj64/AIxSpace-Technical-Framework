@@ -1,0 +1,2 @@
+[console_scripts]
+run-pipeline = ad_dss.core.mission_engine:main
