@@ -12,6 +12,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 
+import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
@@ -86,6 +87,28 @@ _BORDER = "#30363d"
 _TEXT = "#e6edf3"
 _TEXT_DIM = "#8b949e"
 _ACCENT = "#79c0ff"
+
+# ── Orbital constants (Earth radius = 1 unit) ─────────────────────────────────
+_R_ORBIT = 1.15  # ~400 km LEO normalised to Earth radius
+_INC_DEG = 51.6  # ISS-like inclination
+_N_OPS_ORBITS = 8  # orbits completed during Operations phase
+
+# KSC launch site (lat, lon in degrees)
+_KSC_LAT = 28.5
+_KSC_LON = -80.5
+
+WARP_OPTIONS = ["0.25×", "0.5×", "1×", "2×", "5×", "10×", "30×", "60×", "300×"]
+WARP_STEPS = {
+    "0.25×": 0.25,
+    "0.5×": 0.5,
+    "1×": 1,
+    "2×": 2,
+    "5×": 5,
+    "10×": 10,
+    "30×": 30,
+    "60×": 60,
+    "300×": 300,
+}
 
 
 # ── App entry point ───────────────────────────────────────────────────────────
@@ -177,6 +200,13 @@ def _sub_color(sub: str) -> str:
 def _level_led(level: str) -> str:
     cls = {"LOW": "led-green", "MEDIUM": "led-amber", "CRITICAL": "led-red"}.get(level, "led-gray")
     return f'<span class="{cls}"></span>'
+
+
+def _hex_alpha(hex_color: str, alpha: float) -> str:
+    """Convert #rrggbb + alpha (0‒1) to rgba() — Plotly rejects 8-char hex."""
+    h = hex_color.lstrip("#")
+    r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    return f"rgba({r},{g},{b},{alpha})"
 
 
 # ── MCC Theme injection ───────────────────────────────────────────────────────
@@ -315,6 +345,17 @@ hr { border-color: var(--border) !important; margin: 12px 0 !important; }
 /* ── Section labels ── */
 .mcc-section { font-size:0.72em;text-transform:uppercase;letter-spacing:0.15em;
                color:#555e6e;margin-bottom:6px;margin-top:2px;font-weight:600; }
+
+/* ── Mission clock ── */
+.mcc-clock { font-family:'Share Tech Mono',monospace;font-size:2.6em;
+             color:#79c0ff;letter-spacing:0.12em;display:inline-block; }
+.mcc-clock-label { font-size:0.65em;text-transform:uppercase;letter-spacing:0.14em;
+                   color:#555e6e;display:block;margin-bottom:2px; }
+.warp-badge { font-family:'Share Tech Mono',monospace;font-size:0.85em;
+              color:#2ecc71;background:rgba(46,204,113,0.1);
+              border:1px solid rgba(46,204,113,0.35);border-radius:4px;
+              padding:3px 10px;letter-spacing:0.08em;
+              vertical-align:middle;margin-left:14px; }
 </style>
 """
 
@@ -345,7 +386,7 @@ hr { border-color: var(--border) !important; margin: 12px 0 !important; }
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 
-def _render_sidebar() -> tuple[str, str, int, float]:
+def _render_sidebar() -> tuple[str, str, int, float, str]:
     st.sidebar.markdown(
         "<div style=\"font-family:'Share Tech Mono',monospace;font-size:1.2em;"
         'color:#79c0ff;letter-spacing:0.1em;padding:4px 0 2px">⬡ AD-DSS MCC</div>'
@@ -357,7 +398,8 @@ def _render_sidebar() -> tuple[str, str, int, float]:
 
     scenario = st.sidebar.selectbox("Mission Scenario", list(SCENARIOS.keys()), index=0)
     method = st.sidebar.selectbox("Detection Method", METHODS, index=0)
-    speed = st.sidebar.slider("Replay Speed (steps/sec)", 1, 50, 10)
+    warp_label = st.sidebar.select_slider("⏱ Time Warp", options=WARP_OPTIONS, value="10×")
+    speed = WARP_STEPS[warp_label]
     seed = st.sidebar.number_input("Seed", value=42, step=1)
 
     st.sidebar.divider()
@@ -397,7 +439,7 @@ def _render_sidebar() -> tuple[str, str, int, float]:
         # snapshot prev kpi for delta next frame
         st.session_state["_kpi_prev"] = dict(kpi)
 
-    return scenario, method, int(seed), float(speed)
+    return scenario, method, int(seed), float(speed), warp_label
 
 
 # ── Controls ──────────────────────────────────────────────────────────────────
@@ -544,7 +586,7 @@ def _render_mission_timeline(history: list[MissionEvent], total_steps: int) -> N
                 base=[s],
                 orientation="h",
                 name=name,
-                marker_color=color + "55",
+                marker_color=_hex_alpha(color, 0.33),
                 marker_line_color=color,
                 marker_line_width=1,
                 text=name,
@@ -850,7 +892,7 @@ def _render_risk_contribution_panel(
                 x=scores,
                 y=subs,
                 orientation="h",
-                marker_color=[c + "88" for c in bar_colors],
+                marker_color=[_hex_alpha(c, 0.53) for c in bar_colors],
                 marker_line_color=bar_colors,
                 marker_line_width=1.5,
                 text=[f"{s:.3f}" for s in scores],
@@ -1161,6 +1203,7 @@ def _render_report_button(history: list[MissionEvent], scenario: str, method: st
 
 
 def _init_replay(scenario: str, method: str, seed: int) -> None:
+    st.session_state.pop("_earth_traces", None)  # force Earth cache rebuild
     data_path = _resolve_data_path(scenario)
     engine = _get_engine()
     gen = engine.run_replay(data_path, method=method, train=True)
@@ -1202,6 +1245,351 @@ def _advance_one_step() -> bool:
         return False
 
 
+# ── Mission clock ─────────────────────────────────────────────────────────────
+
+
+def _render_mission_clock(history: list[MissionEvent], warp_label: str) -> None:
+    elapsed_s = 0
+    met_str = "—"
+    if len(history) >= 2:
+        try:
+            delta = history[-1].timestamp - history[0].timestamp
+            elapsed_s = int(delta.total_seconds())
+            met_str = str(history[-1].timestamp)[:19]
+        except Exception:
+            elapsed_s = len(history)
+            met_str = "—"
+
+    hrs = elapsed_s // 3600
+    mins = (elapsed_s % 3600) // 60
+    secs = elapsed_s % 60
+
+    cols = st.columns([3, 1, 1, 1])
+    cols[0].markdown(
+        f'<span class="mcc-clock-label">Mission Elapsed Time</span>'
+        f'<span class="mcc-clock">T+ {hrs:02d}:{mins:02d}:{secs:02d}</span>'
+        f'<span class="warp-badge">{warp_label} WARP</span>',
+        unsafe_allow_html=True,
+    )
+    cols[1].metric("Steps", len(history))
+    cols[2].metric("MET", met_str[11:19] if len(met_str) >= 19 else "—")
+    cols[3].metric("Date", met_str[:10] if len(met_str) >= 10 else "—")
+
+
+# ── Orbital helpers ────────────────────────────────────────────────────────────
+
+
+def _sat_xyz(step: int, total_steps: int, phase_name: str) -> tuple[float, float, float]:
+    """Return normalised (x,y,z) satellite position. Earth radius = 1."""
+    inc = np.radians(_INC_DEG)
+    frac = step / max(total_steps, 1)
+
+    if phase_name == "Launch":
+        # Rise from KSC to orbit altitude along a curved arc
+        t = min(frac / 0.05, 1.0)  # 0→1 within launch phase span
+        r = 1.0 + (_R_ORBIT - 1.0) * t
+        lat = np.radians(_KSC_LAT)
+        lon = np.radians(_KSC_LON + t * 20.0)  # slight eastward pitch
+        x = float(r * np.cos(lat) * np.cos(lon))
+        y = float(r * np.cos(lat) * np.sin(lon))
+        z = float(r * np.sin(lat))
+        return x, y, z
+
+    if phase_name == "Decommissioning":
+        # Inward spiral from orbit to surface
+        t = max(0.0, min((frac - 0.90) / 0.10, 1.0))
+        r = _R_ORBIT - (_R_ORBIT - 1.0) * (t**1.5)
+        angle = t * 4 * np.pi  # two loops on the way down
+        x = float(r * np.cos(angle))
+        y = float(r * np.sin(angle) * np.cos(inc))
+        z = float(r * np.sin(angle) * np.sin(inc))
+        return x, y, z
+
+    # Orbital phase — map fraction to angle across N_OPS_ORBITS full loops
+    if frac < 0.05:
+        ops_t = 0.0
+    elif frac < 0.90:
+        ops_t = (frac - 0.05) / 0.85
+    else:
+        ops_t = 1.0
+    angle = ops_t * _N_OPS_ORBITS * 2 * np.pi
+    x = float(_R_ORBIT * np.cos(angle))
+    y = float(_R_ORBIT * np.sin(angle) * np.cos(inc))
+    z = float(_R_ORBIT * np.sin(angle) * np.sin(inc))
+    return x, y, z
+
+
+def _build_earth_traces() -> list:
+    """Build static Earth sphere + grid traces. Cached in session_state."""
+    n = 60
+    phi_e = np.linspace(0, np.pi, n)
+    theta_e = np.linspace(0, 2 * np.pi, n)
+    xe = np.outer(np.sin(phi_e), np.cos(theta_e))
+    ye = np.outer(np.sin(phi_e), np.sin(theta_e))
+    ze = np.outer(np.cos(phi_e), np.ones(n))
+
+    # Surface colour: dark ocean blue at poles, slightly lighter at equator
+    surface_color = ze  # −1 (S pole) → +1 (N pole)
+    earth = go.Surface(
+        x=xe,
+        y=ye,
+        z=ze,
+        surfacecolor=surface_color,
+        colorscale=[
+            [0.0, "#0a1a3a"],
+            [0.3, "#0e2a5c"],
+            [0.5, "#1a4a8a"],
+            [0.7, "#1e5a3e"],
+            [1.0, "#0a2010"],
+        ],
+        showscale=False,
+        opacity=1.0,
+        lighting=dict(ambient=0.45, diffuse=0.85, specular=0.15, roughness=0.7),
+        lightposition=dict(x=2, y=1, z=2),
+        name="Earth",
+        hoverinfo="skip",
+    )
+
+    traces: list = [earth]
+
+    # Latitude rings every 30°
+    for lat_deg in range(-60, 90, 30):
+        lat = np.radians(lat_deg)
+        t = np.linspace(0, 2 * np.pi, 120)
+        gx = np.cos(lat) * np.cos(t)
+        gy = np.cos(lat) * np.sin(t)
+        gz = np.sin(lat) * np.ones(120)
+        color = "rgba(100,160,255,0.30)" if lat_deg == 0 else "rgba(255,255,255,0.08)"
+        width = 1.5 if lat_deg == 0 else 1
+        traces.append(
+            go.Scatter3d(
+                x=gx,
+                y=gy,
+                z=gz,
+                mode="lines",
+                line=dict(color=color, width=width),
+                hoverinfo="skip",
+                showlegend=False,
+            )
+        )
+
+    # Meridians every 45°
+    for lon_deg in range(0, 360, 45):
+        lon = np.radians(lon_deg)
+        t = np.linspace(0, np.pi, 60)
+        gx = np.sin(t) * np.cos(lon)
+        gy = np.sin(t) * np.sin(lon)
+        gz = np.cos(t)
+        traces.append(
+            go.Scatter3d(
+                x=gx,
+                y=gy,
+                z=gz,
+                mode="lines",
+                line=dict(color="rgba(255,255,255,0.06)", width=1),
+                hoverinfo="skip",
+                showlegend=False,
+            )
+        )
+
+    return traces
+
+
+def _render_orbital_view(
+    history: list[MissionEvent],
+    current_event: MissionEvent | None,
+    total_steps: int,
+) -> None:
+    st.markdown('<div class="mcc-section">Orbital Trajectory</div>', unsafe_allow_html=True)
+
+    # Cache static Earth + grid
+    if "_earth_traces" not in st.session_state:
+        st.session_state["_earth_traces"] = _build_earth_traces()
+    traces = list(st.session_state["_earth_traces"])  # shallow copy
+
+    inc = np.radians(_INC_DEG)
+
+    # Full orbit reference circle
+    t_orb = np.linspace(0, 2 * np.pi, 360)
+    traces.append(
+        go.Scatter3d(
+            x=_R_ORBIT * np.cos(t_orb),
+            y=_R_ORBIT * np.sin(t_orb) * np.cos(inc),
+            z=_R_ORBIT * np.sin(t_orb) * np.sin(inc),
+            mode="lines",
+            line=dict(color="rgba(100,180,255,0.30)", width=2, dash="dot"),
+            name="Orbit path",
+            hoverinfo="skip",
+        )
+    )
+
+    # Launch reference arc (KSC → orbit)
+    t_launch = np.linspace(0, 1, 60)
+    lx, ly, lz = [], [], []
+    for t in t_launch:
+        r = 1.0 + (_R_ORBIT - 1.0) * t
+        lat = np.radians(_KSC_LAT)
+        lon = np.radians(_KSC_LON + t * 20.0)
+        lx.append(float(r * np.cos(lat) * np.cos(lon)))
+        ly.append(float(r * np.cos(lat) * np.sin(lon)))
+        lz.append(float(r * np.sin(lat)))
+    traces.append(
+        go.Scatter3d(
+            x=lx,
+            y=ly,
+            z=lz,
+            mode="lines",
+            line=dict(color="rgba(46,204,113,0.55)", width=2, dash="dash"),
+            name="Launch arc",
+        )
+    )
+
+    # Deorbit spiral reference
+    t_deorbit = np.linspace(0, 1, 120)
+    dx, dy, dz = [], [], []
+    for t in t_deorbit:
+        r = _R_ORBIT - (_R_ORBIT - 1.0) * (t**1.5)
+        angle = t * 4 * np.pi
+        dx.append(float(r * np.cos(angle)))
+        dy.append(float(r * np.sin(angle) * np.cos(inc)))
+        dz.append(float(r * np.sin(angle) * np.sin(inc)))
+    traces.append(
+        go.Scatter3d(
+            x=dx,
+            y=dy,
+            z=dz,
+            mode="lines",
+            line=dict(color="rgba(231,76,60,0.45)", width=2, dash="dash"),
+            name="Deorbit spiral",
+        )
+    )
+
+    # Satellite trail — last 30 events
+    trail_events = history[-30:] if len(history) > 30 else history
+    if trail_events:
+        tx, ty, tz, trail_colors = [], [], [], []
+        for i, ev in enumerate(trail_events):
+            x, y, z = _sat_xyz(ev.step, total_steps, ev.phase.name)
+            tx.append(x)
+            ty.append(y)
+            tz.append(z)
+            alpha = 0.2 + 0.8 * (i / max(len(trail_events) - 1, 1))
+            phase_col = PHASE_COLORS.get(ev.phase.name, "#95a5a6")
+            r2, g2, b2 = int(phase_col[1:3], 16), int(phase_col[3:5], 16), int(phase_col[5:7], 16)
+            trail_colors.append(f"rgba({r2},{g2},{b2},{alpha:.2f})")
+
+        traces.append(
+            go.Scatter3d(
+                x=tx,
+                y=ty,
+                z=tz,
+                mode="lines",
+                line=dict(color=trail_colors[-1], width=3),
+                name="Sat trail",
+                hoverinfo="skip",
+            )
+        )
+
+        # Ground track (project trail onto Earth surface)
+        gtx, gty, gtz = [], [], []
+        for x, y, z in zip(tx, ty, tz):
+            r = float(np.sqrt(x**2 + y**2 + z**2))
+            if r > 0:
+                gtx.append(x / r)
+                gty.append(y / r)
+                gtz.append(z / r)
+        traces.append(
+            go.Scatter3d(
+                x=gtx,
+                y=gty,
+                z=gtz,
+                mode="lines",
+                line=dict(color="rgba(150,150,150,0.25)", width=1),
+                name="Ground track",
+                hoverinfo="skip",
+            )
+        )
+
+    # Current satellite position
+    if current_event:
+        sx, sy, sz = _sat_xyz(current_event.step, total_steps, current_event.phase.name)
+        phase_col = PHASE_COLORS.get(current_event.phase.name, "#79c0ff")
+        r3, g3, b3 = int(phase_col[1:3], 16), int(phase_col[3:5], 16), int(phase_col[5:7], 16)
+        # Halo
+        traces.append(
+            go.Scatter3d(
+                x=[sx],
+                y=[sy],
+                z=[sz],
+                mode="markers",
+                marker=dict(size=22, color=f"rgba({r3},{g3},{b3},0.18)", symbol="circle"),
+                hoverinfo="skip",
+                showlegend=False,
+            )
+        )
+        # Dot
+        traces.append(
+            go.Scatter3d(
+                x=[sx],
+                y=[sy],
+                z=[sz],
+                mode="markers",
+                marker=dict(
+                    size=10, color=phase_col, symbol="circle", line=dict(width=2, color="#ffffff")
+                ),
+                name="Satellite",
+                hovertemplate=(
+                    f"Phase: {current_event.phase.name}<br>"
+                    f"Step: {current_event.step}<extra></extra>"
+                ),
+            )
+        )
+
+    # Build figure
+    fig = go.Figure(data=traces)
+
+    phase_name = current_event.phase.name if current_event else "—"
+    phase_color = PHASE_COLORS.get(phase_name, "#555e6e")
+    fig.update_layout(
+        height=480,
+        scene=dict(
+            bgcolor="#0a0e13",
+            xaxis=dict(showgrid=False, zeroline=False, showticklabels=False, showbackground=False),
+            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, showbackground=False),
+            zaxis=dict(showgrid=False, zeroline=False, showticklabels=False, showbackground=False),
+            camera=dict(eye=dict(x=1.6, y=1.6, z=0.8)),
+            aspectmode="cube",
+        ),
+        paper_bgcolor="#0a0e13",
+        margin=dict(l=0, r=0, t=30, b=0),
+        legend=dict(
+            font=dict(color=_TEXT_DIM, size=9),
+            bgcolor="rgba(0,0,0,0)",
+            orientation="h",
+            y=1.02,
+            x=0,
+        ),
+        annotations=[
+            dict(
+                text=f"<b>{phase_name}</b>",
+                xref="paper",
+                yref="paper",
+                x=0.99,
+                y=0.97,
+                xanchor="right",
+                yanchor="top",
+                showarrow=False,
+                font=dict(color=phase_color, size=13, family="Share Tech Mono"),
+                bgcolor="rgba(0,0,0,0.4)",
+                bordercolor=phase_color,
+                borderwidth=1,
+                borderpad=6,
+            )
+        ],
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 
@@ -1209,7 +1597,7 @@ def main() -> None:
     build_app()
 
     # Sidebar (selectors + live KPIs)
-    scenario, method, seed, speed = _render_sidebar()
+    scenario, method, seed, speed, warp_label = _render_sidebar()
 
     # Init / scenario-change check
     if "replay_scenario" not in st.session_state or st.session_state.get("replay_scenario") != (
@@ -1244,6 +1632,11 @@ def main() -> None:
     # 1. Inject MCC theme (dark CSS + optional critical flash)
     _inject_mcc_theme(is_critical)
 
+    # 1b. Mission clock
+    _render_mission_clock(history, warp_label)
+
+    st.markdown("<hr>", unsafe_allow_html=True)
+
     # 2. CRITICAL banner
     if is_critical and current and current.risk:
         st.markdown(
@@ -1265,6 +1658,11 @@ def main() -> None:
 
     # 5. Subsystem health grid
     _render_subsystem_health_grid(current, history)
+
+    st.markdown("<hr>", unsafe_allow_html=True)
+
+    # 5b. 3D Orbital view
+    _render_orbital_view(history, current, total_steps)
 
     st.markdown("<hr>", unsafe_allow_html=True)
 
