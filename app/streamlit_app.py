@@ -1319,78 +1319,495 @@ def _sat_xyz(step: int, total_steps: int, phase_name: str) -> tuple[float, float
     return x, y, z
 
 
+# ── Continent outlines for Earth texture ──────────────────────────────────────
+# Simplified (lon, lat) polygons — Natural Earth 1:110m approximation
+
+_CONTINENT_POLYS: list[tuple[str, list[tuple[float, float]], int]] = [
+    # (label, [(lon, lat), ...], PIL fill 0-255)
+    (
+        "North America",
+        [
+            (-168, 71),
+            (-160, 72),
+            (-140, 62),
+            (-132, 58),
+            (-128, 52),
+            (-124, 49),
+            (-124, 37),
+            (-117, 32),
+            (-110, 23),
+            (-98, 19),
+            (-88, 16),
+            (-83, 10),
+            (-78, 8),
+            (-75, 10),
+            (-60, 6),
+            (-52, 5),
+            (-52, 10),
+            (-56, 13),
+            (-62, 10),
+            (-64, 44),
+            (-53, 47),
+            (-55, 52),
+            (-60, 60),
+            (-64, 63),
+            (-74, 65),
+            (-83, 66),
+            (-78, 72),
+            (-90, 73),
+            (-100, 73),
+            (-120, 74),
+            (-141, 70),
+            (-155, 72),
+            (-168, 71),
+        ],
+        148,
+    ),
+    (
+        "South America",
+        [
+            (-82, 8),
+            (-78, 2),
+            (-78, -3),
+            (-80, -6),
+            (-80, -10),
+            (-73, -14),
+            (-70, -20),
+            (-68, -22),
+            (-70, -30),
+            (-72, -38),
+            (-68, -55),
+            (-64, -55),
+            (-56, -52),
+            (-52, -34),
+            (-48, -28),
+            (-42, -22),
+            (-38, -12),
+            (-35, -7),
+            (-34, 0),
+            (-50, 4),
+            (-60, 5),
+            (-68, 1),
+            (-72, 2),
+            (-78, 5),
+            (-82, 8),
+        ],
+        148,
+    ),
+    (
+        "Europe",
+        [
+            (-10, 35),
+            (-8, 37),
+            (-2, 36),
+            (6, 37),
+            (10, 38),
+            (15, 38),
+            (18, 40),
+            (20, 42),
+            (25, 42),
+            (28, 42),
+            (30, 46),
+            (30, 60),
+            (28, 65),
+            (25, 70),
+            (18, 70),
+            (15, 68),
+            (10, 63),
+            (5, 62),
+            (-2, 58),
+            (-2, 52),
+            (2, 48),
+            (-5, 44),
+            (-5, 38),
+            (-10, 36),
+            (-10, 35),
+        ],
+        148,
+    ),
+    (
+        "Africa",
+        [
+            (-18, 15),
+            (-18, 12),
+            (-15, 10),
+            (-10, 5),
+            (-8, 4),
+            (-5, 5),
+            (0, 5),
+            (10, 1),
+            (15, -5),
+            (20, -15),
+            (25, -24),
+            (30, -30),
+            (35, -26),
+            (40, -15),
+            (48, -10),
+            (52, -2),
+            (45, 10),
+            (43, 20),
+            (45, 25),
+            (40, 32),
+            (35, 32),
+            (30, 32),
+            (25, 31),
+            (20, 37),
+            (10, 37),
+            (0, 35),
+            (-5, 36),
+            (-10, 30),
+            (-18, 22),
+            (-18, 15),
+        ],
+        148,
+    ),
+    (
+        "Asia",
+        [
+            (26, 38),
+            (36, 36),
+            (42, 38),
+            (48, 40),
+            (50, 44),
+            (52, 40),
+            (56, 24),
+            (60, 22),
+            (65, 23),
+            (68, 22),
+            (72, 8),
+            (78, 8),
+            (80, 14),
+            (100, 10),
+            (103, 1),
+            (108, 2),
+            (110, 2),
+            (115, 1),
+            (120, 5),
+            (124, 8),
+            (130, 28),
+            (140, 36),
+            (145, 38),
+            (145, 45),
+            (140, 48),
+            (135, 52),
+            (130, 60),
+            (135, 65),
+            (160, 58),
+            (164, 62),
+            (168, 65),
+            (170, 68),
+            (175, 70),
+            (168, 74),
+            (160, 74),
+            (140, 74),
+            (120, 73),
+            (100, 78),
+            (80, 80),
+            (60, 77),
+            (50, 72),
+            (45, 70),
+            (40, 65),
+            (36, 60),
+            (30, 50),
+            (36, 46),
+            (40, 42),
+            (36, 38),
+            (32, 38),
+            (28, 40),
+            (26, 38),
+        ],
+        148,
+    ),
+    (
+        "Australia",
+        [
+            (114, -22),
+            (115, -34),
+            (117, -35),
+            (122, -34),
+            (130, -32),
+            (132, -12),
+            (136, -12),
+            (138, -14),
+            (140, -14),
+            (140, -36),
+            (148, -40),
+            (150, -38),
+            (154, -28),
+            (152, -24),
+            (148, -20),
+            (140, -18),
+            (136, -12),
+            (130, -16),
+            (124, -20),
+            (114, -22),
+        ],
+        148,
+    ),
+    (
+        "Greenland",
+        [
+            (-52, 60),
+            (-44, 62),
+            (-40, 66),
+            (-22, 72),
+            (-18, 76),
+            (-14, 80),
+            (-18, 84),
+            (-30, 84),
+            (-44, 84),
+            (-60, 82),
+            (-68, 76),
+            (-68, 70),
+            (-58, 64),
+            (-52, 60),
+        ],
+        210,  # icy
+    ),
+    (
+        "New Zealand N",
+        [
+            (172, -34),
+            (175, -37),
+            (178, -38),
+            (178, -39),
+            (175, -41),
+            (172, -41),
+            (170, -40),
+            (172, -34),
+        ],
+        148,
+    ),
+    (
+        "New Zealand S",
+        [
+            (166, -46),
+            (168, -47),
+            (170, -46),
+            (172, -44),
+            (174, -42),
+            (173, -43),
+            (168, -46),
+            (166, -46),
+        ],
+        148,
+    ),
+    (
+        "Japan",
+        [
+            (130, 32),
+            (132, 34),
+            (136, 36),
+            (140, 38),
+            (141, 40),
+            (140, 42),
+            (138, 40),
+            (136, 38),
+            (130, 32),
+        ],
+        148,
+    ),
+    (
+        "UK",
+        [
+            (-6, 50),
+            (-2, 51),
+            (2, 52),
+            (0, 58),
+            (-4, 60),
+            (-6, 56),
+            (-4, 52),
+            (-6, 50),
+        ],
+        148,
+    ),
+    (
+        "Iceland",
+        [(-24, 64), (-14, 63), (-12, 64), (-14, 66), (-20, 66), (-24, 65), (-24, 64)],
+        210,
+    ),
+    (
+        "Madagascar",
+        [(44, -12), (50, -16), (50, -25), (44, -25), (43, -18), (44, -12)],
+        148,
+    ),
+    (
+        "Borneo",
+        [(108, 6), (118, 7), (118, 4), (116, 1), (110, 1), (108, 3), (108, 6)],
+        148,
+    ),
+    (
+        "Sumatra",
+        [(95, 5), (106, 2), (107, -2), (104, -6), (100, -3), (95, 2), (95, 5)],
+        148,
+    ),
+    (
+        "New Guinea",
+        [(131, -2), (141, -4), (148, -6), (148, -8), (141, -8), (132, -5), (131, -2)],
+        148,
+    ),
+]
+
+
+@st.cache_data(show_spinner=False)
+def _make_earth_texture(W: int = 720, H: int = 360) -> np.ndarray:
+    """PIL-generated land/ocean/ice texture, returned as float (0-1) array."""
+    from PIL import Image, ImageDraw, ImageFilter
+
+    img = Image.new("L", (W, H), 0)  # 0 = deep ocean
+    draw = ImageDraw.Draw(img)
+
+    def to_px(lon: float, lat: float) -> tuple[int, int]:
+        x = int((lon + 180) % 360 / 360 * W)
+        y = int((90 - lat) / 180 * H)
+        return (max(0, min(W - 1, x)), max(0, min(H - 1, y)))
+
+    for _name, coords, fill in _CONTINENT_POLYS:
+        pts = [to_px(lon, lat) for lon, lat in coords]
+        if len(pts) >= 3:
+            draw.polygon(pts, fill=fill)
+
+    # Polar ice caps
+    y_arc = int((90 - 76) / 180 * H)  # Arctic: north of 76°
+    draw.rectangle([(0, 0), (W - 1, y_arc)], fill=215)
+    y_ant = int((90 - (-62)) / 180 * H)  # Antarctica: south of -62°
+    draw.rectangle([(0, y_ant), (W - 1, H - 1)], fill=240)
+
+    # Smooth coastlines gently
+    img = img.filter(ImageFilter.SMOOTH)
+
+    arr = np.array(img, dtype=float) / 255.0
+
+    # Subtle depth variation in ocean
+    lon_g = np.linspace(-180, 180, W)
+    lat_g = np.linspace(90, -90, H)
+    LON, LAT = np.meshgrid(lon_g, lat_g)
+    ocean_var = (np.sin(LON / 28.0) * np.cos(LAT / 22.0) + 1.0) / 2.0 * 0.045
+    arr = np.where(arr < 0.01, ocean_var, arr)
+
+    return arr
+
+
 def _build_earth_traces() -> list:
-    """Build static Earth sphere + grid traces. Cached in session_state."""
-    n = 60
+    """Build realistic Earth sphere + grid traces. Cached in session_state."""
+    n = 90  # higher resolution for smoother sphere
     phi_e = np.linspace(0, np.pi, n)
     theta_e = np.linspace(0, 2 * np.pi, n)
     xe = np.outer(np.sin(phi_e), np.cos(theta_e))
     ye = np.outer(np.sin(phi_e), np.sin(theta_e))
     ze = np.outer(np.cos(phi_e), np.ones(n))
 
-    # Surface colour: dark ocean blue at poles, slightly lighter at equator
-    surface_color = ze  # −1 (S pole) → +1 (N pole)
+    # Sample PIL texture onto sphere grid
+    texture = _make_earth_texture()
+    tex_H, tex_W = texture.shape
+    row_idx = (phi_e / np.pi * tex_H).astype(int).clip(0, tex_H - 1)
+    col_idx = (theta_e / (2 * np.pi) * tex_W).astype(int) % tex_W
+    surface_color = texture[row_idx[:, None], col_idx[None, :]]
+
+    # Earth surface with photorealistic colorscale
     earth = go.Surface(
         x=xe,
         y=ye,
         z=ze,
         surfacecolor=surface_color,
+        cmin=0.0,
+        cmax=1.0,
         colorscale=[
-            [0.0, "#0a1a3a"],
-            [0.3, "#0e2a5c"],
-            [0.5, "#1a4a8a"],
-            [0.7, "#1e5a3e"],
-            [1.0, "#0a2010"],
+            [0.000, "#02101e"],  # abyssal ocean
+            [0.020, "#031428"],  # deep ocean
+            [0.060, "#051c40"],  # mid ocean
+            [0.100, "#0a2a5e"],  # ocean
+            [0.200, "#0d3270"],  # shallow ocean
+            [0.530, "#0d3270"],  # coast (sharp transition follows)
+            [0.540, "#22622a"],  # coastal green
+            [0.580, "#1e6628"],  # lowland forest
+            [0.650, "#2a7030"],  # mid elevation
+            [0.720, "#4a6030"],  # scrub / semi-arid
+            [0.780, "#8a7050"],  # highland / mountain
+            [0.820, "#b8a880"],  # bare rock / high altitude
+            [0.850, "#c8c0b0"],  # snow line
+            [0.900, "#dcdce8"],  # snowfield
+            [0.940, "#eeeef8"],  # glacier
+            [1.000, "#ffffff"],  # polar ice
         ],
         showscale=False,
         opacity=1.0,
-        lighting=dict(ambient=0.45, diffuse=0.85, specular=0.15, roughness=0.7),
-        lightposition=dict(x=2, y=1, z=2),
+        lighting=dict(
+            ambient=0.40,
+            diffuse=0.88,
+            specular=0.20,
+            roughness=0.65,
+            fresnel=0.15,
+        ),
+        lightposition=dict(x=3, y=1, z=2),
         name="Earth",
         hoverinfo="skip",
     )
 
     traces: list = [earth]
 
-    # Latitude rings every 30°
-    for lat_deg in range(-60, 90, 30):
+    # Atmosphere glow — slightly larger translucent sphere
+    atm_r = 1.025
+    traces.append(
+        go.Surface(
+            x=xe * atm_r,
+            y=ye * atm_r,
+            z=ze * atm_r,
+            surfacecolor=np.ones_like(ze),
+            colorscale=[[0, "rgba(60,120,255,0)"], [1, "rgba(80,140,255,0.10)"]],
+            showscale=False,
+            opacity=0.12,
+            hoverinfo="skip",
+            showlegend=False,
+            name="Atmosphere",
+        )
+    )
+
+    # Equatorial ring (brighter reference line)
+    t_eq = np.linspace(0, 2 * np.pi, 180)
+    traces.append(
+        go.Scatter3d(
+            x=np.cos(t_eq),
+            y=np.sin(t_eq),
+            z=np.zeros(180),
+            mode="lines",
+            line=dict(color="rgba(100,160,255,0.25)", width=1),
+            hoverinfo="skip",
+            showlegend=False,
+        )
+    )
+
+    # Tropics + polar circles (dim)
+    for lat_deg in [-66.5, -23.5, 23.5, 66.5]:
         lat = np.radians(lat_deg)
-        t = np.linspace(0, 2 * np.pi, 120)
-        gx = np.cos(lat) * np.cos(t)
-        gy = np.cos(lat) * np.sin(t)
-        gz = np.sin(lat) * np.ones(120)
-        color = "rgba(100,160,255,0.30)" if lat_deg == 0 else "rgba(255,255,255,0.08)"
-        width = 1.5 if lat_deg == 0 else 1
         traces.append(
             go.Scatter3d(
-                x=gx,
-                y=gy,
-                z=gz,
+                x=np.cos(lat) * np.cos(t_eq),
+                y=np.cos(lat) * np.sin(t_eq),
+                z=np.sin(lat) * np.ones(180),
                 mode="lines",
-                line=dict(color=color, width=width),
+                line=dict(color="rgba(255,255,255,0.05)", width=1),
                 hoverinfo="skip",
                 showlegend=False,
             )
         )
 
-    # Meridians every 45°
-    for lon_deg in range(0, 360, 45):
-        lon = np.radians(lon_deg)
-        t = np.linspace(0, np.pi, 60)
-        gx = np.sin(t) * np.cos(lon)
-        gy = np.sin(t) * np.sin(lon)
-        gz = np.cos(t)
-        traces.append(
-            go.Scatter3d(
-                x=gx,
-                y=gy,
-                z=gz,
-                mode="lines",
-                line=dict(color="rgba(255,255,255,0.06)", width=1),
-                hoverinfo="skip",
-                showlegend=False,
-            )
+    # KSC launch site marker
+    lat_ksc = np.radians(_KSC_LAT)
+    lon_ksc = np.radians(_KSC_LON)
+    traces.append(
+        go.Scatter3d(
+            x=[float(np.cos(lat_ksc) * np.cos(lon_ksc))],
+            y=[float(np.cos(lat_ksc) * np.sin(lon_ksc))],
+            z=[float(np.sin(lat_ksc))],
+            mode="markers",
+            marker=dict(
+                size=5, color="#2ecc71", symbol="diamond", line=dict(width=1, color="#ffffff")
+            ),
+            name="KSC",
+            hovertemplate="Kennedy Space Center<extra></extra>",
         )
+    )
 
     return traces
 
