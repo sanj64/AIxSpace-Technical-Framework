@@ -1,3 +1,21 @@
+# AD-DSS Demo Branch
+
+This branch turns the original research framework into a local mission-control demo.
+
+Compared with `main`, it adds a runnable dashboard that replays spacecraft telemetry, highlights unusual behavior, shows the mission risk level, recommends a response, and creates a simple report. It is meant for demonstration and review before merging into the company GitHub.
+
+Best demo path:
+
+```powershell
+cd "C:\Users\benja\OneDrive\Documents\IAC 2025\AIxSpace-Technical-Framework"
+$env:PYTHONPATH="src"
+.\.demo-venv\Scripts\python.exe -m streamlit run app/streamlit_app.py --server.port 8501
+```
+
+Open http://localhost:8501 and choose the `zscore` method for the live demo.
+
+---
+
 # AD-DSS — Spacecraft Anomaly Detection & Decision Support System
 
 > **TRL 5** — Component validation in relevant environment (IAC 2025)
