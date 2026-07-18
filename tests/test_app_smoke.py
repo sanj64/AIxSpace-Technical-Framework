@@ -14,13 +14,13 @@ def test_load_config_returns_dict() -> None:
 
 
 def test_resolve_data_path_known_scenario() -> None:
-    from app.streamlit_app import _resolve_data_path
-
-    # CubeSat scenario should resolve to existing CSV
-    path = _resolve_data_path("CubeSat/LEO (segments_clean)")
     from pathlib import Path
 
-    assert Path(path).exists()
+    from app.streamlit_app import _resolve_data_path
+
+    # Data files are gitignored runtime artifacts; verify stable path mapping only.
+    path = _resolve_data_path("CubeSat/LEO (segments_clean)")
+    assert Path(path).as_posix() == "data/raw/segments_clean.csv"
 
 
 def test_scenario_keys_defined() -> None:
