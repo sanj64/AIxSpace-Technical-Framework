@@ -1,5 +1,8 @@
 """Tests for decision/decision_logic.py."""
 
+import sys
+from types import SimpleNamespace
+
 import pandas as pd
 import pytest
 import yaml
@@ -26,6 +29,32 @@ def _risk(level: str, subsystem: str = "EPS") -> RiskResult:
 
 def _phase(name: str = "Operations") -> MissionPhase:
     return MissionPhase(name=name, start_idx=0, end_idx=100)
+
+
+class _FakePPO:
+    def __init__(self, policy: str, env: object, verbose: int = 0, seed: int = 42) -> None:
+        self.policy = policy
+        self.env = env
+        self.verbose = verbose
+        self.seed = seed
+        self.learn_timesteps: int | None = None
+        self.saved_path: str | None = None
+
+    def learn(self, total_timesteps: int) -> "_FakePPO":
+        self.learn_timesteps = total_timesteps
+        return self
+
+    def save(self, path: str) -> None:
+        self.saved_path = path
+
+    def predict(self, obs: object, deterministic: bool = True) -> tuple[list[int], None]:
+        return [2], None
+
+
+@pytest.fixture()
+def fake_ppo(monkeypatch: pytest.MonkeyPatch) -> type[_FakePPO]:
+    monkeypatch.setitem(sys.modules, "stable_baselines3", SimpleNamespace(PPO=_FakePPO))
+    return _FakePPO
 
 
 def test_critical_triggers_safe_mode(config: dict) -> None:
@@ -113,7 +142,7 @@ def test_anomaly_env_step() -> None:
     assert reward2 == pytest.approx(-1.0)
 
 
-def test_train_rl_creates_model(config: dict) -> None:
+def test_train_rl_creates_model(config: dict, fake_ppo: type[_FakePPO]) -> None:
     """train_rl runs without error and sets _rl_model."""
     import numpy as np
 
@@ -123,9 +152,11 @@ def test_train_rl_creates_model(config: dict) -> None:
     scores = np.random.default_rng(42).uniform(0.0, 1.0, 100).astype(np.float32)
     engine.train_rl(scores, seed=42)
     assert engine._rl_model is not None
+    assert isinstance(engine._rl_model, fake_ppo)
+    assert engine._rl_model.learn_timesteps == 50
 
 
-def test_decide_rl_with_trained_model(config: dict) -> None:
+def test_decide_rl_with_trained_model(config: dict, fake_ppo: type[_FakePPO]) -> None:
     """decide_rl uses PPO model when one is loaded."""
     import numpy as np
 
@@ -134,13 +165,14 @@ def test_decide_rl_with_trained_model(config: dict) -> None:
     scores = np.random.default_rng(7).uniform(0.0, 1.0, 100).astype(np.float32)
     engine.train_rl(scores, seed=7)
     assert engine._rl_model is not None
+    assert isinstance(engine._rl_model, fake_ppo)
 
     decision = engine.decide_rl(0.8)
     assert isinstance(decision, Decision)
-    assert decision.action in ("IGNORE", "LOG", "NOTIFY_GROUND", "SAFE_MODE")
+    assert decision.action == "NOTIFY_GROUND"
 
 
-def test_decide_with_rl_model_active(config: dict) -> None:
+def test_decide_with_rl_model_active(config: dict, fake_ppo: type[_FakePPO]) -> None:
     """decide() routes through RL policy when mode='rl' and model is loaded."""
     import numpy as np
 
@@ -148,6 +180,7 @@ def test_decide_with_rl_model_active(config: dict) -> None:
     engine.rl_timesteps = 50
     scores = np.random.default_rng(3).uniform(0.0, 1.0, 100).astype(np.float32)
     engine.train_rl(scores, seed=3)
+    assert isinstance(engine._rl_model, fake_ppo)
 
     risk = _risk("CRITICAL")
     phase = _phase("Operations")
