@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: ["trl5-build", "main"]
+    branches: ["trl5-build", "main", "v1-operator-demo"]
   pull_request:
     branches: ["main"]
 

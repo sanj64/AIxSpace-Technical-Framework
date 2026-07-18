@@ -40,11 +40,13 @@ Actual output:
 
 ## Phase 1 - Clean, True Base
 
-Status: pending
+Status: complete
 
 Expected files touched:
 
 - `archive/README.md`
+- `.gitignore`
+- `docs/ARTIFACT_REGENERATION.md`
 - `AI-FP/failure_predictor.py` moved under `archive/`
 - `AD-RRA/risk_allocator.py` moved under `archive/`
 - `AI-DSS/DSS_.ipynb` moved under `archive/`
@@ -71,7 +73,21 @@ git status --short
 
 Actual output:
 
-- Not yet run.
+- Legacy implementation directories moved under `archive/`; `archive/README.md` states they are superseded by `src/ad_dss` and retained for history only.
+- Generated/runtime artifacts removed from Git tracking while preserved locally: top-level `data/`, top-level `models/`, `src/ad_dss.egg-info/`, and legacy AI-FP CSV/ZIP payloads.
+- Added `.gitignore` coverage for `data/`, `models/`, `reports/`, local venvs, Python caches, coverage output, and legacy AI-FP CSV/ZIP snapshots.
+- Added `docs/ARTIFACT_REGENERATION.md` with commands for synthetic validation artifacts and mission replay reports.
+- Fixed local stray-space ESA-M3 names; tracked-path check found no `ESA- M3` paths.
+- Added ESA Anomaly Dataset attribution in README: Zenodo record `12528696`, CC BY 3.0 IGO.
+- Verification:
+  - `.venv\Scripts\python.exe -m ruff check src/ tests/ app/` -> `All checks passed!`
+  - `.venv\Scripts\python.exe -m black --check src/ tests/ app/` -> `32 files would be left unchanged.`
+  - `.venv\Scripts\python.exe -m mypy src/ad_dss/ --ignore-missing-imports` -> `Success: no issues found in 23 source files`
+  - `.venv\Scripts\python.exe -m pytest --basetemp=.pytest-tmp --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v` -> `101 passed in 165.39s`, coverage `90.29%`
+  - `git ls-files data models` -> no output
+  - `git ls-files AI-FP AD-RRA AI-DSS Quantum Thermal` -> no output
+  - `git ls-files | rg -n ESA-.M3` -> no output
+  - secret-pattern scan with `rg -n -i -e AKIA -e AIza -e PRIVATE_KEY -e password -e api_key -e apikey -e secret -e token AGENTS.md README.md docs src app tests config archive .github pyproject.toml` -> no output
 
 ## Phase 2 - Claims Match Reality
 

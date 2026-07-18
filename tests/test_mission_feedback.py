@@ -4,7 +4,6 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import pytest
 import yaml
 
 from ad_dss.common.schemas import AnomalyResult

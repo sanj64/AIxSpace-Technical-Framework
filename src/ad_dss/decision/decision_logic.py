@@ -25,6 +25,7 @@ class AnomalyEnv:
     """
 
     def __init__(self, scores: np.ndarray, threshold: float = 0.5) -> None:
+        self._env: object | None = None
         try:
             import gymnasium as gym  # noqa: F401
             from gymnasium import spaces

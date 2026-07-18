@@ -120,6 +120,8 @@ Place in `data/raw/`:
 - `dataset_clean.csv` — ESA feature-level segments, 2k samples
 - `ESA-M1/`, `ESA-M2/`, `ESA-M3/` — ESA mission archives
 
+ESA mission archive metadata and telemetry references are from the ESA Anomaly Dataset, Zenodo record `12528696`, licensed CC BY 3.0 IGO.
+
 The Synthetic Thermal Failure scenario is generated automatically (no external file needed).
 
 ---

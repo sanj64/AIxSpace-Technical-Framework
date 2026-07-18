@@ -1,0 +1,23 @@
+# Python/build byproducts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.pytest-tmp/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+venv/
+
+# Runtime/generated SATISH artifacts
+data/
+models/
+reports/
+
+# Legacy AI-FP data snapshots retained locally only
+archive/AI-FP/*.csv
+archive/AI-FP/*.zip
