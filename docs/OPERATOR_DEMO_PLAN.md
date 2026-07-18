@@ -1,0 +1,220 @@
+# Operator Demo Execution Plan
+
+Branch: `v1-operator-demo`
+
+This file is the recovery plan for the SATISH AD-DSS operator-demo work. Keep it updated with the actual commands and outputs used to verify each phase.
+
+## Phase 0 - Persistent Instructions And Plan
+
+Status: complete
+
+Expected files touched:
+
+- `AGENTS.md`
+- `docs/OPERATOR_DEMO_PLAN.md`
+
+Risks:
+
+- The local environment may not have the full Python dependency stack needed to run the complete suite before the first commit.
+- CI currently triggers only for `trl5-build`, `main`, and PRs to `main`; branch CI behavior must be checked separately.
+
+Verification command:
+
+```bash
+pytest --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v
+```
+
+Actual output:
+
+- `python -m pytest --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v`
+  - Result: collection failed before tests ran because `ad_dss` was not importable without installing the package or setting `PYTHONPATH=src`.
+- `set PYTHONPATH=src&& python -m pytest --basetemp=.pytest-tmp --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v`
+  - Environment: Windows, Python 3.13.13, pytest 8.3.4. CI uses Python 3.11, so this is not CI-equivalent.
+  - Result: red, `8 failed, 93 passed in 143.70s`; coverage passed at `86.65%`.
+  - Failures: four `tests/test_app_smoke.py` failures from local Streamlit/Starlette import state (`ImportError: cannot import name 'DEFAULT_EXCLUDED_CONTENT_TYPES' from 'starlette.middleware.gzip'`, followed by `DeltaGeneratorSingleton instance already exists`), and four `tests/test_decision_logic.py` RL failures because `gymnasium` and `stable-baselines3` are not available in the local environment.
+- `.venv\Scripts\python.exe -m pip install -e .[dev]`
+  - Result: installed the repo and dev dependency set into a repo-local virtual environment.
+- `.venv\Scripts\python.exe -m pytest --basetemp=.pytest-tmp --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v`
+  - Environment: Windows, Python 3.13.13, pytest 9.1.1. CI uses Python 3.11, so this is still not CI-equivalent, but it uses an isolated project dependency set.
+  - Result: green, `101 passed in 280.57s`; coverage passed at `90.28%`.
+
+## Phase 1 - Clean, True Base
+
+Status: pending
+
+Expected files touched:
+
+- `archive/README.md`
+- `AI-FP/failure_predictor.py` moved under `archive/`
+- `AD-RRA/risk_allocator.py` moved under `archive/`
+- `AI-DSS/DSS_.ipynb` moved under `archive/`
+- `Quantum/` moved under `archive/`
+- `Thermal/` moved under `archive/`
+- `.gitignore`
+- README or docs with regeneration commands for generated artifacts
+
+Risks:
+
+- Generated artifacts may already be tracked and large; removal from tracking must preserve local reproducibility instructions.
+- The stray-space filename `ESA- M3(preprocessed).zip` may exist only in history or only in local artifacts; do not invent a rename if the file is absent.
+- Archive moves may require import-path checks to confirm no active code still references legacy stubs.
+
+Verification commands:
+
+```bash
+pytest --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v
+ruff check src/ tests/ app/
+black --check src/ tests/ app/
+mypy src/ad_dss/ --ignore-missing-imports
+git status --short
+```
+
+Actual output:
+
+- Not yet run.
+
+## Phase 2 - Claims Match Reality
+
+Status: pending
+
+Expected files touched:
+
+- `README.md`
+- `pyproject.toml`
+- Documentation files under `docs/`
+
+Risks:
+
+- Some uses of "TRL 5" may be historical or targets and must be reframed rather than blindly deleted.
+- Every metric in the README must trace to `docs/VALIDATION.md` or another named artifact.
+
+Verification commands:
+
+```bash
+rg -n "TRL 5|TRL5|flight-qualified|flight qualified|keeps a human in the loop|AUC-ROC|point-wise F1" README.md docs pyproject.toml src app tests
+pytest --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v
+```
+
+Actual output:
+
+- Not yet run.
+
+## Phase 3 - Real ESA Data Path
+
+Status: pending
+
+Expected files touched:
+
+- `scripts/` download entrypoint
+- `src/ad_dss/data/` loader modules
+- `src/ad_dss/evaluation/` or existing evaluation module
+- `tests/` fixtures and unit tests
+- `docs/VALIDATION_PROTOCOL.md`
+- `docs/VALIDATION.md` or a real-data results artifact
+
+Risks:
+
+- Raw telemetry is 11.6 GB and must remain gitignored.
+- Zenodo checksum and file metadata must be pulled from record 12528696 rather than guessed.
+- Rare nominal event handling must be pre-registered before producing real-data results.
+- This overlaps the TF notebook; do not reimplement TF probability calibration or severity-weighted PPO work.
+
+Verification command:
+
+```bash
+python scripts/download_esa_adb.py --mission Mission1 --data-dir data/raw
+python -m ad_dss.evaluation.esa_adb_mission1 --subsystem thermal --data-dir data/raw --output data/artifacts/reports/mission1_thermal_event_metrics.csv
+pytest tests/ -v
+```
+
+Actual output:
+
+- Not yet run.
+
+## Phase 4 - Operator-Facing Console
+
+Status: pending
+
+Expected files touched:
+
+- `app/streamlit_app.py`
+- decision/support modules under `src/ad_dss/`
+- audit-log helper module
+- scripted UI tests
+
+Risks:
+
+- Blocking human approval must be real stateful behavior, not copy.
+- SAFE_MODE needs to be visually and semantically distinct from ALERT_ONLY.
+- DEGRADED mode must be triggered by missing channels, NaN output, and excessive ensemble split without crashing.
+
+Verification commands:
+
+```bash
+pytest tests/ -v
+streamlit run app/streamlit_app.py
+```
+
+Scripted UI test command to be finalized after test framework inspection.
+
+Actual output:
+
+- Not yet run.
+
+## Phase 5 - Fault Tolerance And Export Path
+
+Status: pending
+
+Expected files touched:
+
+- model output validation code under `src/ad_dss/models/`
+- decision fallback code under `src/ad_dss/decision/`
+- export scripts under `scripts/`
+- tests for NaN, inf, missing-channel, ensemble disagreement, and export parity
+- portable scaler artifact documentation
+
+Risks:
+
+- PPO export may not be cleanly achievable without changing runtime assumptions; if so, document the gap instead of hacking around SB3.
+- TensorFlow/ONNX/TFLite dependencies can make clean-venv verification brittle; record exact measured tolerance.
+
+Verification commands:
+
+```bash
+pytest tests/ -v
+python scripts/export_lstm_autoencoder.py --output-dir models/export
+python scripts/verify_exported_lstm.py --model-dir models/export --fixture tests/fixtures/
+```
+
+Actual output:
+
+- Not yet run.
+
+## Phase 6 - Readiness Report
+
+Status: pending
+
+Expected files touched:
+
+- `OPERATOR_READINESS.md`
+- `docs/OPERATOR_DEMO_PLAN.md`
+
+Risks:
+
+- Report must distinguish measured evidence from remaining gaps.
+- Gate IDs must map directly to charter items: H1, C5, C6, R4, R5, S1.
+
+Verification commands:
+
+```bash
+pytest --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v
+git status --short
+```
+
+Actual output:
+
+- Not yet run.
+
+## Escalations
+
+- 2026-07-18: Initial system-Python verification was red because local Python is 3.13.13 while CI is Python 3.11; `gymnasium` and `stable-baselines3` were missing; Streamlit 1.58.0 with Starlette 0.41.3 failed import. Resolved for local Phase 0 by creating `.venv`, installing `.[dev]`, and rerunning the suite green. A CI-equivalent Python 3.11 run is still preferred before claiming branch CI parity.
