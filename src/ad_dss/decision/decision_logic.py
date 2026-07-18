@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -90,7 +91,7 @@ class DecisionEngine:
         self.mode = mode or d_cfg.get("mode", "rule")
         self.rl_timesteps: int = int(d_cfg.get("rl_timesteps", 2000))
         self.rl_model_path = Path(d_cfg.get("rl_model_path", "models/ppo_decision_agent"))
-        self._rl_model: object = None
+        self._rl_model: Any | None = None
 
     # ── Public API ───────────────────────────────────────────────────────────
 
