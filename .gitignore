@@ -14,9 +14,9 @@ htmlcov/
 venv/
 
 # Runtime/generated SATISH artifacts
-data/
-models/
-reports/
+/data/
+/models/
+/reports/
 
 # Legacy AI-FP data snapshots retained locally only
 archive/AI-FP/*.csv

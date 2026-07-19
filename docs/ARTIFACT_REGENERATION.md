@@ -30,4 +30,10 @@ Expected output directory:
 
 ## ESA Data
 
-The ESA mission telemetry archives are not tracked. Phase 3 will add a scripted Zenodo downloader for record `12528696` with mission selection and checksum verification. Until then, ESA data files under `data/raw/ESA-M*/` are local-only working copies and must not be used as committed validation evidence.
+The ESA mission telemetry archives are not tracked. Use the Phase 3 downloader to fetch Zenodo record `12528696` mission archives into `data/raw/`:
+
+```bash
+python scripts/download_esa_adb.py --mission Mission1 --data-dir data/raw
+```
+
+Local ESA files under `data/raw/ESA-M*/` remain ignored working copies. Do not use them as committed validation evidence until the event-wise protocol in `docs/VALIDATION_PROTOCOL.md` produces metrics with dataset, model version, and configuration.

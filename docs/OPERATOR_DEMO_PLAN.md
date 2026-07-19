@@ -134,10 +134,16 @@ Actual output:
   - `.venv\Scripts\python.exe -m black --check src/ tests/ app/` -> `32 files would be left unchanged.`
   - `.venv\Scripts\python.exe -m mypy src/ad_dss/ --ignore-missing-imports` -> `Success: no issues found in 23 source files`
   - `.venv\Scripts\python.exe -m pytest --basetemp=.pytest-tmp --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v` -> `101 passed in 84.39s`, coverage `90.30%`
+  - `git push origin v1-operator-demo` -> pushed commit `be791a1` to `origin/v1-operator-demo`
+  - `gh run watch 29667543303 --exit-status` -> GitHub Actions green:
+    - `Lint & Format in 12s`
+    - `Type Check in 17s`
+    - `Smoke — Pipeline in 2m0s`
+    - `Tests in 2m36s`
 
 ## Phase 3 - Real ESA Data Path
 
-Status: pending
+Status: partial - foundation complete, raw telemetry not downloaded
 
 Expected files touched:
 
@@ -165,7 +171,29 @@ pytest tests/ -v
 
 Actual output:
 
-- Not yet run.
+- Added `scripts/download_esa_adb.py` with Zenodo record `12528696` metadata lookup, mission selection, archive download, and checksum verification when Zenodo provides a supported checksum.
+- Added `src/ad_dss/data/esa_adb.py` to load ESA metadata from the existing `ESA-M*/ESA-M*(preprocessed)` folder layout:
+  - required: `channels_cleaned.csv`, `labels_cleaned.csv`, `anomaly_types_cleaned.csv`
+  - optional: `events_cleaned.csv`, `telecommands_cleaned.csv`
+  - telemetry detection ignores metadata files and only reports additional local CSV telemetry files.
+- Added `docs/VALIDATION_PROTOCOL.md` before producing ESA metrics:
+  - rare nominal events are counted separately from anomaly intervals;
+  - prediction hits are event-wise interval overlaps;
+  - headline ESA-ADB metric is event-wise F0.5;
+  - AUC-PR is the required curve metric, not AUC-ROC;
+  - every metrics row must include dataset, model version, and configuration.
+- Added `src/ad_dss/evaluation/esa_adb.py` with pure event interval overlap, event-wise precision/recall/F0.5, rare-nominal accounting, and metrics-row output helpers.
+- Added `src/ad_dss/evaluation/esa_adb_mission1.py` CLI. With current metadata-only local data, it exits clearly and writes no metrics file.
+- Added tests for downloader selection/checksum behavior, ESA metadata loading/subsystem lookup, event overlap, event-wise F0.5, zero-prediction handling, rare-nominal accounting, and evidence-context rows.
+- Verification:
+  - `.venv\Scripts\python.exe -m pytest --basetemp=.pytest-tmp tests\test_esa_adb_data.py tests\test_esa_adb_evaluation.py tests\test_download_esa_adb.py -v` -> `12 passed in 1.55s`
+  - `.venv\Scripts\python.exe scripts\download_esa_adb.py --help` -> printed CLI usage for `--mission`, `--data-dir`, and `--manifest-only`
+  - `.venv\Scripts\python.exe -m ad_dss.evaluation.esa_adb_mission1 --subsystem thermal --data-dir data/raw --output data/artifacts/reports/mission1_thermal_event_metrics.csv` -> exited `2` with `ERROR: ESA Mission 1 telemetry not downloaded; metadata-only files are present. Run scripts/download_esa_adb.py before producing metrics.`
+  - `if exist data\artifacts\reports\mission1_thermal_event_metrics.csv (echo exists) else (echo missing)` -> `missing`
+  - `.venv\Scripts\python.exe -m ruff check src/ tests/ app/ scripts/` -> `All checks passed!`
+  - `.venv\Scripts\python.exe -m black --check src/ tests/ app/ scripts/` -> `40 files would be left unchanged.`
+  - `.venv\Scripts\python.exe -m mypy src/ad_dss/ --ignore-missing-imports` -> `Success: no issues found in 27 source files`
+  - `.venv\Scripts\python.exe -m pytest --basetemp=.pytest-tmp --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v` -> `113 passed in 76.32s`, coverage `88.72%`
 
 ## Phase 4 - Operator-Facing Console
 
