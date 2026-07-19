@@ -1,11 +1,13 @@
-# AD-DSS Build Plan — TRL 5 Checklist
+# AD-DSS Historical Build Plan — Original TRL 5 Checklist
 
-**Mission**: Build a fully integrated Spacecraft Health Monitoring — Anomaly Detection & Decision Support System and validate it to TRL 5 (component validation in a relevant environment: realistic mission telemetry replay with noise and injected faults).
+> Historical context: this file records the original build checklist and measured outputs. It is not the current assessment of record; the operator-demo branch assessment is TRL 4 partial with documented validation gaps.
+
+**Original mission statement**: Build a fully integrated Spacecraft Health Monitoring — Anomaly Detection & Decision Support System and validate it to TRL 5 (component validation in a relevant environment: realistic mission telemetry replay with noise and injected faults).
 
 **Success Criteria** (must all be true):
 1. Every planned module exists with real, working code
 2. Single command runs the full pipeline end-to-end
-3. TRL 5 evidence: KPIs measured on ≥2 real datasets + thermal scenario
+3. Original TRL 5 evidence target: KPIs measured on ≥2 real datasets + thermal scenario
 4. Streamlit app launches with one command; scenario replay works
 5. pytest passes; coverage ≥75%; ruff + black clean; mypy clean
 6. New user can follow README.md to clone, install, run
@@ -95,7 +97,7 @@
 
 ---
 
-## Phase 7 — TRL 5 Validation ✓ COMPLETE
+## Phase 7 — Original TRL 5 Validation Target ✓ COMPLETE
 - [x] ESA M1/M2/M3 data in `data/raw/`
 - [x] Pipeline run on segments_clean.csv (303k) + dataset_clean.csv (2k) + thermal scenario
 - [x] KPIs measured (precision, recall, F1, latency, FAR, runtime)

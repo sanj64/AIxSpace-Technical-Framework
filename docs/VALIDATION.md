@@ -1,4 +1,6 @@
-# AD-DSS TRL 5 Validation Report
+# AD-DSS Validation Evidence Report
+
+**Assessment of record**: TRL 4 partial. This report preserves measured operator-demo evidence and the known gaps; it does not claim completed TRL 5 validation.
 
 **Date**: 2026-06-13  
 **Commit**: see `git log --oneline -1`  
@@ -7,9 +9,9 @@
 
 ---
 
-## TRL 5 Definition
+## Breadboard Validation Context
 
-TRL 5 = *Component and/or breadboard validation in relevant environment.*
+Target maturity for the original build plan was component and/or breadboard validation in a relevant environment.
 
 **Relevant environment**: Realistic mission telemetry replayed as a time-ordered stream, including sensor noise and injected physical faults, across two operational datasets (segments_clean, dataset_clean) plus a validated synthetic thermal-runaway scenario. The mission-engine replay loop is the breadboard — it processes telemetry in the same computational sequence a ground-station DSS would.
 
@@ -94,7 +96,7 @@ Anomaly labels available (434/2123 = 20.5% anomalous). Features are pre-extracte
 **Observation**: IF has high precision but low recall on segment features — the contamination parameter (0.05) is set below the true anomaly rate (0.20). Tuning contamination to 0.20 would significantly improve recall. This is a configuration decision, not a capability gap.
 
 ### ESA Mission 1, 2, 3 (event-based labels)
-ESA datasets provide **event-interval labels** (ID, Channel, StartTime, EndTime, Duration), not per-sample binary flags. Sample-level precision/recall cannot be computed without interpolating label intervals onto telemetry timestamps. Isolation Forest on event-level features (Duration + channel) is the appropriate detector, matching the Week 2 source approach. Full per-sample validation on ESA datasets is deferred to TRL 6.
+ESA datasets provide **event-interval labels** (ID, Channel, StartTime, EndTime, Duration), not per-sample binary flags. Sample-level precision/recall cannot be computed without interpolating label intervals onto telemetry timestamps. Isolation Forest on event-level features (Duration + channel) is the appropriate detector, matching the Week 2 source approach. Full per-sample validation on ESA datasets remains future validation work.
 
 ---
 
@@ -132,7 +134,7 @@ Two independent runs with `seed=42` on both datasets produced **bit-for-bit iden
 
 ---
 
-## 6. TRL 5 Exit Criteria Assessment
+## 6. Partial Readiness Assessment
 
 | Criterion | Status | Evidence |
 |-----------|--------|----------|
@@ -148,23 +150,23 @@ Two independent runs with `seed=42` on both datasets produced **bit-for-bit iden
 
 ---
 
-## 7. Residual Gaps and TRL 6 Path
+## 7. Residual Gaps and Next Validation Work
 
 ### Gap 1: Recall on gradual drifts
 **Root cause**: Rolling-window z-score adapts baseline during slow ramps.  
-**TRL 6 fix**: (a) Add CUSUM / EWMA change-point detector; (b) Add explicit drift detector (DDM, ADWIN); (c) LSTM AE trained on full normal-flight segments with contamination-free data.
+**Next validation work**: (a) Add CUSUM / EWMA change-point detector; (b) Add explicit drift detector (DDM, ADWIN); (c) LSTM AE trained on full normal-flight segments with contamination-free data.
 
 ### Gap 2: ESA dataset per-sample metrics
 **Root cause**: ESA labels are event-based; interpolation not yet implemented.  
-**TRL 6 fix**: Build a label-alignment tool (event → per-sample binary mask) and run full ROC-AUC analysis.
+**Next validation work**: Build a label-alignment tool (event → per-sample binary mask) and run event-wise metrics appropriate for ESA-ADB.
 
 ### Gap 3: LSTM AE precision on thermal scenario
 **Root cause**: LSTM trained on the same data it's tested on (no clean pre-fault window); the anomaly score is computed relative to mixed training distribution.  
-**TRL 6 fix**: Split dataset into clean (pre-fault) training set and anomalous test set; train exclusively on normal segments.
+**Next validation work**: Split dataset into clean (pre-fault) training set and anomalous test set; train exclusively on normal segments.
 
 ### Gap 4: RL decision agent not yet validated
 **Root cause**: PPO agent requires longer training (>2000 steps) and a labelled reward signal. Rule engine is the active decision path.  
-**TRL 6 fix**: Train PPO on replay of historical runs with expert-labelled decisions as ground truth.
+**Next validation work**: Train PPO on replay of historical runs with expert-labelled decisions as ground truth.
 
 ---
 

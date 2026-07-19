@@ -1,4 +1,4 @@
-"""TRL 5 Validation script — measures KPIs across datasets and detectors.
+"""Validation evidence script — measures KPIs across datasets and detectors.
 
 Run:
     python tests/validate_trl5.py
@@ -291,7 +291,7 @@ if __name__ == "__main__":
 
     # ─── Summary Table ────────────────────────────────────────────────────────
     print("\n" + "=" * 70)
-    print("TRL 5 VALIDATION SUMMARY")
+    print("VALIDATION EVIDENCE SUMMARY")
     print("=" * 70)
 
     combined = thermal_metrics.get("Combined", {})

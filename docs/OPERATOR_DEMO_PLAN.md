@@ -91,7 +91,7 @@ Actual output:
 
 ## Phase 2 - Claims Match Reality
 
-Status: pending
+Status: complete
 
 Expected files touched:
 
@@ -113,7 +113,27 @@ pytest --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v
 
 Actual output:
 
-- Not yet run.
+- Reframed active public claims from completed TRL 5 to operator-demo / TRL 4 partial evidence in `README.md` and `pyproject.toml`.
+- Reframed validation documentation while preserving measured values:
+  - Precision `1.000`
+  - Recall `0.322`
+  - F1 `0.487`
+  - FAR/hr `0.0`
+  - Latency `31`
+  - Runtime `7.93s`
+  - Reproducibility `100%`
+- Marked `docs/PLAN.md` as historical build-plan context rather than the current assessment of record.
+- Reframed `docs/ARCHITECTURE.md` and `docs/DECISIONS.md` language so the replay environment and rule-supplement role no longer assert completed TRL 5.
+- Updated `tests/validate_trl5.py` user-facing summary text from `TRL 5 VALIDATION SUMMARY` to `VALIDATION EVIDENCE SUMMARY`; filename retained for compatibility.
+- Verification:
+  - `rg -n "TRL 5|TRL5|flight-qualified|flight qualified|keeps a human in the loop|AUC-ROC|point-wise F1" README.md docs pyproject.toml src app tests`
+    - Result: command did not run correctly under local `cmd` quoting; `rg` received fragments of the pattern as filenames and exited `2`.
+  - `rg -n -e TRL -e AUC-ROC -e flight-qualified -e human README.md docs pyproject.toml src app tests`
+    - Result: remaining TRL matches are active TRL 4 partial statements, historical TRL 5 context in `docs/PLAN.md`, and the operator-plan scan command itself. No `AUC-ROC`, `flight-qualified`, or forbidden HITL phrasing remains outside the operator-plan command text.
+  - `.venv\Scripts\python.exe -m ruff check src/ tests/ app/` -> `All checks passed!`
+  - `.venv\Scripts\python.exe -m black --check src/ tests/ app/` -> `32 files would be left unchanged.`
+  - `.venv\Scripts\python.exe -m mypy src/ad_dss/ --ignore-missing-imports` -> `Success: no issues found in 23 source files`
+  - `.venv\Scripts\python.exe -m pytest --basetemp=.pytest-tmp --cov=src/ad_dss --cov-report=term-missing --cov-fail-under=75 -v` -> `101 passed in 84.39s`, coverage `90.30%`
 
 ## Phase 3 - Real ESA Data Path
 

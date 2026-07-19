@@ -18,7 +18,7 @@ Open http://localhost:8501 and choose the `zscore` method for the live demo.
 
 # AD-DSS — Spacecraft Anomaly Detection & Decision Support System
 
-> **TRL 5** — Component validation in relevant environment (IAC 2025)
+> **Operator demo / TRL 4 partial evidence** — measured breadboard-style replay evidence with documented validation gaps (IAC 2025)
 >
 > *Built on the AIxSpace Technical Framework for the "AI-Powered Space Mission Risk Prediction" project.*
 
@@ -62,7 +62,7 @@ pytest --cov=src/ad_dss --cov-report=term-missing
 
 Expected: 101 tests passing, ≥90% coverage.
 
-### 5. Run TRL 5 validation
+### 5. Run validation evidence script
 
 ```bash
 python tests/validate_trl5.py
@@ -137,7 +137,9 @@ The Synthetic Thermal Failure scenario is generated automatically (no external f
 
 ---
 
-## TRL 5 Summary
+## Validation Evidence Summary
+
+Current assessment of record: **TRL 4 partial**. The table below preserves the measured demo evidence; failed and borderline targets are not claimed as completed TRL 5 validation.
 
 | KPI | Target | Measured |
 |-----|--------|----------|
@@ -148,4 +150,4 @@ The Synthetic Thermal Failure scenario is generated automatically (no external f
 | Runtime (303k samples) | ≤ 120 s | 7.93 s ✓ |
 | Reproducibility | 100% | 100% ✓ |
 
-See `docs/VALIDATION.md` for the full analysis and TRL 6 roadmap.
+See `docs/VALIDATION.md` for the full analysis and remaining validation work.

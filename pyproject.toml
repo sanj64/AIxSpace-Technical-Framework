@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ad-dss"
 version = "0.1.0"
-description = "Spacecraft Anomaly Detection & Decision Support System (TRL 5)"
+description = "Spacecraft Anomaly Detection & Decision Support System operator demo"
 requires-python = ">=3.11"
 dependencies = [
     "numpy",

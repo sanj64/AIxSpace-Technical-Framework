@@ -70,7 +70,7 @@ Format: `ADR-NNN | Date | Status | Decision | Rationale`
 
 **Decision**: `sklearn.linear_model.LogisticRegression` for the optional classifier path. Falls back to criticality matrix if not trained.
 
-**Rationale**: Fast to train, interpretable, no GPU needed, works on small labelled datasets. Sufficient for the rule-supplement role at TRL 5.
+**Rationale**: Fast to train, interpretable, no GPU needed, works on small labelled datasets. Sufficient for the current demo/rule-supplement role.
 
 ---
 

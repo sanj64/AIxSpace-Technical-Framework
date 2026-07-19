@@ -141,10 +141,10 @@ def main() -> None: ...   # CLI entrypoint
 - **Quality**: pytest, ruff, black, mypy, pre-commit
 - **CI**: GitHub Actions
 
-## TRL 5 Relevant Environment
-The relevant environment is a **streaming/replay simulation** over realistic mission telemetry:
+## Replay Breadboard Environment
+The current demo environment is a **streaming/replay simulation** over realistic mission telemetry:
 - ESA Mission 1, 2, 3 preprocessed datasets
 - `segments_clean.csv` (CubeSat/LEO anomaly data)
 - Injected thermal ramp failure scenario (synthetic but physically plausible)
 
-The breadboard validation is the `mission_engine.run_replay()` loop processing time-ordered telemetry with real anomaly scoring, risk assessment, and decision-making — the same computational chain that would execute on a ground-station decision support system.
+The breadboard-style replay is the `mission_engine.run_replay()` loop processing time-ordered telemetry with real anomaly scoring, risk assessment, and decision-making — the same computational chain intended for a ground-station decision support system.
