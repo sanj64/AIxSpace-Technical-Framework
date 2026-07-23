@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "satish-commercial"
+version = "0.9.0a1"
+description = "Advisory-only satellite telemetry anomaly review console"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = { file = "LICENSE-COMMERCIAL.md" }
+authors = [{ name = "SATISH product company" }]
+dependencies = [
+  "cryptography==48.0.1",
+  "joblib==1.5.3",
+  "jsonschema==4.25.1",
+  "numpy==2.4.6",
+  "pandas==3.0.3",
+  "PyYAML==6.0.3",
+  "scikit-learn==1.9.0",
+  "streamlit==1.59.2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "bandit==1.8.6",
+  "mypy==1.18.2",
+  "pip-audit==2.9.0",
+  "pytest==8.4.2",
+  "pytest-cov==7.0.0",
+  "ruff==0.13.2",
+]
+
+[project.scripts]
+satish = "satish_commercial.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/satish_commercial"]
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers"
+testpaths = ["tests"]
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["satish_commercial"]
+ignore_missing_imports = true
+disallow_any_generics = false
+warn_return_any = false
+disable_error_code = ["import-untyped"]
+follow_imports = "skip"
+
+[tool.coverage.run]
+omit = ["src/satish_commercial/app.py"]

@@ -1,0 +1,25 @@
+services:
+  satish-evaluation:
+    build: .
+    image: satish-commercial:0.9.0-evaluation
+    user: "10001:10001"
+    read_only: true
+    networks: [evaluation-internal]
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs:
+      - /tmp:size=64m,noexec,nosuid,nodev
+    volumes:
+      - ./telemetry:/telemetry:ro
+      - ./config:/config:ro
+      - ./outputs:/evidence:rw
+    environment:
+      SATISH_RUN_DIRECTORY: /evidence/current
+      SATISH_ROLE: auditor
+      SATISH_REQUIRE_OIDC: "1"
+    ports:
+      - "127.0.0.1:8501:8501"
+
+networks:
+  evaluation-internal:
+    internal: true

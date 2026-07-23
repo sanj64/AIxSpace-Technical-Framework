@@ -1,0 +1,5 @@
+schema_version: "1.0.0"
+entries: []
+# Each entry: customer_id, deployment_id, detector_identity, artifact_hash,
+# feature_schema_hash, config_pack_hash, effective_at, expires_at, release_id,
+# validation_evidence, owners, last_drift_review, next_review, status.

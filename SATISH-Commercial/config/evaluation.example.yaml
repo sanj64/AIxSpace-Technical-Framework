@@ -1,0 +1,51 @@
+schema_version: "1.0.0"
+pack_id: "evaluation-template-001"
+customer_id: "REPLACE-WITH-CUSTOMER-ID"
+detector: "zscore"
+timestamp_column: "timestamp"
+feature_columns:
+  - "battery_temperature_c"
+  - "bus_voltage_v"
+  - "payload_current_a"
+subsystem_lookup:
+  battery_temperature_c: "POWER"
+  bus_voltage_v: "POWER"
+  payload_current_a: "PAYLOAD"
+physical_bounds:
+  battery_temperature_c: {min: -40.0, max: 85.0}
+  bus_voltage_v: {min: 18.0, max: 36.0}
+  payload_current_a: {min: 0.0, max: 25.0}
+detector_settings:
+  label_column: "anomaly_label"
+  window: 30
+  calibration_quantile: 0.995
+  minimum_z_threshold: 3.0
+  estimators: 200
+  seed: 42
+  max_gap_seconds: 300
+  persistence_horizon: 3
+risk_thresholds:
+  medium: 1.20
+  critical: 1.80
+criticality_weights:
+  POWER: 1.50
+  PAYLOAD: 1.20
+  DEFAULT: 1.00
+mission_phase_weights:
+  DEFAULT: 1.00
+  COMMISSIONING: 1.30
+  ROUTINE: 1.00
+deterministic_rules:
+  - {rule_id: "SYS-001", when: "system_mode == DEGRADED", action: "ALERT_ONLY"}
+  - {rule_id: "POL-001", when: "anomaly == false", action: "NOMINAL"}
+  - {rule_id: "POL-002", when: "risk_level == CRITICAL", action: "SAFE_MODE"}
+  - {rule_id: "POL-003", when: "risk_level == MEDIUM", action: "COOLDOWN"}
+  - {rule_id: "POL-004", when: "anomaly == true", action: "ALERT_ONLY"}
+branding:
+  product_name: "SATISH Commercial Evaluation"
+  customer_label: "REPLACE-WITH-CUSTOMER-NAME"
+author: "configuration.author@company.example"
+independent_approver: "configuration.approver@company.example"
+effective_at: "2026-07-21T00:00:00Z"
+expires_at: "2027-07-21T00:00:00Z"
+second_person_review: false

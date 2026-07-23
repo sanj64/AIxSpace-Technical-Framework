@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.satish.invalid/config-pack-v1.schema.json",
+  "title": "ConfigPackV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "pack_id", "customer_id", "detector", "timestamp_column", "feature_columns", "subsystem_lookup", "physical_bounds", "detector_settings", "risk_thresholds", "criticality_weights", "mission_phase_weights", "deterministic_rules", "branding", "author", "independent_approver", "effective_at", "expires_at", "second_person_review", "pack_hash", "signing_algorithm", "signature"],
+  "properties": {
+    "schema_version": {"type": "string", "pattern": "^1\\."},
+    "pack_id": {"type": "string", "minLength": 1},
+    "customer_id": {"type": "string", "minLength": 1},
+    "detector": {"enum": ["zscore", "isolation_forest"]},
+    "timestamp_column": {"type": "string", "minLength": 1},
+    "feature_columns": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true},
+    "subsystem_lookup": {"type": "object", "additionalProperties": {"type": "string"}},
+    "physical_bounds": {"type": "object", "additionalProperties": {"type": "object", "required": ["min", "max"], "properties": {"min": {"type": "number"}, "max": {"type": "number"}}, "additionalProperties": false}},
+    "detector_settings": {"type": "object"},
+    "risk_thresholds": {"type": "object", "required": ["medium", "critical"], "properties": {"medium": {"type": "number"}, "critical": {"type": "number"}}, "additionalProperties": false},
+    "criticality_weights": {"type": "object", "additionalProperties": {"type": "number", "exclusiveMinimum": 0}},
+    "mission_phase_weights": {"type": "object", "additionalProperties": {"type": "number", "exclusiveMinimum": 0}},
+    "deterministic_rules": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"type": "object"}},
+    "branding": {"type": "object", "additionalProperties": {"type": "string"}},
+    "author": {"type": "string", "minLength": 1},
+    "independent_approver": {"type": "string", "minLength": 1},
+    "effective_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "second_person_review": {"type": "boolean"},
+    "pack_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "signing_algorithm": {"const": "Ed25519"},
+    "signature": {"type": "string", "minLength": 1}
+  }
+}

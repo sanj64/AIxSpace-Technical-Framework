@@ -1,0 +1,10 @@
+schema_version: "1.0.0"
+customer_id: "REPLACE"
+deployment_id: "REPLACE"
+final_audit_export: "PENDING"
+retention_direction: "PENDING"
+vendor_support_data_deleted: false
+credentials_and_keys_revoked: false
+customer_acknowledgement: "PENDING"
+owner: "REPLACE"
+completed_at: null
