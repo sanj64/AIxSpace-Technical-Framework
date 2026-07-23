@@ -1,0 +1,11 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+outputs
+artifacts
+tests
+*.pem
+*.key
+.env

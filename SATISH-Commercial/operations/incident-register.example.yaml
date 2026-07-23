@@ -1,0 +1,5 @@
+schema_version: "1.0.0"
+incidents: []
+# Each entry: id, detected_at, reporter, affected release/customer, safety/security/privacy/
+# export classification, summary, evidence location, containment, notifications, root cause,
+# corrective actions, owners, deadlines, closure approvals.
