@@ -55,7 +55,7 @@ class MissionEngine:
     def run_batch(
         self,
         data_path: str | Path,
-        method: str = "lstm",
+        method: str = "zscore",
         train: bool = True,
     ) -> dict:
         """Run the full pipeline on a dataset; return structured results dict.
@@ -172,7 +172,7 @@ class MissionEngine:
     def run_replay(
         self,
         data_path: str | Path,
-        method: str = "lstm",
+        method: str = "zscore",
         train: bool = True,
         window_step: int = 1,
     ) -> Generator[MissionEvent, None, None]:

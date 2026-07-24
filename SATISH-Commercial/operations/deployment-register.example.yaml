@@ -1,5 +1,0 @@
-schema_version: "1.0.0"
-deployments: []
-# Each entry: customer/legal entity, site, release/image digest, country, end user/end use,
-# export approval, OIDC/TLS evidence, support entitlement, delivery/acceptance dates,
-# data-access boundaries, update channel, owner, status, decommission_due.

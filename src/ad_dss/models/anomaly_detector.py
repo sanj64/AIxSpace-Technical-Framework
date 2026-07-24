@@ -27,7 +27,7 @@ class AnomalyDetector:
     the rest of the pipeline is backend-agnostic.
     """
 
-    def __init__(self, config: dict, method: str = "lstm") -> None:
+    def __init__(self, config: dict, method: str = "zscore") -> None:
         self.method = method
         self.cfg = config
         ad_cfg = config.get("anomaly_detector", config)
@@ -246,6 +246,6 @@ class AnomalyDetector:
         return float(np.percentile(scores, self.threshold_pct))
 
 
-def build_detector(config: dict, method: str = "lstm") -> AnomalyDetector:
+def build_detector(config: dict, method: str = "zscore") -> AnomalyDetector:
     """Factory function for creating a configured AnomalyDetector."""
     return AnomalyDetector(config, method=method)

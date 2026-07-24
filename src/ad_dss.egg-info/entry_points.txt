@@ -1,3 +1,0 @@
-[console_scripts]
-esa-rebuild = ad_dss.pipeline.esa_rebuild:main
-run-pipeline = ad_dss.core.mission_engine:main

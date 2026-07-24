@@ -28,7 +28,7 @@ preprocessing:
 
 # ─── Anomaly Detector ─────────────────────────────────────────────────────────
 anomaly_detector:
-  default_method: "zscore"      # "lstm" | "isolation_forest" | "zscore"
+  default_method: "zscore"      # active: "zscore"; research extras: "lstm" | "isolation_forest"
   window_size: 30
   latent_dim: 32
   model_path: "models/lstm_autoencoder.keras"
@@ -117,7 +117,7 @@ risk_predictor:
 
 # ─── Decision Logic ───────────────────────────────────────────────────────────
 decision:
-  mode: "rule"                  # "rule" | "rl"
+  mode: "rule"                  # active: "rule"; research extras: "rl"
   rl_timesteps: 2000
   rl_model_path: "archive/unverified_pipeline/ppo_decision_agent"
 

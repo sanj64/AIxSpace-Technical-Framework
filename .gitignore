@@ -1,1 +1,11 @@
 data/raw/ESA-Mission1.zip
+data/raw/*.zip
+data/artifacts/
+*.egg-info/
+__pycache__/
+.pytest_cache/
+.pytest-tmp/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
