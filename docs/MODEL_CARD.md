@@ -8,7 +8,7 @@ Historical model artifacts remain archived because they were not reproducibly re
 
 ## Training Data
 
-Source: `ESA-Mission1.zip`, SHA-256 `8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7`.
+Source: `data/raw/ESA-Mission1.zip`, SHA-256 `8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7`.
 
 The trainer fits each channel independently using finite, non-labelled samples in the chronological training partition. It calibrates thresholds on finite, non-labelled validation samples and evaluates the untouched chronological test partition.
 

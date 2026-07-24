@@ -13,10 +13,10 @@ These commands write evidence under `artifacts/esa_rebuild/`.
 ## Full Rebuild
 
 ```bash
-python -m ad_dss.pipeline.esa_rebuild full-rebuild --source-zip "<path-to-ESA-Mission1.zip>"
+python -m ad_dss.pipeline.esa_rebuild full-rebuild
 ```
 
-Full rebuild requires an explicit `--source-zip` path. It will not fall back to synthetic data or archived historical CSVs.
+Full rebuild expects the real ESA Mission 1 archive at `data/raw/ESA-Mission1.zip` by default. You may override that with `--source-zip`, but it will not fall back to synthetic data or archived historical CSVs.
 
 ## Determinism Requirements
 

@@ -114,8 +114,12 @@ def full_rebuild(
     channel_limit: int | None,
 ) -> Path:
     if source_zip is None:
+        source_zip = root / "data" / "raw" / "ESA-Mission1.zip"
+    if not source_zip.exists():
         raise ReproducibilityError(
-            "Full rebuild requires --source-zip pointing to the real ESA-Mission1.zip file."
+            "Full rebuild requires the real ESA-Mission1.zip archive at "
+            f"{(root / 'data' / 'raw' / 'ESA-Mission1.zip').as_posix()} "
+            "or an explicit --source-zip path. It will not use synthetic data or archived CSVs."
         )
     outputs = train_mission1_zscore(
         source_zip=source_zip,
@@ -127,7 +131,7 @@ def full_rebuild(
     manifest = {
         "zenodo_record": "12528696",
         "active_training_performed": True,
-        "source_zip": source_zip.name,
+        "source_zip": _display_path(root, source_zip),
         "source_zip_hash": sha256_file(source_zip),
         "outputs": {key: _display_path(root, value) for key, value in outputs.items()},
         "output_hashes": output_hashes,

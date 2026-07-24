@@ -16,10 +16,10 @@ Install the package in editable mode, then run:
 python -m ad_dss.pipeline.esa_rebuild audit
 python -m ad_dss.pipeline.esa_rebuild verify
 python -m ad_dss.pipeline.esa_rebuild dry-run
-python -m ad_dss.pipeline.esa_rebuild full-rebuild --source-zip "<path-to-ESA-Mission1.zip>"
+python -m ad_dss.pipeline.esa_rebuild full-rebuild
 ```
 
-`full-rebuild` requires the explicit real ESA Mission 1 zip path. It does not fall back to synthetic data or archived historical CSVs.
+`full-rebuild` expects the real ESA Mission 1 archive at `data/raw/ESA-Mission1.zip` by default. You may override that with `--source-zip`, but it does not fall back to synthetic data or archived historical CSVs.
 
 ## Active Data Policy
 
