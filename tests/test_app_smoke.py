@@ -16,8 +16,7 @@ def test_load_config_returns_dict() -> None:
 def test_resolve_data_path_known_scenario() -> None:
     from app.streamlit_app import _resolve_data_path
 
-    # CubeSat scenario should resolve to existing CSV
-    path = _resolve_data_path("CubeSat/LEO (segments_clean)")
+    path = _resolve_data_path("ESA Mission 1")
     from pathlib import Path
 
     assert Path(path).exists()
@@ -27,7 +26,7 @@ def test_scenario_keys_defined() -> None:
     from app.streamlit_app import SCENARIOS
 
     assert len(SCENARIOS) >= 3
-    assert "CubeSat/LEO (segments_clean)" in SCENARIOS
+    assert "ESA Mission 1" in SCENARIOS
 
 
 def test_level_colors_defined() -> None:

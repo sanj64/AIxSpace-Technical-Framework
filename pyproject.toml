@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ad-dss"
 version = "0.1.0"
-description = "Spacecraft Anomaly Detection & Decision Support System (TRL 5)"
+description = "Spacecraft Anomaly Detection & Decision Support research framework"
 requires-python = ">=3.11"
 dependencies = [
     "numpy",
@@ -36,13 +36,15 @@ dev = [
 
 [project.scripts]
 run-pipeline = "ad_dss.core.mission_engine:main"
+esa-rebuild = "ad_dss.pipeline.esa_rebuild:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --tb=short"
+pythonpath = ["src"]
+addopts = "-v --tb=short --basetemp=.pytest-tmp"
 filterwarnings = [
     "ignore::DeprecationWarning",
     "ignore::UserWarning",
@@ -52,6 +54,7 @@ filterwarnings = [
 line-length = 100
 src = ["src", "tests", "app"]
 target-version = "py311"
+extend-exclude = ["archive"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]

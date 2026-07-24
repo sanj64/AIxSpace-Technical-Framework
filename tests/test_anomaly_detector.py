@@ -32,6 +32,7 @@ def small_df() -> pd.DataFrame:
 
 
 def test_lstm_train_and_score(config: dict, small_df: pd.DataFrame, tmp_path: Path) -> None:
+    pytest.importorskip("tensorflow")
     cfg = dict(config)
     cfg["anomaly_detector"] = dict(cfg["anomaly_detector"])
     cfg["anomaly_detector"]["window_size"] = 10
@@ -55,6 +56,7 @@ def test_lstm_train_and_score(config: dict, small_df: pd.DataFrame, tmp_path: Pa
 def test_lstm_detect_returns_anomaly_results(
     config: dict, small_df: pd.DataFrame, tmp_path: Path
 ) -> None:
+    pytest.importorskip("tensorflow")
     from ad_dss.common.schemas import AnomalyResult
 
     cfg = dict(config)
@@ -79,6 +81,7 @@ def test_lstm_detect_returns_anomaly_results(
 
 
 def test_lstm_save_load(config: dict, small_df: pd.DataFrame, tmp_path: Path) -> None:
+    pytest.importorskip("tensorflow")
     cfg = dict(config)
     cfg["anomaly_detector"] = dict(cfg["anomaly_detector"])
     cfg["anomaly_detector"]["window_size"] = 10

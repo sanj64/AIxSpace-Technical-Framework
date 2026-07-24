@@ -14,6 +14,7 @@ import yaml
 from ad_dss.common.logging_config import get_logger
 from ad_dss.common.schemas import MissionEvent, MissionPhase
 from ad_dss.common.seed import set_seed
+from ad_dss.data.esa_reproducible import reject_forbidden_training_input
 from ad_dss.data.preprocessing import clean
 from ad_dss.decision.backup_strategy import BackupStrategyManager
 from ad_dss.decision.decision_logic import DecisionEngine
@@ -70,6 +71,7 @@ class MissionEngine:
         """
         t_start = time.perf_counter()
         data_path = Path(data_path)
+        reject_forbidden_training_input(data_path)
         logger.info("run_batch: data=%s method=%s", data_path, method)
 
         df_raw = self.handler.load(data_path)
@@ -180,6 +182,7 @@ class MissionEngine:
         then streams events through the pipeline step by step.
         """
         data_path = Path(data_path)
+        reject_forbidden_training_input(data_path)
         logger.info("run_replay: data=%s method=%s", data_path, method)
 
         df_raw = self.handler.load(data_path)
@@ -305,7 +308,7 @@ def main() -> None:
     parser.add_argument(
         "--data", default=None, help="Path to telemetry CSV (overrides config default)"
     )
-    parser.add_argument("--method", default="lstm", choices=["lstm", "isolation_forest", "zscore"])
+    parser.add_argument("--method", default="zscore", choices=["lstm", "isolation_forest", "zscore"])
     parser.add_argument("--validate", action="store_true", help="Run validation suite")
     parser.add_argument("--no-report", action="store_true", help="Skip report generation")
     args = parser.parse_args()
@@ -318,7 +321,8 @@ def main() -> None:
 
     data_path = (
         args.data
-        or engine.config.get("paths", {}).get("data_raw", "data/raw") + "/segments_clean.csv"
+        or engine.config.get("paths", {}).get("data_raw", "data/raw")
+        + "/ESA-M1/ESA-M1(preprocessed)/labels_cleaned.csv"
     )
     data_path = Path(data_path)
     if not data_path.exists():
@@ -341,8 +345,9 @@ def _run_validation(engine: MissionEngine, method: str) -> None:
     """Run KPI measurement across available datasets."""
 
     datasets = {
-        "segments_clean": Path("data/raw/segments_clean.csv"),
-        "dataset_clean": Path("data/raw/dataset_clean.csv"),
+        "esa_m1_labels": Path("data/raw/ESA-M1/ESA-M1(preprocessed)/labels_cleaned.csv"),
+        "esa_m2_labels": Path("data/raw/ESA-M2/ESA-M2(preprocessed)/labels_cleaned.csv"),
+        "esa_m3_labels": Path("data/raw/ESA-M3/ESA- M3(preprocessed)/labels_cleaned.csv"),
     }
 
     all_results = {}

@@ -11,9 +11,12 @@ src/ad_dss.egg-info/top_level.txt
 src/ad_dss/common/__init__.py
 src/ad_dss/core/__init__.py
 src/ad_dss/data/__init__.py
+src/ad_dss/data/esa_reproducible.py
 src/ad_dss/decision/__init__.py
 src/ad_dss/feedback/__init__.py
 src/ad_dss/models/__init__.py
+src/ad_dss/pipeline/__init__.py
+src/ad_dss/pipeline/esa_rebuild.py
 src/ad_dss/reports/__init__.py
 src/ad_dss/telemetry/__init__.py
 src/ad_dss/utils/__init__.py

@@ -15,7 +15,6 @@ matplotlib.use("Agg")
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-import streamlit as st
 import yaml
 from plotly.subplots import make_subplots
 
@@ -23,20 +22,45 @@ from ad_dss.common.schemas import MissionEvent
 from ad_dss.core.mission_engine import MissionEngine
 from ad_dss.reports.generate_report import generate_report
 
+try:
+    import streamlit as st
+except Exception:  # pragma: no cover - import guard for dependency-skewed test environments
+    class _StreamlitFallback:
+        session_state: dict = {}
+
+        @staticmethod
+        def warning(_message: str) -> None:
+            return None
+
+        @staticmethod
+        def set_page_config(**_kwargs: object) -> None:
+            return None
+
+        @staticmethod
+        def cache_data(**_kwargs: object) -> object:
+            def decorator(function: object) -> object:
+                return function
+
+            return decorator
+
+        def __getattr__(self, name: str) -> object:
+            raise RuntimeError(f"streamlit is unavailable; cannot use st.{name}")
+
+    st = _StreamlitFallback()
+
 # ── Constants ────────────────────────────────────────────────────────────────
 
 CONFIG_PATH = "config/settings.yaml"
 DATA_ROOT = Path("data/raw")
 
 SCENARIOS: dict[str, str] = {
-    "CubeSat/LEO (segments_clean)": str(DATA_ROOT / "segments_clean.csv"),
     "ESA Mission 1": str(DATA_ROOT / "ESA-M1" / "ESA-M1(preprocessed)" / "labels_cleaned.csv"),
     "ESA Mission 2": str(DATA_ROOT / "ESA-M2" / "ESA-M2(preprocessed)" / "labels_cleaned.csv"),
     "ESA Mission 3": str(DATA_ROOT / "ESA-M3" / "ESA- M3(preprocessed)" / "labels_cleaned.csv"),
     "Synthetic Thermal Failure": "GENERATE",
 }
 
-METHODS = ["zscore", "isolation_forest", "lstm"]
+METHODS = ["zscore"]
 
 LEVEL_COLORS = {"LOW": "#2ecc71", "MEDIUM": "#f39c12", "CRITICAL": "#e74c3c"}
 
@@ -159,8 +183,9 @@ def _resolve_data_path(scenario_name: str) -> str:
     if path == "GENERATE":
         return _ensure_thermal_csv()
     if not Path(path).exists():
-        st.warning(f"Dataset not found: {path}. Falling back to segments_clean.csv.")
-        return str(DATA_ROOT / "segments_clean.csv")
+        fallback = DATA_ROOT / "ESA-M1" / "ESA-M1(preprocessed)" / "labels_cleaned.csv"
+        st.warning(f"Dataset not found: {path}. Falling back to ESA Mission 1 metadata.")
+        return str(fallback)
     return path
 
 

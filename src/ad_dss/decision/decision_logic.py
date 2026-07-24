@@ -88,7 +88,9 @@ class DecisionEngine:
         d_cfg = config.get("decision", config)
         self.mode = mode or d_cfg.get("mode", "rule")
         self.rl_timesteps: int = int(d_cfg.get("rl_timesteps", 2000))
-        self.rl_model_path = Path(d_cfg.get("rl_model_path", "models/ppo_decision_agent"))
+        self.rl_model_path = Path(
+            d_cfg.get("rl_model_path", "archive/unverified_pipeline/ppo_decision_agent")
+        )
         self._rl_model: object = None
 
     # ── Public API ───────────────────────────────────────────────────────────

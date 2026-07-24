@@ -14,7 +14,7 @@ paths:
 
 # ─── Telemetry Handler ────────────────────────────────────────────────────────
 telemetry:
-  filename: "segments_clean.csv"
+  filename: "ESA-M1/ESA-M1(preprocessed)/labels_cleaned.csv"
   timestamp_col: "timestamp"
   subsystems: ["EPS", "ADCS", "COM", "Thermal"]
   n_synthetic_points: 500
@@ -28,7 +28,7 @@ preprocessing:
 
 # ─── Anomaly Detector ─────────────────────────────────────────────────────────
 anomaly_detector:
-  default_method: "lstm"        # "lstm" | "isolation_forest" | "zscore"
+  default_method: "zscore"      # "lstm" | "isolation_forest" | "zscore"
   window_size: 30
   latent_dim: 32
   model_path: "models/lstm_autoencoder.keras"
@@ -119,7 +119,7 @@ risk_predictor:
 decision:
   mode: "rule"                  # "rule" | "rl"
   rl_timesteps: 2000
-  rl_model_path: "models/ppo_decision_agent"
+  rl_model_path: "archive/unverified_pipeline/ppo_decision_agent"
 
 # ─── Backup Strategies ────────────────────────────────────────────────────────
 backup_strategies:
@@ -190,26 +190,18 @@ failure_scenario:
 
 # ─── Datasets ─────────────────────────────────────────────────────────────────
 datasets:
-  segments_clean:
-    path: "data/raw/segments_clean.csv"
-    label_col: null
-    description: "CubeSat/LEO telemetry segments"
-  dataset_clean:
-    path: "data/raw/dataset_clean.csv"
-    label_col: null
-    description: "ESA preprocessed dataset"
   esa_m1:
     path: "data/raw/ESA-M1"
-    label_col: "label_anomaly"
-    description: "ESA Mission 1 preprocessed"
+    label_col: "ID"
+    description: "ESA Mission 1 metadata from Zenodo record 12528696"
   esa_m2:
     path: "data/raw/ESA-M2"
-    label_col: null
-    description: "ESA Mission 2 preprocessed"
+    label_col: "ID"
+    description: "ESA Mission 2 metadata from Zenodo record 12528696"
   esa_m3:
     path: "data/raw/ESA-M3"
-    label_col: null
-    description: "ESA Mission 3 preprocessed"
+    label_col: "ID"
+    description: "ESA Mission 3 metadata from Zenodo record 12528696"
   thermal_failure:
     path: "data/artifacts/failure_scenario_thermal.csv"
     label_col: "label_anomaly"

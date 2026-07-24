@@ -84,6 +84,7 @@ def test_rl_fallback_low_score(config: dict) -> None:
 
 def test_anomaly_env_init_and_reset() -> None:
     """AnomalyEnv wraps a gymnasium Env that resets correctly."""
+    pytest.importorskip("gymnasium")
     import numpy as np
 
     from ad_dss.decision.decision_logic import AnomalyEnv
@@ -99,6 +100,7 @@ def test_anomaly_env_init_and_reset() -> None:
 
 def test_anomaly_env_step() -> None:
     """AnomalyEnv.step returns correct reward for anomalous score + action."""
+    pytest.importorskip("gymnasium")
     import numpy as np
 
     from ad_dss.decision.decision_logic import AnomalyEnv
@@ -115,6 +117,7 @@ def test_anomaly_env_step() -> None:
 
 def test_train_rl_creates_model(config: dict) -> None:
     """train_rl runs without error and sets _rl_model."""
+    pytest.importorskip("stable_baselines3")
     import numpy as np
 
     engine = DecisionEngine(config, mode="rl")
@@ -127,6 +130,7 @@ def test_train_rl_creates_model(config: dict) -> None:
 
 def test_decide_rl_with_trained_model(config: dict) -> None:
     """decide_rl uses PPO model when one is loaded."""
+    pytest.importorskip("stable_baselines3")
     import numpy as np
 
     engine = DecisionEngine(config, mode="rl")
@@ -142,6 +146,7 @@ def test_decide_rl_with_trained_model(config: dict) -> None:
 
 def test_decide_with_rl_model_active(config: dict) -> None:
     """decide() routes through RL policy when mode='rl' and model is loaded."""
+    pytest.importorskip("stable_baselines3")
     import numpy as np
 
     engine = DecisionEngine(config, mode="rl")

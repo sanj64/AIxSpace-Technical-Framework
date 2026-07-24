@@ -1,0 +1,189 @@
+{
+  "generated_outputs": {},
+  "limitations": [
+    "This local checkout contains ESA labels, channel metadata, and telecommands only.",
+    "Per-channel telemetry values required for model training are not present.",
+    "No active model metrics are claimed until the full ESA telemetry payload is available."
+  ],
+  "scaler_fit_partition": "not fit; local ESA checkout contains metadata only",
+  "seed": 42,
+  "source_files": [
+    {
+      "columns": [],
+      "path": "AI-FP/ESA-M1(preprocessed).zip",
+      "rows": null,
+      "sha256": "a746acbe56c6d9995c785c44c54e49e2db433a3387d3687482960a0b28a0148e",
+      "size_bytes": 38246
+    },
+    {
+      "columns": [],
+      "path": "AI-FP/ESA-M2(preprocessed).zip",
+      "rows": null,
+      "sha256": "2bf3907f195d4df6f960ad752280c1c25b544ee8a91bcb289db0ca9ff1a9c720",
+      "size_bytes": 40830
+    },
+    {
+      "columns": [],
+      "path": "AI-FP/ESA- M3(preprocessed).zip",
+      "rows": null,
+      "sha256": "dcde2b8c573c5e3f30fa6277df11c72e88b2301a21e7f13ebffa24d65440866d",
+      "size_bytes": 36559
+    },
+    {
+      "columns": [
+        "ID",
+        "Class",
+        "Subclass",
+        "Category",
+        "Dimensionality",
+        "Locality",
+        "Length"
+      ],
+      "path": "data/raw/ESA-M1/ESA-M1(preprocessed)/anomaly_types_cleaned.csv",
+      "rows": 200,
+      "sha256": "a0dd8afd572693dca295262f025769d47197563cc7293c35160d3b199eb68e0c",
+      "size_bytes": 4090
+    },
+    {
+      "columns": [
+        "Channel",
+        "Subsystem",
+        "Physical Unit",
+        "Group",
+        "Target"
+      ],
+      "path": "data/raw/ESA-M1/ESA-M1(preprocessed)/channels_cleaned.csv",
+      "rows": 76,
+      "sha256": "b2dede7f52d20fbfb8eabb37ffe94299a9c768788dd0bf55e7e99d8b454b6dc8",
+      "size_bytes": 1584
+    },
+    {
+      "columns": [
+        "ID",
+        "Channel",
+        "StartTime",
+        "EndTime",
+        "Duration"
+      ],
+      "path": "data/raw/ESA-M1/ESA-M1(preprocessed)/labels_cleaned.csv",
+      "rows": 3589,
+      "sha256": "80c39d4c04b005e55d93a4f44d8ec9a032365e5c8aa53a200e52c4505afeae56",
+      "size_bytes": 329314
+    },
+    {
+      "columns": [
+        "Telecommand",
+        "Priority"
+      ],
+      "path": "data/raw/ESA-M1/ESA-M1(preprocessed)/telecommands_cleaned.csv",
+      "rows": 698,
+      "sha256": "222b346fb6d958bc98efd865d02f1b875217d6a6bf61c5c3a18aff33c3729ba3",
+      "size_bytes": 4798
+    },
+    {
+      "columns": [
+        "ID",
+        "Class",
+        "Subclass",
+        "Category",
+        "Dimensionality",
+        "Locality",
+        "Length"
+      ],
+      "path": "data/raw/ESA-M2/ESA-M2(preprocessed)/anomaly_types_cleaned.csv",
+      "rows": 200,
+      "sha256": "a0dd8afd572693dca295262f025769d47197563cc7293c35160d3b199eb68e0c",
+      "size_bytes": 4090
+    },
+    {
+      "columns": [
+        "Channel",
+        "Subsystem",
+        "Physical Unit",
+        "Group",
+        "Target"
+      ],
+      "path": "data/raw/ESA-M2/ESA-M2(preprocessed)/channels_cleaned.csv",
+      "rows": 76,
+      "sha256": "b2dede7f52d20fbfb8eabb37ffe94299a9c768788dd0bf55e7e99d8b454b6dc8",
+      "size_bytes": 1584
+    },
+    {
+      "columns": [
+        "Event",
+        "StartTime",
+        "EndTime"
+      ],
+      "path": "data/raw/ESA-M2/ESA-M2(preprocessed)/events_cleaned.csv",
+      "rows": 604,
+      "sha256": "59bc09f3fa9fbf66953e4c77ce31a768677739bb2dc0b367833997aefda425de",
+      "size_bytes": 6651
+    },
+    {
+      "columns": [
+        "ID",
+        "Channel",
+        "StartTime",
+        "EndTime",
+        "Duration"
+      ],
+      "path": "data/raw/ESA-M2/ESA-M2(preprocessed)/labels_cleaned.csv",
+      "rows": 3589,
+      "sha256": "80c39d4c04b005e55d93a4f44d8ec9a032365e5c8aa53a200e52c4505afeae56",
+      "size_bytes": 329314
+    },
+    {
+      "columns": [
+        "Telecommand",
+        "Priority"
+      ],
+      "path": "data/raw/ESA-M2/ESA-M2(preprocessed)/telecommands_cleaned.csv",
+      "rows": 698,
+      "sha256": "222b346fb6d958bc98efd865d02f1b875217d6a6bf61c5c3a18aff33c3729ba3",
+      "size_bytes": 4798
+    },
+    {
+      "columns": [
+        "ID",
+        "Class",
+        "Subclass",
+        "Category",
+        "Dimensionality",
+        "Locality",
+        "Length"
+      ],
+      "path": "data/raw/ESA-M3/ESA- M3(preprocessed)/anomaly_types_cleaned.csv",
+      "rows": 200,
+      "sha256": "a0dd8afd572693dca295262f025769d47197563cc7293c35160d3b199eb68e0c",
+      "size_bytes": 4090
+    },
+    {
+      "columns": [
+        "Channel",
+        "Subsystem",
+        "Physical Unit",
+        "Group",
+        "Target"
+      ],
+      "path": "data/raw/ESA-M3/ESA- M3(preprocessed)/channels_cleaned.csv",
+      "rows": 76,
+      "sha256": "b2dede7f52d20fbfb8eabb37ffe94299a9c768788dd0bf55e7e99d8b454b6dc8",
+      "size_bytes": 1584
+    },
+    {
+      "columns": [
+        "ID",
+        "Channel",
+        "StartTime",
+        "EndTime",
+        "Duration"
+      ],
+      "path": "data/raw/ESA-M3/ESA- M3(preprocessed)/labels_cleaned.csv",
+      "rows": 3589,
+      "sha256": "80c39d4c04b005e55d93a4f44d8ec9a032365e5c8aa53a200e52c4505afeae56",
+      "size_bytes": 329314
+    }
+  ],
+  "split_boundaries": null,
+  "zenodo_record": "12528696"
+}

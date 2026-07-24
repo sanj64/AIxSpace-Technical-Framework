@@ -1,0 +1,6 @@
+{
+  "active_training_performed": false,
+  "manifest": "artifacts/esa_rebuild/run_manifest.json",
+  "reason": "complete ESA telemetry values are not present in this checkout",
+  "status": "verified_metadata_only"
+}
