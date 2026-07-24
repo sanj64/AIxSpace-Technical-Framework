@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import io
+import zipfile
 from pathlib import Path
 
 import numpy as np
@@ -14,9 +16,37 @@ from ad_dss.data.esa_reproducible import (
     chronological_split,
     fit_train_only_scaler,
     reject_forbidden_training_input,
+    train_mission1_zscore,
     validate_esa_layout,
 )
 from ad_dss.pipeline.esa_rebuild import dry_run
+
+
+def _write_small_mission1_zip(path: Path) -> None:
+    index = pd.date_range("2000-01-01", periods=100, freq="h")
+    values = np.sin(np.arange(100) / 8.0).astype("float32")
+    values[85:90] = 12.0
+    frame = pd.DataFrame({"channel_1": values}, index=index)
+    frame.index.name = "datetime"
+    payload = io.BytesIO()
+    frame.to_pickle(payload)
+    nested = io.BytesIO()
+    with zipfile.ZipFile(nested, "w", zipfile.ZIP_DEFLATED) as inner:
+        inner.writestr("channel_1", payload.getvalue())
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as outer:
+        outer.writestr(
+            "ESA-Mission1/channels.csv",
+            "Channel,Subsystem,Physical Unit,Group,Target\n"
+            "channel_1,subsystem_1,physical_unit_1,1,YES\n",
+        )
+        outer.writestr("ESA-Mission1/anomaly_types.csv", "ID,Category\nid_1,Anomaly\n")
+        outer.writestr(
+            "ESA-Mission1/labels.csv",
+            "ID,Channel,StartTime,EndTime\n"
+            "id_1,channel_1,2000-01-04T13:00:00Z,2000-01-04T17:00:00Z\n",
+        )
+        outer.writestr("ESA-Mission1/telecommands.csv", "Telecommand,Priority\nnoop,low\n")
+        outer.writestr("ESA-Mission1/channels/channel_1.zip", nested.getvalue())
 
 
 def test_forbidden_training_inputs_are_rejected() -> None:
@@ -69,3 +99,14 @@ def test_dry_run_writes_manifest(tmp_path: Path) -> None:
     assert output.exists()
     assert manifest.exists()
     assert "12528696" in manifest.read_text(encoding="utf-8")
+
+
+def test_train_mission1_zscore_uses_real_zip_layout(tmp_path: Path) -> None:
+    source_zip = tmp_path / "ESA-Mission1.zip"
+    _write_small_mission1_zip(source_zip)
+    outputs = train_mission1_zscore(source_zip, tmp_path / "out")
+    assert outputs["artifact"].exists()
+    assert outputs["metrics"].exists()
+    metrics = outputs["metrics"].read_text(encoding="utf-8")
+    assert '"active_training_performed": true' in metrics
+    assert '"channels_trained": 1' in metrics

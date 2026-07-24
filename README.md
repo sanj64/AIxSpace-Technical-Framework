@@ -6,7 +6,7 @@ AI-DSS is a spacecraft anomaly detection and decision-support research framework
 
 The repository now treats historical `segments_clean` and `dataset_clean` files as unverified archive material. They are preserved under `archive/unverified_pipeline/` and are blocked as active training inputs.
 
-The local checkout contains ESA mission metadata files from the preprocessed ESA archives: channels, labels, telecommands, events, and anomaly types. It does not contain complete per-channel telemetry values required to retrain active anomaly models. For that reason, no active model accuracy, precision, recall, F1, ROC-AUC, PR-AUC, calibration, or feature-importance result is claimed until the complete verified ESA payload is installed and the rebuild workflow is run.
+The active baseline has now been trained from the real `ESA-Mission1.zip` archive. It is a channelwise Z-score baseline, not a production model. Current aggregate test metrics are precision `0.0412`, recall `0.2461`, F1 `0.0706`, and F0.5 `0.0494` across `148971440` test samples. Event-level evidence detected `146` of `558` test-overlapping labelled intervals.
 
 ## Reproducible Workflow
 
@@ -16,13 +16,10 @@ Install the package in editable mode, then run:
 python -m ad_dss.pipeline.esa_rebuild audit
 python -m ad_dss.pipeline.esa_rebuild verify
 python -m ad_dss.pipeline.esa_rebuild dry-run
+python -m ad_dss.pipeline.esa_rebuild full-rebuild --source-zip "<path-to-ESA-Mission1.zip>"
 ```
 
-`full-rebuild` intentionally fails closed in this checkout because the complete telemetry values are not present:
-
-```bash
-python -m ad_dss.pipeline.esa_rebuild full-rebuild
-```
+`full-rebuild` requires the explicit real ESA Mission 1 zip path. It does not fall back to synthetic data or archived historical CSVs.
 
 ## Active Data Policy
 

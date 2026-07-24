@@ -13,10 +13,10 @@ These commands write evidence under `artifacts/esa_rebuild/`.
 ## Full Rebuild
 
 ```bash
-python -m ad_dss.pipeline.esa_rebuild full-rebuild
+python -m ad_dss.pipeline.esa_rebuild full-rebuild --source-zip "<path-to-ESA-Mission1.zip>"
 ```
 
-In this checkout, full rebuild fails closed because complete ESA telemetry values are not present. This is expected and prevents accidental publication of metrics from incomplete or unverified inputs.
+Full rebuild requires an explicit `--source-zip` path. It will not fall back to synthetic data or archived historical CSVs.
 
 ## Determinism Requirements
 

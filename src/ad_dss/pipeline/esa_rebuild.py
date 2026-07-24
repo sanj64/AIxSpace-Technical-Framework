@@ -14,6 +14,8 @@ from ad_dss.data.esa_reproducible import (
     ReproducibilityError,
     compare_unverified_inputs,
     hash_outputs,
+    sha256_file,
+    train_mission1_zscore,
     validate_esa_layout,
     verify_archives,
 )
@@ -37,6 +39,13 @@ def _relative_evidence(root: Path, evidence: list[FileEvidence]) -> list[FileEvi
             )
         )
     return relative
+
+
+def _display_path(root: Path, path: Path) -> str:
+    try:
+        return path.relative_to(root).as_posix()
+    except ValueError:
+        return path.name
 
 
 def audit(root: Path, output_dir: Path) -> Path:
@@ -98,18 +107,39 @@ def dry_run(root: Path, output_dir: Path) -> Path:
     return out
 
 
-def full_rebuild(root: Path, output_dir: Path) -> Path:
-    telemetry_candidates = list((root / "data/raw").glob("ESA-M*/**/*channel*.pkl"))
-    telemetry_candidates += list((root / "data/raw").glob("ESA-M*/**/*telemetry*.csv"))
-    if not telemetry_candidates:
-        verify(root, output_dir)
+def full_rebuild(
+    root: Path,
+    output_dir: Path,
+    source_zip: Path | None,
+    channel_limit: int | None,
+) -> Path:
+    if source_zip is None:
         raise ReproducibilityError(
-            "Full ESA telemetry values are not present. "
-            "Install the complete Zenodo 12528696 payload before training active models."
+            "Full rebuild requires --source-zip pointing to the real ESA-Mission1.zip file."
         )
-    raise ReproducibilityError(
-        "Telemetry payload detected but no active model trainer has been approved for this layout."
+    outputs = train_mission1_zscore(
+        source_zip=source_zip,
+        output_dir=output_dir,
+        channel_limit=channel_limit,
     )
+    generated = hash_outputs(outputs.values())
+    output_hashes = {_display_path(root, Path(path)): digest for path, digest in generated.items()}
+    manifest = {
+        "zenodo_record": "12528696",
+        "active_training_performed": True,
+        "source_zip": source_zip.name,
+        "source_zip_hash": sha256_file(source_zip),
+        "outputs": {key: _display_path(root, value) for key, value in outputs.items()},
+        "output_hashes": output_hashes,
+        "training_policy": (
+            "Channelwise Z-score baseline fit on finite, non-labelled samples in the "
+            "chronological training partition; thresholds calibrated on finite, non-labelled "
+            "validation samples; metrics evaluated on untouched chronological test samples."
+        ),
+    }
+    out = output_dir / "full_rebuild_manifest.json"
+    out.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    return out
 
 
 def write_metrics_placeholder(output_dir: Path) -> Path:
@@ -135,6 +165,13 @@ def main() -> None:
     )
     parser.add_argument("--root", default=".", help="Repository root")
     parser.add_argument("--output-dir", default="artifacts/esa_rebuild", help="Evidence output folder")
+    parser.add_argument("--source-zip", default=None, help="Path to ESA-Mission1.zip")
+    parser.add_argument(
+        "--channel-limit",
+        type=int,
+        default=None,
+        help="Optional channel limit for smoke testing; omit for all Mission 1 channels",
+    )
     args = parser.parse_args()
 
     root = Path(args.root).resolve()
@@ -148,7 +185,8 @@ def main() -> None:
     elif args.command == "metrics-placeholder":
         path = write_metrics_placeholder(output_dir)
     else:
-        path = full_rebuild(root, output_dir)
+        source_zip = Path(args.source_zip).resolve() if args.source_zip else None
+        path = full_rebuild(root, output_dir, source_zip, args.channel_limit)
     generated = hash_outputs([path])
     print(json.dumps({"output": path.as_posix(), "sha256": generated.get(path.as_posix())}, indent=2))
 

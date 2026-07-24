@@ -1,0 +1,19 @@
+{
+  "active_training_performed": true,
+  "output_hashes": {
+    "artifacts/esa_rebuild/mission1_channel_metrics.csv": "fccef8717fd48f6bc128dc91a6dd2b2fd5c95cce89274ee8717387d63d868905",
+    "artifacts/esa_rebuild/mission1_event_metrics.csv": "9bade159299daa5551a30fdeefadf42d51d2079eea3d1f07515f37932ca4f271",
+    "artifacts/esa_rebuild/mission1_metrics.json": "75dd5ffbb1dbf171617839eba1905e97fee6bf89612ed8cefdc20bbab5d07c3a",
+    "artifacts/esa_rebuild/mission1_zscore_model.json": "c486aa7ca22464a6128a154215567b8462cf5f632a1b6042054f5f7351085b66"
+  },
+  "outputs": {
+    "artifact": "artifacts/esa_rebuild/mission1_zscore_model.json",
+    "channel_metrics": "artifacts/esa_rebuild/mission1_channel_metrics.csv",
+    "event_metrics": "artifacts/esa_rebuild/mission1_event_metrics.csv",
+    "metrics": "artifacts/esa_rebuild/mission1_metrics.json"
+  },
+  "source_zip": "ESA-Mission1.zip",
+  "source_zip_hash": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+  "training_policy": "Channelwise Z-score baseline fit on finite, non-labelled samples in the chronological training partition; thresholds calibrated on finite, non-labelled validation samples; metrics evaluated on untouched chronological test samples.",
+  "zenodo_record": "12528696"
+}

@@ -1,0 +1,17 @@
+{
+  "active_training_performed": true,
+  "artifact_sha256": "c486aa7ca22464a6128a154215567b8462cf5f632a1b6042054f5f7351085b66",
+  "channels_trained": 76,
+  "f0_5": 0.049433327930794996,
+  "f1": 0.07058725210051678,
+  "fn": 1482347,
+  "fp": 11262519,
+  "model": "mission1_channelwise_zscore",
+  "positive_samples": 1966322,
+  "precision": 0.04120165557484642,
+  "recall": 0.24613211874759067,
+  "samples": 148971440,
+  "source_zip_sha256": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+  "tn": 135742599,
+  "tp": 483975
+}

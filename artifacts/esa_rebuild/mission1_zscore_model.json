@@ -1,0 +1,1075 @@
+{
+  "channels": {
+    "channel_1": {
+      "mean": 0.13806079343648256,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:56.109000",
+        "test_start": "2011-04-01 17:47:56.277000",
+        "train_end": "2008-10-30 11:01:11.406000",
+        "train_start": "2000-01-01 00:00:02.805000",
+        "validation_end": "2011-04-01 17:46:26.277000",
+        "validation_start": "2008-10-30 11:02:41.406000"
+      },
+      "std": 0.005357609410648261,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_10": {
+      "mean": 0.05294627048359747,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:32.106000",
+        "test_start": "2011-04-30 15:06:32.265000",
+        "train_end": "2009-09-23 20:08:32.355000",
+        "train_start": "2000-01-01 00:01:51.549000",
+        "validation_end": "2011-04-30 15:06:31.515000",
+        "validation_start": "2009-09-23 20:11:32.355000"
+      },
+      "std": 0.026018582676062524,
+      "threshold": 3.545139801435225,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_11": {
+      "mean": 0.026525820834378502,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:32.106000",
+        "test_start": "2011-04-30 15:06:32.265000",
+        "train_end": "2009-09-23 20:08:32.355000",
+        "train_start": "2000-01-01 00:01:51.549000",
+        "validation_end": "2011-04-30 15:06:31.515000",
+        "validation_start": "2009-09-23 20:11:32.355000"
+      },
+      "std": 0.0021214883295393406,
+      "threshold": 16.48772192834825,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_12": {
+      "mean": 0.264135882996947,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.036774869278511924,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_13": {
+      "mean": 0.31600713002996217,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.03576265038671225,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_14": {
+      "mean": 0.23817833357037158,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.056645893745186096,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_15": {
+      "mean": 0.09272880005443813,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.044704028210437056,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_16": {
+      "mean": 0.7372543788365292,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.06692935289870273,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_17": {
+      "mean": 0.30200559955500406,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.037671209768825736,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_18": {
+      "mean": 0.3236756348228182,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.036748520157490305,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_19": {
+      "mean": 0.2683657763854988,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.04531607799189125,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_2": {
+      "mean": 0.12672095855108206,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:56.109000",
+        "test_start": "2011-04-01 17:47:56.277000",
+        "train_end": "2008-10-30 11:01:11.406000",
+        "train_start": "2000-01-01 00:00:02.805000",
+        "validation_end": "2011-04-01 17:46:26.277000",
+        "validation_start": "2008-10-30 11:02:41.406000"
+      },
+      "std": 0.014589380637562014,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_20": {
+      "mean": 0.3163777786233255,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.03651077754668768,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_21": {
+      "mean": 0.24436649504173585,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.05767284980345361,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_22": {
+      "mean": 0.30980615769752773,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.045490312549960575,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_23": {
+      "mean": 0.09880595809678473,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.04457627527264055,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_24": {
+      "mean": 0.7305965677785523,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.06686622451225356,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_25": {
+      "mean": 0.258631006347828,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.03681774921471171,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_26": {
+      "mean": 0.36273947031588516,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.036091683166412605,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_27": {
+      "mean": 0.23421663358170666,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.03893048339007409,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_28": {
+      "mean": 0.17576919532065968,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.04186681790973446,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_29": {
+      "mean": 0.2595409215125928,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.05257536708819775,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_3": {
+      "mean": 0.1267943032877109,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:56.109000",
+        "test_start": "2011-04-01 17:47:56.277000",
+        "train_end": "2008-10-30 11:01:11.406000",
+        "train_start": "2000-01-01 00:00:02.805000",
+        "validation_end": "2011-04-01 17:46:26.277000",
+        "validation_start": "2008-10-30 11:02:41.406000"
+      },
+      "std": 0.015470948876217035,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_30": {
+      "mean": 0.12130062420924685,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.05049664068972418,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_31": {
+      "mean": 0.30792131832237596,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.04555612410912584,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_32": {
+      "mean": 0.7457180311796198,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.06697919289382996,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_33": {
+      "mean": 0.7791458749177858,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.06728504522009132,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_34": {
+      "mean": 0.15468944036516646,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.03721811840279555,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_35": {
+      "mean": 0.1960756159020015,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.03742264193908104,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_36": {
+      "mean": 0.23846038609010894,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.0414311712735938,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_37": {
+      "mean": 0.2759529206719051,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2013-02-28 00:38:42.738000",
+        "train_end": "2012-10-04 06:15:30.390000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2013-02-28 00:38:42.363000",
+        "validation_start": "2012-10-04 06:15:30.765000"
+      },
+      "std": 0.03871745492052639,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_38": {
+      "mean": 0.12075609717583254,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.05054736992017804,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_39": {
+      "mean": 0.310559702928976,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.04642172130735394,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_4": {
+      "mean": 0.05462199218906676,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:32.106000",
+        "test_start": "2011-04-30 15:06:32.265000",
+        "train_end": "2009-09-23 20:08:32.355000",
+        "train_start": "2000-01-01 00:01:51.549000",
+        "validation_end": "2011-04-30 15:06:31.515000",
+        "validation_start": "2009-09-23 20:11:32.355000"
+      },
+      "std": 0.0285889733823307,
+      "threshold": 5.166406716903876,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_40": {
+      "mean": 0.78276473259649,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:59.937000",
+        "test_start": "2010-12-29 08:52:30.117000",
+        "train_end": "2007-12-19 18:26:45.282000",
+        "train_start": "2000-01-01 00:00:06.633000",
+        "validation_end": "2010-12-29 08:51:00.117000",
+        "validation_start": "2007-12-19 18:28:15.282000"
+      },
+      "std": 0.06732078452824629,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_41": {
+      "mean": 0.8110015258422376,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:39.657000",
+        "test_start": "2011-03-21 04:13:39.825000",
+        "train_end": "2008-05-16 05:00:54.978000",
+        "train_start": "2000-01-01 00:00:16.353000",
+        "validation_end": "2011-03-21 04:13:09.825000",
+        "validation_start": "2008-05-16 05:01:24.978000"
+      },
+      "std": 0.004967756685615676,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_42": {
+      "mean": 0.7847299003284849,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:39.657000",
+        "test_start": "2011-03-21 04:13:39.825000",
+        "train_end": "2008-05-16 05:00:54.978000",
+        "train_start": "2000-01-01 00:00:16.353000",
+        "validation_end": "2011-03-21 04:13:09.825000",
+        "validation_start": "2008-05-16 05:01:24.978000"
+      },
+      "std": 0.006935775816915095,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_43": {
+      "mean": 0.772041972509088,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:39.657000",
+        "test_start": "2011-03-21 04:13:39.825000",
+        "train_end": "2008-05-16 05:00:54.978000",
+        "train_start": "2000-01-01 00:00:16.353000",
+        "validation_end": "2011-03-21 04:13:09.825000",
+        "validation_start": "2008-05-16 05:01:24.978000"
+      },
+      "std": 0.004990143402796532,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_44": {
+      "mean": 0.7970843842207628,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:39.657000",
+        "test_start": "2011-03-21 04:13:39.825000",
+        "train_end": "2008-05-16 05:00:54.978000",
+        "train_start": "2000-01-01 00:00:16.353000",
+        "validation_end": "2011-03-21 04:13:09.825000",
+        "validation_start": "2008-05-16 05:01:24.978000"
+      },
+      "std": 0.005927928686656471,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_45": {
+      "mean": 0.8132503972310041,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:39.657000",
+        "test_start": "2011-03-21 04:13:39.825000",
+        "train_end": "2008-05-16 05:00:54.978000",
+        "train_start": "2000-01-01 00:00:16.353000",
+        "validation_end": "2011-03-21 04:13:09.825000",
+        "validation_start": "2008-05-16 05:01:24.978000"
+      },
+      "std": 0.005594242887440442,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_46": {
+      "mean": 0.7684739141937021,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:39.657000",
+        "test_start": "2011-03-21 04:13:39.825000",
+        "train_end": "2008-05-16 05:00:54.978000",
+        "train_start": "2000-01-01 00:00:16.353000",
+        "validation_end": "2011-03-21 04:13:09.825000",
+        "validation_start": "2008-05-16 05:01:24.978000"
+      },
+      "std": 0.006900733277275124,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_47": {
+      "mean": 0.0017895829125224667,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:39.657000",
+        "test_start": "2011-03-21 11:29:39.825000",
+        "train_end": "2008-05-15 16:53:54.978000",
+        "train_start": "2000-01-01 00:00:16.353000",
+        "validation_end": "2011-03-21 11:29:09.825000",
+        "validation_start": "2008-05-15 16:54:24.978000"
+      },
+      "std": 3.28222424614193e-05,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_48": {
+      "mean": 0.0018471100185901196,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:39.657000",
+        "test_start": "2011-03-21 11:29:39.825000",
+        "train_end": "2008-05-15 16:53:54.978000",
+        "train_start": "2000-01-01 00:00:16.353000",
+        "validation_end": "2011-03-21 11:29:09.825000",
+        "validation_start": "2008-05-15 16:54:24.978000"
+      },
+      "std": 3.1097376932182594e-05,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_49": {
+      "mean": 0.0018007175708412207,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:39.657000",
+        "test_start": "2011-03-21 11:29:39.825000",
+        "train_end": "2008-05-15 16:53:54.978000",
+        "train_start": "2000-01-01 00:00:16.353000",
+        "validation_end": "2011-03-21 11:29:09.825000",
+        "validation_start": "2008-05-15 16:54:24.978000"
+      },
+      "std": 3.192233674251561e-05,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_5": {
+      "mean": 0.05396246043953826,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:32.106000",
+        "test_start": "2011-04-30 15:06:32.265000",
+        "train_end": "2009-09-23 20:08:32.355000",
+        "train_start": "2000-01-01 00:01:51.549000",
+        "validation_end": "2011-04-30 15:06:31.515000",
+        "validation_start": "2009-09-23 20:11:32.355000"
+      },
+      "std": 0.041848000768857196,
+      "threshold": 5.143898190768202,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_50": {
+      "mean": 0.7524945559795913,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:22.032000",
+        "test_start": "2011-03-01 11:59:22.203000",
+        "train_end": "2008-04-14 14:11:07.359000",
+        "train_start": "2000-01-01 00:00:58.731000",
+        "validation_end": "2011-03-01 11:57:52.206000",
+        "validation_start": "2008-04-14 14:12:37.362000"
+      },
+      "std": 0.013874308524980844,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_51": {
+      "mean": 0.7766651155038733,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:22.032000",
+        "test_start": "2011-03-01 11:59:22.203000",
+        "train_end": "2008-04-14 14:11:07.359000",
+        "train_start": "2000-01-01 00:00:58.731000",
+        "validation_end": "2011-03-01 11:57:52.206000",
+        "validation_start": "2008-04-14 14:12:37.362000"
+      },
+      "std": 0.013157481343972427,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_52": {
+      "mean": 0.7571786501956602,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:22.032000",
+        "test_start": "2011-03-01 11:59:22.203000",
+        "train_end": "2008-04-14 14:11:07.359000",
+        "train_start": "2000-01-01 00:00:58.731000",
+        "validation_end": "2011-03-01 11:57:52.206000",
+        "validation_start": "2008-04-14 14:12:37.362000"
+      },
+      "std": 0.013497044650409582,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_53": {
+      "mean": 0.8323977283568753,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:47.151000",
+        "test_start": "2011-03-21 06:29:17.319000",
+        "train_end": "2008-05-14 18:21:32.472000",
+        "train_start": "2000-01-01 00:00:23.847000",
+        "validation_end": "2011-03-21 06:28:47.319000",
+        "validation_start": "2008-05-14 18:22:02.472000"
+      },
+      "std": 0.1512924395085725,
+      "threshold": 5.501912263829352,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_54": {
+      "mean": 0.7715366946162302,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:47.151000",
+        "test_start": "2011-03-21 06:29:17.319000",
+        "train_end": "2008-05-14 18:21:32.472000",
+        "train_start": "2000-01-01 00:00:23.847000",
+        "validation_end": "2011-03-21 06:28:47.319000",
+        "validation_start": "2008-05-14 18:22:02.472000"
+      },
+      "std": 0.08076361342222296,
+      "threshold": 4.599296138578579,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_55": {
+      "mean": 0.5311639834209012,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:47.151000",
+        "test_start": "2011-03-21 06:29:17.319000",
+        "train_end": "2008-05-14 18:21:32.472000",
+        "train_start": "2000-01-01 00:00:23.847000",
+        "validation_end": "2011-03-21 06:28:47.319000",
+        "validation_start": "2008-05-14 18:22:02.472000"
+      },
+      "std": 0.1139837844721157,
+      "threshold": 4.659996032600953,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_56": {
+      "mean": 0.8461921481032038,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:47.151000",
+        "test_start": "2011-03-21 06:29:17.319000",
+        "train_end": "2008-05-14 18:21:32.472000",
+        "train_start": "2000-01-01 00:00:23.847000",
+        "validation_end": "2011-03-21 06:28:47.319000",
+        "validation_start": "2008-05-14 18:22:02.472000"
+      },
+      "std": 0.09599856798333223,
+      "threshold": 4.647061286527866,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_57": {
+      "mean": 0.7772813515596619,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:47.151000",
+        "test_start": "2011-03-21 06:29:17.319000",
+        "train_end": "2008-05-14 18:21:32.472000",
+        "train_start": "2000-01-01 00:00:23.847000",
+        "validation_end": "2011-03-21 06:28:47.319000",
+        "validation_start": "2008-05-14 18:22:02.472000"
+      },
+      "std": 0.019405575354167665,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_58": {
+      "mean": 0.7096029754739819,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:47.151000",
+        "test_start": "2011-03-21 06:29:17.319000",
+        "train_end": "2008-05-14 18:21:32.472000",
+        "train_start": "2000-01-01 00:00:23.847000",
+        "validation_end": "2011-03-21 06:28:47.319000",
+        "validation_start": "2008-05-14 18:22:02.472000"
+      },
+      "std": 0.019431187392843857,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_59": {
+      "mean": 0.8790574068402989,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:47.151000",
+        "test_start": "2011-03-21 06:29:17.319000",
+        "train_end": "2008-05-14 18:21:32.472000",
+        "train_start": "2000-01-01 00:00:23.847000",
+        "validation_end": "2011-03-21 06:28:47.319000",
+        "validation_start": "2008-05-14 18:22:02.472000"
+      },
+      "std": 0.01924976124767909,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_6": {
+      "mean": 0.07704610315036688,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:32.106000",
+        "test_start": "2011-04-30 15:06:32.265000",
+        "train_end": "2009-09-23 20:08:32.355000",
+        "train_start": "2000-01-01 00:01:51.549000",
+        "validation_end": "2011-04-30 15:06:31.515000",
+        "validation_start": "2009-09-23 20:11:32.355000"
+      },
+      "std": 0.03579610849508025,
+      "threshold": 5.061193258076941,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_60": {
+      "mean": 0.7079792662877541,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:47.151000",
+        "test_start": "2011-03-21 06:29:17.319000",
+        "train_end": "2008-05-14 18:21:32.472000",
+        "train_start": "2000-01-01 00:00:23.847000",
+        "validation_end": "2011-03-21 06:28:47.319000",
+        "validation_start": "2008-05-14 18:22:02.472000"
+      },
+      "std": 0.01923408699295074,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_61": {
+      "mean": 0.5400562732014154,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:57:38.481000",
+        "test_start": "2011-03-22 11:42:38.649000",
+        "train_end": "2008-05-12 18:42:23.805000",
+        "train_start": "2000-01-01 00:06:45.177000",
+        "validation_end": "2011-03-22 11:27:38.649000",
+        "validation_start": "2008-05-12 18:57:23.805000"
+      },
+      "std": 0.3460505510222397,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_62": {
+      "mean": 0.49293524461928007,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:57:38.481000",
+        "test_start": "2011-03-22 11:42:38.649000",
+        "train_end": "2008-05-12 18:42:23.805000",
+        "train_start": "2000-01-01 00:06:45.177000",
+        "validation_end": "2011-03-22 11:27:38.649000",
+        "validation_start": "2008-05-12 18:57:23.805000"
+      },
+      "std": 0.32985308766557836,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_63": {
+      "mean": 0.5018242163377868,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:57:38.481000",
+        "test_start": "2011-03-22 11:42:38.649000",
+        "train_end": "2008-05-12 18:42:23.805000",
+        "train_start": "2000-01-01 00:06:45.177000",
+        "validation_end": "2011-03-22 11:27:38.649000",
+        "validation_start": "2008-05-12 18:57:23.805000"
+      },
+      "std": 0.14305411499337423,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_64": {
+      "mean": 0.9670743682978598,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:17.856000",
+        "test_start": "2008-07-04 02:26:03.171000",
+        "train_end": "2005-03-17 23:20:45.333000",
+        "train_start": "2000-01-01 00:02:24.552000",
+        "validation_end": "2008-07-04 02:23:03.171000",
+        "validation_start": "2005-03-17 23:20:48.333000"
+      },
+      "std": 1.7712729340930433e-05,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_65": {
+      "mean": 0.9680136024176033,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:17.856000",
+        "test_start": "2008-07-04 02:26:03.171000",
+        "train_end": "2005-03-17 23:20:45.333000",
+        "train_start": "2000-01-01 00:02:24.552000",
+        "validation_end": "2008-07-04 02:23:03.171000",
+        "validation_start": "2005-03-17 23:20:48.333000"
+      },
+      "std": 2.7756093703919532e-05,
+      "threshold": 11.244655936691878,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_66": {
+      "mean": 0.9926536529591687,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:17.856000",
+        "test_start": "2008-07-04 02:26:03.171000",
+        "train_end": "2005-03-17 23:20:45.333000",
+        "train_start": "2000-01-01 00:02:24.552000",
+        "validation_end": "2008-07-04 02:23:03.171000",
+        "validation_start": "2005-03-17 23:20:48.333000"
+      },
+      "std": 0.00042619089707683356,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_67": {
+      "mean": 0.9962273393906769,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:17.856000",
+        "test_start": "2008-07-04 02:26:03.171000",
+        "train_end": "2005-03-17 23:20:45.333000",
+        "train_start": "2000-01-01 00:02:24.552000",
+        "validation_end": "2008-07-04 02:23:03.171000",
+        "validation_start": "2005-03-17 23:20:48.333000"
+      },
+      "std": 0.0014418066440196997,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_68": {
+      "mean": 0.7093925549916658,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:17.856000",
+        "test_start": "2008-07-04 02:26:03.171000",
+        "train_end": "2005-03-17 23:20:45.333000",
+        "train_start": "2000-01-01 00:02:24.552000",
+        "validation_end": "2008-07-04 02:23:03.171000",
+        "validation_start": "2005-03-17 23:20:48.333000"
+      },
+      "std": 0.0010237334688692633,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_69": {
+      "mean": 0.211964624891925,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:17.856000",
+        "test_start": "2008-07-04 02:26:03.171000",
+        "train_end": "2005-03-17 23:20:45.333000",
+        "train_start": "2000-01-01 00:02:24.552000",
+        "validation_end": "2008-07-04 02:23:03.171000",
+        "validation_start": "2005-03-17 23:20:48.333000"
+      },
+      "std": 0.00030619111476425727,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_7": {
+      "mean": 0.06303498600096667,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:32.106000",
+        "test_start": "2011-04-30 15:06:32.265000",
+        "train_end": "2009-09-23 20:08:32.355000",
+        "train_start": "2000-01-01 00:01:51.549000",
+        "validation_end": "2011-04-30 15:06:31.515000",
+        "validation_start": "2009-09-23 20:11:32.355000"
+      },
+      "std": 0.04741350471286534,
+      "threshold": 5.119055122747047,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_70": {
+      "mean": 0.7800578720456766,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:58.767000",
+        "test_start": "2011-03-19 05:14:28.935000",
+        "train_end": "2008-05-20 17:55:44.088000",
+        "train_start": "2000-01-01 00:00:05.463000",
+        "validation_end": "2011-03-19 05:13:58.935000",
+        "validation_start": "2008-05-20 17:56:14.088000"
+      },
+      "std": 0.004577190500176292,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_71": {
+      "mean": 0.8132904893741262,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:42.648000",
+        "test_start": "2011-03-19 08:50:12.819000",
+        "train_end": "2008-05-20 22:53:27.972000",
+        "train_start": "2000-01-01 00:00:19.344000",
+        "validation_end": "2011-03-19 08:49:42.816000",
+        "validation_start": "2008-05-20 22:53:57.972000"
+      },
+      "std": 0.003989560689351037,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_72": {
+      "mean": 0.8240631807666968,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:56.523000",
+        "test_start": "2011-03-19 08:52:26.691000",
+        "train_end": "2008-05-20 21:12:11.847000",
+        "train_start": "2000-01-01 00:00:03.219000",
+        "validation_end": "2011-03-19 08:51:56.691000",
+        "validation_start": "2008-05-20 21:12:41.847000"
+      },
+      "std": 0.004393055580826167,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_73": {
+      "mean": 0.93793540299127,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:40.398000",
+        "test_start": "2011-03-19 08:40:10.566000",
+        "train_end": "2008-05-20 23:12:55.719000",
+        "train_start": "2000-01-01 00:00:17.094000",
+        "validation_end": "2011-03-19 08:39:40.566000",
+        "validation_start": "2008-05-20 23:13:25.719000"
+      },
+      "std": 0.004537375213795253,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_74": {
+      "mean": 0.984326752452169,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:54.273000",
+        "test_start": "2010-05-02 13:29:24.492000",
+        "train_end": "2006-08-15 05:23:33.687000",
+        "train_start": "2000-01-01 00:00:00.969000",
+        "validation_end": "2010-05-02 13:28:54.492000",
+        "validation_start": "2006-08-15 05:24:03.687000"
+      },
+      "std": 0.004581756448909467,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_75": {
+      "mean": 0.909822246243631,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:38.151000",
+        "test_start": "2011-03-19 07:31:38.319000",
+        "train_end": "2008-05-20 20:16:23.472000",
+        "train_start": "2000-01-01 00:00:14.847000",
+        "validation_end": "2011-03-19 07:31:08.319000",
+        "validation_start": "2008-05-20 20:16:53.472000"
+      },
+      "std": 0.003113483865255053,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_76": {
+      "mean": 0.9691649830775741,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:52.023000",
+        "test_start": "2011-03-19 03:24:22.191000",
+        "train_end": "2008-05-21 10:54:07.347000",
+        "train_start": "2000-01-01 00:00:28.722000",
+        "validation_end": "2011-03-19 03:23:52.191000",
+        "validation_start": "2008-05-21 10:54:37.347000"
+      },
+      "std": 0.002838617936803845,
+      "threshold": 3.5,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_8": {
+      "mean": 0.08033596278921884,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:32.106000",
+        "test_start": "2011-04-30 15:06:32.265000",
+        "train_end": "2009-09-23 20:08:32.355000",
+        "train_start": "2000-01-01 00:01:51.549000",
+        "validation_end": "2011-04-30 15:06:31.515000",
+        "validation_start": "2009-09-23 20:11:32.355000"
+      },
+      "std": 0.0610719597752789,
+      "threshold": 3.7365610548226043,
+      "training_policy": "normal-only chronological train partition"
+    },
+    "channel_9": {
+      "mean": 0.07932610479247118,
+      "split_boundaries": {
+        "test_end": "2013-12-31 23:59:32.106000",
+        "test_start": "2011-04-30 15:06:32.265000",
+        "train_end": "2009-09-23 20:08:32.355000",
+        "train_start": "2000-01-01 00:01:51.549000",
+        "validation_end": "2011-04-30 15:06:31.515000",
+        "validation_start": "2009-09-23 20:11:32.355000"
+      },
+      "std": 0.06028649281078829,
+      "threshold": 3.7425078429429965,
+      "training_policy": "normal-only chronological train partition"
+    }
+  },
+  "minimum_threshold": 3.5,
+  "model": "mission1_channelwise_zscore",
+  "seed": 42,
+  "source_zip_sha256": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+  "source_zip_size_bytes": 3776246054,
+  "threshold_quantile": 0.995,
+  "zenodo_record": "12528696"
+}
