@@ -11,3 +11,6 @@ build/
 dist/
 artifacts/esa_rebuild/clean_report.json
 artifacts/esa_rebuild_tmp*/
+*.keras
+*.h5
+*.joblib

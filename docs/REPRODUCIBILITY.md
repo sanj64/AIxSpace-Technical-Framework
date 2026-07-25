@@ -22,14 +22,24 @@ Full rebuild expects the real ESA Mission 1 archive at `data/raw/ESA-Mission1.zi
 ## XGBoost Research Candidate
 
 ```bash
-python -m ad_dss.pipeline.esa_rebuild xgboost-candidate --channel-limit 3
+python -m ad_dss.pipeline.esa_rebuild xgboost-candidate
 ```
 
-The XGBoost path is research-gated for v0.9. It uses chronological train/validation/test partitions, train-only feature filling, validation threshold selection, and feature attribution labelled as model sensitivity evidence rather than causation. It is not an active paid-evaluation detector unless model-risk release gates approve it.
+The XGBoost path is research-gated for v0.9. It uses chronological train/validation/test partitions, train-only feature filling, validation threshold selection, and feature attribution labelled as model sensitivity evidence rather than causation. The Mission 1 full run trained 58 of 76 attempted channels and remains inactive because it did not beat the Z-score baseline on aggregate precision, F1, or F0.5. It is not an active paid-evaluation detector unless model-risk release gates approve it.
 
 ## LSTM Gate
 
-LSTM remains excluded from active v0.9 evidence. Before it can become an active detector, it must add split-safe windows, train-only scaling, overfitting checks, reconstruction-error explanations, independent reproduction, and a model-risk approval record.
+LSTM remains excluded from active v0.9 evidence. Before it can become an active detector, it must pass overfitting checks, independent reproduction, acceptance-threshold review, explanation review, and a model-risk approval record.
+
+The research-gated LSTM candidate command is:
+
+```bash
+python -m ad_dss.pipeline.esa_rebuild lstm-candidate --epochs 2 --batch-size 128 --window-size 32
+```
+
+It trains Mission 1 channel autoencoders from random initialization, generates windows independently inside each chronological partition, fits scaling only on finite non-labelled training samples, calibrates on normal calibration windows, and evaluates once on untouched test windows. Keras model binaries remain local/ignored; manifests record their hashes.
+
+The Mission 1 full run trained all 76 attempted channels and remains inactive because it did not beat the Z-score baseline on aggregate precision, F1, or F0.5.
 
 ## Determinism Requirements
 

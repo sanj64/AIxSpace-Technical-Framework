@@ -1,0 +1,21 @@
+{
+  "active_training_performed": false,
+  "artifact_sha256": "6e64b8e1f42e9cb1a0eff6ad34f18aee17e348b9350f28c9bef28fbb50c2eb73",
+  "channels_attempted": 76,
+  "channels_trained": 58,
+  "f0_5": 0.015948976226159355,
+  "f1": 0.024113620323885015,
+  "false_alarms_per_sample": 0.3086793188065948,
+  "fn": 290734,
+  "fp": 4334621,
+  "model": "mission1_xgboost_research_candidate",
+  "positive_samples": 347879,
+  "precision": 0.013011849902749827,
+  "recall": 0.16426688589998248,
+  "research_candidate_trained": true,
+  "samples": 14042473,
+  "source_zip_sha256": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+  "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+  "tn": 9359973,
+  "tp": 57145
+}

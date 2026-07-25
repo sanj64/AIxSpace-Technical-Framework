@@ -1,0 +1,12 @@
+{
+  "counterfactual_limit": "nearest lower-error window is a model boundary, not operational advice",
+  "explanation_type": "reconstruction_error_channel_autoencoder",
+  "interpretation": "large reconstruction error means the model reconstructed the window poorly relative to training/calibration reference behavior",
+  "not_claims": [
+    "causation",
+    "probability",
+    "confidence",
+    "certainty",
+    "flight validation"
+  ]
+}

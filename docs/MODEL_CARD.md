@@ -40,6 +40,25 @@ This is a simple univariate per-channel Z-score baseline. The aggregate precisio
 
 ## Research-Gated Candidates
 
-XGBoost may be trained with `python -m ad_dss.pipeline.esa_rebuild xgboost-candidate`, but any generated XGBoost artifact is labelled `RESEARCH_GATED_NOT_ACTIVE_V0_9`. Feature importances are non-causal model sensitivity evidence and cannot be shown as confidence, certainty, probability, or flight validation.
+XGBoost was trained on Mission 1 with `python -m ad_dss.pipeline.esa_rebuild xgboost-candidate`. It is labelled `RESEARCH_GATED_NOT_ACTIVE_V0_9`, trained 58 of 76 attempted channels, and did not beat the Z-score baseline on aggregate precision, F1, or F0.5. Feature importances are non-causal model sensitivity evidence and cannot be shown as confidence, certainty, probability, or flight validation.
 
-LSTM remains a backlog/research item and is not active v0.9 evidence.
+LSTM autoencoders were trained on Mission 1 with `python -m ad_dss.pipeline.esa_rebuild lstm-candidate`. They are labelled `RESEARCH_GATED_NOT_ACTIVE_V0_9`, trained all 76 attempted channels, and did not beat the Z-score baseline on aggregate precision, F1, or F0.5. Reconstruction errors are model reconstruction evidence only. Keras binaries remain local and are referenced by hash in committed manifests.
+
+| Candidate | Status | Channels trained | Test windows/samples | Precision | Recall | F1 | F0.5 |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| XGBoost | Research-gated, not active v0.9 | 58 / 76 | 14042473 samples | 0.0130 | 0.1643 | 0.0241 | 0.0159 |
+| LSTM autoencoder | Research-gated, not active v0.9 | 76 / 76 | 760000 windows | 0.0277 | 0.3262 | 0.0510 | 0.0339 |
+
+Candidate evidence files:
+
+- `artifacts/esa_rebuild/xgboost_candidate_manifest.json`
+- `artifacts/esa_rebuild/mission1_xgboost_metrics.json`
+- `artifacts/esa_rebuild/mission1_xgboost_channel_metrics.csv`
+- `artifacts/esa_rebuild/mission1_xgboost_feature_attributions.csv`
+- `artifacts/esa_rebuild/lstm_candidate_manifest.json`
+- `artifacts/esa_rebuild/mission1_lstm_metrics.json`
+- `artifacts/esa_rebuild/mission1_lstm_channel_metrics.csv`
+- `artifacts/esa_rebuild/mission1_lstm_training_history.csv`
+- `artifacts/esa_rebuild/mission1_lstm_explanation_limitations.json`
+
+Mission 2 and Mission 3 remain unavailable for full raw telemetry training until their full raw telemetry archives are moved into `data/raw/`.

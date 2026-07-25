@@ -389,6 +389,40 @@ def _best_f05_threshold(labels: np.ndarray, scores: np.ndarray) -> float:
     return best_threshold
 
 
+def _window_matrix(
+    values: np.ndarray,
+    labels: np.ndarray,
+    window_size: int,
+    max_windows: int,
+) -> tuple[np.ndarray, np.ndarray]:
+    finite = np.isfinite(values)
+    if len(values) < window_size:
+        return np.empty((0, window_size, 1), dtype="float32"), np.empty((0,), dtype=bool)
+    valid_positions: list[int] = []
+    window_labels: list[bool] = []
+    for end in range(window_size, len(values) + 1):
+        start = end - window_size
+        if not bool(np.all(finite[start:end])):
+            continue
+        valid_positions.append(start)
+        window_labels.append(bool(np.any(labels[start:end])))
+    if not valid_positions:
+        return np.empty((0, window_size, 1), dtype="float32"), np.empty((0,), dtype=bool)
+    if len(valid_positions) > max_windows:
+        selected = np.linspace(0, len(valid_positions) - 1, max_windows, dtype=int)
+        valid_positions = [valid_positions[index] for index in selected]
+        window_labels = [window_labels[index] for index in selected]
+    windows = np.empty((len(valid_positions), window_size, 1), dtype="float32")
+    for output_index, start in enumerate(valid_positions):
+        windows[output_index, :, 0] = values[start : start + window_size]
+    return windows, np.asarray(window_labels, dtype=bool)
+
+
+def _reconstruction_errors(model: object, windows: np.ndarray) -> np.ndarray:
+    reconstructed = model.predict(windows, verbose=0)
+    return np.mean((windows - reconstructed) ** 2, axis=(1, 2))
+
+
 def train_mission1_xgboost_candidate(
     source_zip: Path,
     output_dir: Path,
@@ -586,6 +620,259 @@ def train_mission1_xgboost_candidate(
         "metrics": metrics_path,
         "channel_metrics": channel_metrics_path,
         "feature_attributions": attribution_path,
+    }
+
+
+def train_mission1_lstm_candidate(
+    source_zip: Path,
+    output_dir: Path,
+    channel_limit: int | None = None,
+    seed: int = 42,
+    epochs: int = 2,
+    batch_size: int = 128,
+    window_size: int = 32,
+    max_windows_per_partition: int = 10_000,
+) -> dict[str, Path]:
+    """Train a research-gated LSTM autoencoder candidate with split-safe windows."""
+    try:
+        import tensorflow as tf
+        from tensorflow.keras import layers, models
+    except ImportError as exc:  # pragma: no cover - depends on optional local environment
+        raise ReproducibilityError(
+            "LSTM candidate training requires TensorFlow. Install the research extra before "
+            "running this command."
+        ) from exc
+
+    if not source_zip.exists():
+        raise ReproducibilityError(f"ESA Mission 1 zip not found: {source_zip}")
+    if window_size < 4:
+        raise ReproducibilityError("LSTM window size must be at least 4")
+    tf.keras.utils.set_random_seed(seed)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    model_dir = output_dir / "local_model_binaries"
+    model_dir.mkdir(parents=True, exist_ok=True)
+
+    channels = read_mission1_table(source_zip, "channels.csv")
+    labels = read_mission1_table(source_zip, "labels.csv")
+    anomaly_types = read_mission1_table(source_zip, "anomaly_types.csv")
+    selected_channels = channels["Channel"].tolist()
+    if channel_limit is not None:
+        selected_channels = selected_channels[:channel_limit]
+
+    progress_path = output_dir / "mission1_lstm_training_history.csv"
+    progress_path.write_text(
+        "channel,status,epochs,train_windows,calibration_windows,test_windows,final_loss\n",
+        encoding="utf-8",
+    )
+    channel_rows: list[dict[str, object]] = []
+    aggregate_counts = {"tp": 0, "fp": 0, "tn": 0, "fn": 0, "samples": 0, "positive_samples": 0}
+    artifact_channels: dict[str, dict[str, object]] = {}
+
+    for ordinal, channel in enumerate(selected_channels, start=1):
+        print(f"[{ordinal}/{len(selected_channels)}] lstm loading {channel}", flush=True)
+        series = read_mission1_channel(source_zip, channel)
+        values = series.to_numpy(dtype=float)
+        intervals = label_intervals(labels, anomaly_types, channel)
+        labelled_mask = interval_mask(series.index, intervals)
+        n_samples = len(series)
+        train_end_pos = int(n_samples * 0.6)
+        calibration_end_pos = train_end_pos + int(n_samples * 0.2)
+        if train_end_pos <= window_size or calibration_end_pos <= train_end_pos or calibration_end_pos >= n_samples:
+            raise ReproducibilityError(f"{channel} does not have enough samples for LSTM splitting")
+
+        train_values_raw = values[:train_end_pos]
+        train_labels_raw = labelled_mask[:train_end_pos]
+        normal_train_values = train_values_raw[
+            np.isfinite(train_values_raw) & ~train_labels_raw
+        ]
+        if len(normal_train_values) < window_size:
+            channel_rows.append(
+                {
+                    "channel": channel,
+                    "status": "skipped_no_normal_training_values",
+                    "samples": int(n_samples),
+                }
+            )
+            continue
+        mean = float(np.mean(normal_train_values))
+        std = float(np.std(normal_train_values, ddof=1)) if len(normal_train_values) > 1 else 0.0
+        if std <= 1e-9:
+            std = 1.0
+
+        scaled = (values - mean) / std
+        train_windows_all, train_window_labels = _window_matrix(
+            scaled[:train_end_pos],
+            labelled_mask[:train_end_pos],
+            window_size,
+            max_windows_per_partition,
+        )
+        calibration_windows_all, calibration_window_labels = _window_matrix(
+            scaled[train_end_pos:calibration_end_pos],
+            labelled_mask[train_end_pos:calibration_end_pos],
+            window_size,
+            max_windows_per_partition,
+        )
+        test_windows, test_window_labels = _window_matrix(
+            scaled[calibration_end_pos:],
+            labelled_mask[calibration_end_pos:],
+            window_size,
+            max_windows_per_partition,
+        )
+        train_windows = train_windows_all[~train_window_labels]
+        calibration_windows = calibration_windows_all[~calibration_window_labels]
+        if len(train_windows) == 0 or len(calibration_windows) == 0 or len(test_windows) == 0:
+            channel_rows.append(
+                {
+                    "channel": channel,
+                    "status": "skipped_empty_window_partition",
+                    "samples": int(n_samples),
+                    "train_windows": int(len(train_windows)),
+                    "calibration_windows": int(len(calibration_windows)),
+                    "test_windows": int(len(test_windows)),
+                }
+            )
+            continue
+
+        model = models.Sequential(
+            [
+                layers.Input(shape=(window_size, 1)),
+                layers.LSTM(12, activation="tanh", return_sequences=False),
+                layers.RepeatVector(window_size),
+                layers.LSTM(12, activation="tanh", return_sequences=True),
+                layers.TimeDistributed(layers.Dense(1)),
+            ]
+        )
+        model.compile(optimizer="adam", loss="mse")
+        history = model.fit(
+            train_windows,
+            train_windows,
+            epochs=epochs,
+            batch_size=batch_size,
+            verbose=0,
+            shuffle=False,
+        )
+        calibration_errors = _reconstruction_errors(model, calibration_windows)
+        threshold = float(max(np.quantile(calibration_errors, 0.995), 1e-9))
+        test_errors = _reconstruction_errors(model, test_windows)
+        sample_metrics = binary_metrics(test_window_labels, test_errors, threshold)
+        for key in aggregate_counts:
+            aggregate_counts[key] += int(sample_metrics.get(key, 0))
+
+        model_path = model_dir / f"{channel}.keras"
+        model.save(model_path, include_optimizer=False)
+        model_hash = sha256_file(model_path)
+        final_loss = float(history.history["loss"][-1])
+        channel_rows.append(
+            {
+                "channel": channel,
+                "status": "research_candidate",
+                "samples": int(n_samples),
+                "train_windows": int(len(train_windows)),
+                "calibration_windows": int(len(calibration_windows)),
+                "test_windows": int(sample_metrics["samples"]),
+                "test_positive_windows": int(sample_metrics["positive_samples"]),
+                "threshold": threshold,
+                "precision": sample_metrics["precision"],
+                "recall": sample_metrics["recall"],
+                "f1": sample_metrics["f1"],
+                "f0_5": sample_metrics["f0_5"],
+                "roc_auc": sample_metrics["roc_auc"],
+                "pr_auc": sample_metrics["pr_auc"],
+                "final_loss": final_loss,
+                "local_model_path": model_path.as_posix(),
+                "local_model_sha256": model_hash,
+            }
+        )
+        artifact_channels[channel] = {
+            "status": "research_candidate",
+            "scaler_fit_on": "finite non-labelled samples in chronological training partition",
+            "mean": mean,
+            "std": std,
+            "window_size": window_size,
+            "threshold": threshold,
+            "local_model_path": model_path.as_posix(),
+            "local_model_sha256": model_hash,
+            "window_policy": "windows are generated separately per partition and cannot cross split boundaries",
+        }
+        with progress_path.open("a", encoding="utf-8") as progress:
+            progress.write(
+                f"{channel},complete,{epochs},{len(train_windows)},{len(calibration_windows)},"
+                f"{len(test_windows)},{final_loss}\n"
+            )
+        print(
+            f"[{ordinal}/{len(selected_channels)}] lstm complete {channel}: "
+            f"precision={float(sample_metrics['precision']):.4f} "
+            f"recall={float(sample_metrics['recall']):.4f}",
+            flush=True,
+        )
+
+    precision = aggregate_counts["tp"] / (aggregate_counts["tp"] + aggregate_counts["fp"]) if aggregate_counts["tp"] + aggregate_counts["fp"] else 0.0
+    recall = aggregate_counts["tp"] / (aggregate_counts["tp"] + aggregate_counts["fn"]) if aggregate_counts["tp"] + aggregate_counts["fn"] else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    f05 = (1.25 * precision * recall / (0.25 * precision + recall)) if precision + recall else 0.0
+    artifact = {
+        "model": "mission1_lstm_autoencoder_research_candidate",
+        "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+        "zenodo_record": ZENODO_RECORD,
+        "source_zip_sha256": sha256_file(source_zip),
+        "seed": seed,
+        "epochs": epochs,
+        "batch_size": batch_size,
+        "window_size": window_size,
+        "max_windows_per_partition": max_windows_per_partition,
+        "candidate_limitations": [
+            "Reconstruction error is model reconstruction evidence, not causation.",
+            "Scores are not probabilities, confidence, certainty, or flight validation.",
+            "Binary Keras models remain local and are referenced by hash in this manifest.",
+        ],
+        "channels": artifact_channels,
+    }
+    artifact_path = output_dir / "mission1_lstm_candidate.json"
+    artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True), encoding="utf-8")
+    channel_metrics_path = output_dir / "mission1_lstm_channel_metrics.csv"
+    pd.DataFrame(channel_rows).to_csv(channel_metrics_path, index=False)
+    explanation_path = output_dir / "mission1_lstm_explanation_limitations.json"
+    explanation_path.write_text(
+        json.dumps(
+            {
+                "explanation_type": "reconstruction_error_channel_autoencoder",
+                "interpretation": "large reconstruction error means the model reconstructed the window poorly relative to training/calibration reference behavior",
+                "not_claims": ["causation", "probability", "confidence", "certainty", "flight validation"],
+                "counterfactual_limit": "nearest lower-error window is a model boundary, not operational advice",
+            },
+            indent=2,
+            sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
+    metrics = {
+        "model": "mission1_lstm_autoencoder_research_candidate",
+        "active_training_performed": False,
+        "research_candidate_trained": True,
+        "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+        "channels_attempted": len(selected_channels),
+        "channels_trained": len(artifact_channels),
+        "samples": aggregate_counts["samples"],
+        "positive_samples": aggregate_counts["positive_samples"],
+        "tp": aggregate_counts["tp"],
+        "fp": aggregate_counts["fp"],
+        "tn": aggregate_counts["tn"],
+        "fn": aggregate_counts["fn"],
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "f0_5": f05,
+        "source_zip_sha256": artifact["source_zip_sha256"],
+        "artifact_sha256": sha256_file(artifact_path),
+    }
+    metrics_path = output_dir / "mission1_lstm_metrics.json"
+    metrics_path.write_text(json.dumps(metrics, indent=2, sort_keys=True), encoding="utf-8")
+    return {
+        "artifact": artifact_path,
+        "metrics": metrics_path,
+        "channel_metrics": channel_metrics_path,
+        "training_history": progress_path,
+        "explanation_limitations": explanation_path,
     }
 
 

@@ -1,0 +1,23 @@
+{
+  "active_training_performed": false,
+  "code_commit": "5ab4e3a68ecab0e24ecf24e12290b9403665942c",
+  "explanation_policy": "XGBoost feature attributions are model sensitivity evidence only; they are not causal, probabilistic confidence, certainty, or flight validation claims.",
+  "output_hashes": {
+    "artifacts/esa_rebuild/mission1_xgboost_candidate.json": "6e64b8e1f42e9cb1a0eff6ad34f18aee17e348b9350f28c9bef28fbb50c2eb73",
+    "artifacts/esa_rebuild/mission1_xgboost_channel_metrics.csv": "33a5cd03c2310dcc092a293448b21fdef2b2c321c4889f2181206f0589a33be3",
+    "artifacts/esa_rebuild/mission1_xgboost_feature_attributions.csv": "1721555c52744d3cf62e5c2f5173da5f460c1d98e92cec44d80f24776c2537a3",
+    "artifacts/esa_rebuild/mission1_xgboost_metrics.json": "587c6d14756b5b4c18c757214ba45ed9dd9a41162ac54f973e893d1b19ba85e5"
+  },
+  "outputs": {
+    "artifact": "artifacts/esa_rebuild/mission1_xgboost_candidate.json",
+    "channel_metrics": "artifacts/esa_rebuild/mission1_xgboost_channel_metrics.csv",
+    "feature_attributions": "artifacts/esa_rebuild/mission1_xgboost_feature_attributions.csv",
+    "metrics": "artifacts/esa_rebuild/mission1_xgboost_metrics.json"
+  },
+  "release_gate": "This candidate cannot become an active v0.9 detector unless it beats the Z-score baseline on recorded acceptance metrics and receives model-risk approval.",
+  "research_candidate_trained": true,
+  "source_zip": "data/raw/ESA-Mission1.zip",
+  "source_zip_hash": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+  "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+  "zenodo_record": "12528696"
+}

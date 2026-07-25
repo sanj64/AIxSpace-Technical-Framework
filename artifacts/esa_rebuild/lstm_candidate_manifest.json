@@ -1,0 +1,26 @@
+{
+  "active_training_performed": false,
+  "code_commit": "5ab4e3a68ecab0e24ecf24e12290b9403665942c",
+  "explanation_policy": "LSTM reconstruction errors are model reconstruction evidence only; they are not causal, probabilistic confidence, certainty, or flight validation claims.",
+  "output_hashes": {
+    "artifacts/esa_rebuild/mission1_lstm_candidate.json": "618129133ca73763f523b585451ccb4a634f3d3d23b181948e986cca37980ab5",
+    "artifacts/esa_rebuild/mission1_lstm_channel_metrics.csv": "c00b44dbe7e2bc0cdfc054048a326f54606cce6ef44be914fb33dd365648ec1e",
+    "artifacts/esa_rebuild/mission1_lstm_explanation_limitations.json": "408cc5ed4f8453a68e4c2573be971d05fee36e5ca670cf3250860ab66d090d36",
+    "artifacts/esa_rebuild/mission1_lstm_metrics.json": "a54373635ad0da7b7a88d094b9a7bb40da76d919f3212aa10b774f509db812ad",
+    "artifacts/esa_rebuild/mission1_lstm_training_history.csv": "b54a908db60c42399870efa7df35bdd8d048cf181234fa13e938748d06074acb"
+  },
+  "outputs": {
+    "artifact": "artifacts/esa_rebuild/mission1_lstm_candidate.json",
+    "channel_metrics": "artifacts/esa_rebuild/mission1_lstm_channel_metrics.csv",
+    "explanation_limitations": "artifacts/esa_rebuild/mission1_lstm_explanation_limitations.json",
+    "metrics": "artifacts/esa_rebuild/mission1_lstm_metrics.json",
+    "training_history": "artifacts/esa_rebuild/mission1_lstm_training_history.csv"
+  },
+  "release_gate": "This candidate cannot become an active v0.9 detector unless it beats the Z-score baseline on recorded acceptance metrics and receives model-risk approval.",
+  "research_candidate_trained": true,
+  "source_zip": "data/raw/ESA-Mission1.zip",
+  "source_zip_hash": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+  "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+  "training_policy": "LSTM autoencoder windows are generated independently inside chronological train/calibration/test partitions. Scaling is fit only on finite non-labelled training samples. Thresholds are calibrated on normal calibration windows.",
+  "zenodo_record": "12528696"
+}

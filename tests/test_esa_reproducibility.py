@@ -16,11 +16,18 @@ from ad_dss.data.esa_reproducible import (
     chronological_split,
     fit_train_only_scaler,
     reject_forbidden_training_input,
+    train_mission1_lstm_candidate,
     train_mission1_xgboost_candidate,
     train_mission1_zscore,
     validate_esa_layout,
 )
-from ad_dss.pipeline.esa_rebuild import clean, dry_run, full_rebuild, xgboost_candidate
+from ad_dss.pipeline.esa_rebuild import (
+    clean,
+    dry_run,
+    full_rebuild,
+    lstm_candidate,
+    xgboost_candidate,
+)
 
 
 def _write_small_mission1_zip(path: Path) -> None:
@@ -176,3 +183,52 @@ def test_xgboost_candidate_manifest_is_not_active_v0_9(tmp_path: Path) -> None:
     assert '"active_training_performed": false' in manifest
     assert "RESEARCH_GATED_NOT_ACTIVE_V0_9" in manifest
     assert "not causal" in manifest
+
+
+def test_lstm_candidate_is_research_gated_and_split_safe(tmp_path: Path) -> None:
+    pytest.importorskip("tensorflow")
+    source_zip = tmp_path / "ESA-Mission1.zip"
+    _write_small_mission1_zip(source_zip)
+    outputs = train_mission1_lstm_candidate(
+        source_zip,
+        tmp_path / "lstm",
+        epochs=1,
+        batch_size=8,
+        window_size=8,
+        max_windows_per_partition=20,
+    )
+    metrics = outputs["metrics"].read_text(encoding="utf-8")
+    artifact = outputs["artifact"].read_text(encoding="utf-8")
+    limitations = outputs["explanation_limitations"].read_text(encoding="utf-8")
+    assert '"status": "RESEARCH_GATED_NOT_ACTIVE_V0_9"' in metrics
+    assert "cannot cross split boundaries" in artifact
+    assert "not_claims" in limitations
+
+
+def test_lstm_candidate_manifest_records_local_binary_hashes(tmp_path: Path) -> None:
+    pytest.importorskip("tensorflow")
+    source_zip = tmp_path / "ESA-Mission1.zip"
+    _write_small_mission1_zip(source_zip)
+    manifest_path = lstm_candidate(
+        tmp_path,
+        tmp_path / "lstm-out",
+        source_zip,
+        None,
+        1,
+        8,
+        8,
+        20,
+    )
+    manifest = manifest_path.read_text(encoding="utf-8")
+    assert '"active_training_performed": false' in manifest
+    assert "RESEARCH_GATED_NOT_ACTIVE_V0_9" in manifest
+    assert "local_model_binaries" in (tmp_path / "lstm-out" / "mission1_lstm_candidate.json").read_text(
+        encoding="utf-8"
+    )
+
+
+def test_large_model_artifacts_are_ignored() -> None:
+    ignore = Path(".gitignore").read_text(encoding="utf-8")
+    assert "*.keras" in ignore
+    assert "*.h5" in ignore
+    assert "*.joblib" in ignore
