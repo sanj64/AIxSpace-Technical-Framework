@@ -37,3 +37,9 @@ Event-level evidence: 146 of 558 test-overlapping labelled intervals were detect
 ## Current Limitations
 
 This is a simple univariate per-channel Z-score baseline. The aggregate precision and recall are low, and many labelled intervals are not detected. These results should be used as a reproducible baseline for further model development, not as production performance evidence.
+
+## Research-Gated Candidates
+
+XGBoost may be trained with `python -m ad_dss.pipeline.esa_rebuild xgboost-candidate`, but any generated XGBoost artifact is labelled `RESEARCH_GATED_NOT_ACTIVE_V0_9`. Feature importances are non-causal model sensitivity evidence and cannot be shown as confidence, certainty, probability, or flight validation.
+
+LSTM remains a backlog/research item and is not active v0.9 evidence.

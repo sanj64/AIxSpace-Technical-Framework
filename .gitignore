@@ -9,3 +9,5 @@ __pycache__/
 .mypy_cache/
 build/
 dist/
+artifacts/esa_rebuild/clean_report.json
+artifacts/esa_rebuild_tmp*/

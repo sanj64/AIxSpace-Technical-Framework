@@ -330,6 +330,265 @@ def binary_metrics(y_true: np.ndarray, scores: np.ndarray, threshold: float) -> 
     }
 
 
+def _safe_rate(count: int, samples: int) -> float:
+    return float(count / samples) if samples else 0.0
+
+
+def _deterministic_cap(frame: pd.DataFrame, labels: np.ndarray, cap: int) -> tuple[pd.DataFrame, np.ndarray]:
+    if len(frame) <= cap:
+        return frame, labels
+    positions = np.linspace(0, len(frame) - 1, cap, dtype=int)
+    return frame.iloc[positions].copy(), labels[positions]
+
+
+def _xgboost_features(series: pd.Series) -> pd.DataFrame:
+    values = series.astype("float64")
+    prior = values.shift(1)
+    rolling_mean = prior.rolling(24, min_periods=4).mean()
+    rolling_std = prior.rolling(24, min_periods=4).std().replace(0, np.nan)
+    return pd.DataFrame(
+        {
+            "value": values,
+            "delta_1": values.diff(),
+            "rolling_mean_24": rolling_mean,
+            "rolling_std_24": rolling_std,
+            "rolling_margin_24": values - rolling_mean,
+            "rolling_abs_z_24": ((values - rolling_mean) / rolling_std).abs(),
+        },
+        index=series.index,
+    )
+
+
+def _fit_fill_values(train_features: pd.DataFrame) -> dict[str, float]:
+    fill_values: dict[str, float] = {}
+    for column in train_features.columns:
+        finite = train_features[column].replace([np.inf, -np.inf], np.nan).dropna()
+        fill_values[column] = float(finite.median()) if not finite.empty else 0.0
+    return fill_values
+
+
+def _prepare_features(features: pd.DataFrame, fill_values: dict[str, float]) -> pd.DataFrame:
+    prepared = features.replace([np.inf, -np.inf], np.nan)
+    return prepared.fillna(fill_values)
+
+
+def _best_f05_threshold(labels: np.ndarray, scores: np.ndarray) -> float:
+    if len(scores) == 0:
+        return 0.5
+    candidates = np.unique(np.quantile(scores, np.linspace(0.05, 0.95, 19)))
+    if len(candidates) == 0:
+        return 0.5
+    best_threshold = float(candidates[0])
+    best_f05 = -1.0
+    for threshold in candidates:
+        metrics = binary_metrics(labels.astype(bool), scores, float(threshold))
+        score = float(metrics["f0_5"])
+        if score > best_f05:
+            best_f05 = score
+            best_threshold = float(threshold)
+    return best_threshold
+
+
+def train_mission1_xgboost_candidate(
+    source_zip: Path,
+    output_dir: Path,
+    channel_limit: int | None = None,
+    seed: int = 42,
+    max_rows_per_partition: int = 250_000,
+) -> dict[str, Path]:
+    """Train an explicitly research-gated XGBoost candidate on leakage-safe features."""
+    try:
+        from xgboost import XGBClassifier
+    except ImportError as exc:  # pragma: no cover - depends on optional local environment
+        raise ReproducibilityError(
+            "XGBoost candidate training requires the optional xgboost package. "
+            "Install the research extra before running this command."
+        ) from exc
+
+    if not source_zip.exists():
+        raise ReproducibilityError(f"ESA Mission 1 zip not found: {source_zip}")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    channels = read_mission1_table(source_zip, "channels.csv")
+    labels = read_mission1_table(source_zip, "labels.csv")
+    anomaly_types = read_mission1_table(source_zip, "anomaly_types.csv")
+    selected_channels = channels["Channel"].tolist()
+    if channel_limit is not None:
+        selected_channels = selected_channels[:channel_limit]
+
+    channel_rows: list[dict[str, object]] = []
+    attribution_rows: list[dict[str, object]] = []
+    aggregate_counts = {"tp": 0, "fp": 0, "tn": 0, "fn": 0, "samples": 0, "positive_samples": 0}
+    artifact_channels: dict[str, dict[str, object]] = {}
+
+    for ordinal, channel in enumerate(selected_channels, start=1):
+        print(f"[{ordinal}/{len(selected_channels)}] xgboost loading {channel}", flush=True)
+        series = read_mission1_channel(source_zip, channel)
+        finite_mask = np.isfinite(series.to_numpy(dtype=float))
+        intervals = label_intervals(labels, anomaly_types, channel)
+        labelled_mask = interval_mask(series.index, intervals)
+        n_samples = len(series)
+        train_end_pos = int(n_samples * 0.6)
+        validation_end_pos = train_end_pos + int(n_samples * 0.2)
+        if train_end_pos <= 0 or validation_end_pos <= train_end_pos or validation_end_pos >= n_samples:
+            raise ReproducibilityError(f"{channel} does not have enough samples for splitting")
+        train_mask = np.zeros(n_samples, dtype=bool)
+        validation_mask = np.zeros(n_samples, dtype=bool)
+        test_mask = np.zeros(n_samples, dtype=bool)
+        train_mask[:train_end_pos] = True
+        validation_mask[train_end_pos:validation_end_pos] = True
+        test_mask[validation_end_pos:] = True
+
+        features = _xgboost_features(series)
+        fill_values = _fit_fill_values(features.loc[train_mask & finite_mask])
+        prepared = _prepare_features(features, fill_values)
+        train_frame = prepared.loc[train_mask & finite_mask]
+        train_labels = labelled_mask[train_mask & finite_mask].astype(int)
+        validation_frame = prepared.loc[validation_mask & finite_mask]
+        validation_labels = labelled_mask[validation_mask & finite_mask].astype(int)
+        test_frame = prepared.loc[test_mask & finite_mask]
+        test_labels = labelled_mask[test_mask & finite_mask].astype(bool)
+
+        if len(np.unique(train_labels)) < 2:
+            channel_rows.append(
+                {
+                    "channel": channel,
+                    "status": "skipped_no_positive_or_negative_training_class",
+                    "samples": int(n_samples),
+                }
+            )
+            continue
+
+        train_frame, train_labels = _deterministic_cap(
+            train_frame, train_labels, max_rows_per_partition
+        )
+        validation_frame, validation_labels = _deterministic_cap(
+            validation_frame, validation_labels, max_rows_per_partition
+        )
+        test_frame, test_labels_int = _deterministic_cap(
+            test_frame, test_labels.astype(int), max_rows_per_partition
+        )
+        test_labels = test_labels_int.astype(bool)
+
+        positive = int(np.sum(train_labels))
+        negative = int(len(train_labels) - positive)
+        classifier = XGBClassifier(
+            n_estimators=80,
+            max_depth=3,
+            learning_rate=0.08,
+            subsample=0.9,
+            colsample_bytree=0.9,
+            objective="binary:logistic",
+            eval_metric="logloss",
+            random_state=seed,
+            n_jobs=1,
+            scale_pos_weight=(negative / positive if positive else 1.0),
+        )
+        classifier.fit(train_frame, train_labels)
+        validation_scores = classifier.predict_proba(validation_frame)[:, 1]
+        threshold = _best_f05_threshold(validation_labels.astype(bool), validation_scores)
+        test_scores = classifier.predict_proba(test_frame)[:, 1]
+        sample_metrics = binary_metrics(test_labels, test_scores, threshold)
+        for key in aggregate_counts:
+            aggregate_counts[key] += int(sample_metrics.get(key, 0))
+
+        importances = classifier.feature_importances_
+        for feature, importance in zip(train_frame.columns, importances):
+            attribution_rows.append(
+                {
+                    "channel": channel,
+                    "feature": feature,
+                    "importance": float(importance),
+                    "interpretation": "model feature importance; non-causal",
+                }
+            )
+        channel_rows.append(
+            {
+                "channel": channel,
+                "status": "research_candidate",
+                "train_samples": int(len(train_frame)),
+                "validation_samples": int(len(validation_frame)),
+                "test_samples": int(sample_metrics["samples"]),
+                "test_positive_samples": int(sample_metrics["positive_samples"]),
+                "threshold": threshold,
+                "precision": sample_metrics["precision"],
+                "recall": sample_metrics["recall"],
+                "f1": sample_metrics["f1"],
+                "f0_5": sample_metrics["f0_5"],
+                "roc_auc": sample_metrics["roc_auc"],
+                "pr_auc": sample_metrics["pr_auc"],
+                "false_alarms_per_sample": _safe_rate(int(sample_metrics["fp"]), int(sample_metrics["samples"])),
+            }
+        )
+        artifact_channels[channel] = {
+            "features": list(train_frame.columns),
+            "threshold": threshold,
+            "fill_values_fit_on": "chronological training partition only",
+            "fill_values": fill_values,
+            "max_rows_per_partition": max_rows_per_partition,
+        }
+        print(
+            f"[{ordinal}/{len(selected_channels)}] xgboost complete {channel}: "
+            f"precision={float(sample_metrics['precision']):.4f} "
+            f"recall={float(sample_metrics['recall']):.4f}",
+            flush=True,
+        )
+
+    precision = aggregate_counts["tp"] / (aggregate_counts["tp"] + aggregate_counts["fp"]) if aggregate_counts["tp"] + aggregate_counts["fp"] else 0.0
+    recall = aggregate_counts["tp"] / (aggregate_counts["tp"] + aggregate_counts["fn"]) if aggregate_counts["tp"] + aggregate_counts["fn"] else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    f05 = (1.25 * precision * recall / (0.25 * precision + recall)) if precision + recall else 0.0
+
+    artifact = {
+        "model": "mission1_xgboost_research_candidate",
+        "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+        "zenodo_record": ZENODO_RECORD,
+        "source_zip_sha256": sha256_file(source_zip),
+        "seed": seed,
+        "candidate_limitations": [
+            "Feature importances are model sensitivity evidence, not causal explanations.",
+            "This candidate is not an active commercial detector unless release gates approve it.",
+            "Rows may be deterministically capped per partition for reproducible local evaluation.",
+        ],
+        "channels": artifact_channels,
+    }
+    artifact_path = output_dir / "mission1_xgboost_candidate.json"
+    artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True), encoding="utf-8")
+
+    channel_metrics_path = output_dir / "mission1_xgboost_channel_metrics.csv"
+    pd.DataFrame(channel_rows).to_csv(channel_metrics_path, index=False)
+    attribution_path = output_dir / "mission1_xgboost_feature_attributions.csv"
+    pd.DataFrame(attribution_rows).to_csv(attribution_path, index=False)
+    metrics = {
+        "model": "mission1_xgboost_research_candidate",
+        "active_training_performed": False,
+        "research_candidate_trained": True,
+        "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+        "channels_attempted": len(selected_channels),
+        "channels_trained": len(artifact_channels),
+        "samples": aggregate_counts["samples"],
+        "positive_samples": aggregate_counts["positive_samples"],
+        "tp": aggregate_counts["tp"],
+        "fp": aggregate_counts["fp"],
+        "tn": aggregate_counts["tn"],
+        "fn": aggregate_counts["fn"],
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "f0_5": f05,
+        "false_alarms_per_sample": _safe_rate(aggregate_counts["fp"], aggregate_counts["samples"]),
+        "source_zip_sha256": artifact["source_zip_sha256"],
+        "artifact_sha256": sha256_file(artifact_path),
+    }
+    metrics_path = output_dir / "mission1_xgboost_metrics.json"
+    metrics_path.write_text(json.dumps(metrics, indent=2, sort_keys=True), encoding="utf-8")
+    return {
+        "artifact": artifact_path,
+        "metrics": metrics_path,
+        "channel_metrics": channel_metrics_path,
+        "feature_attributions": attribution_path,
+    }
+
+
 def event_metrics(
     index: pd.DatetimeIndex,
     intervals: pd.DataFrame,

@@ -16,15 +16,17 @@ from ad_dss.data.esa_reproducible import (
     chronological_split,
     fit_train_only_scaler,
     reject_forbidden_training_input,
+    train_mission1_xgboost_candidate,
     train_mission1_zscore,
     validate_esa_layout,
 )
-from ad_dss.pipeline.esa_rebuild import dry_run
+from ad_dss.pipeline.esa_rebuild import clean, dry_run, full_rebuild, xgboost_candidate
 
 
 def _write_small_mission1_zip(path: Path) -> None:
     index = pd.date_range("2000-01-01", periods=100, freq="h")
     values = np.sin(np.arange(100) / 8.0).astype("float32")
+    values[30:34] = 9.0
     values[85:90] = 12.0
     frame = pd.DataFrame({"channel_1": values}, index=index)
     frame.index.name = "datetime"
@@ -39,10 +41,14 @@ def _write_small_mission1_zip(path: Path) -> None:
             "Channel,Subsystem,Physical Unit,Group,Target\n"
             "channel_1,subsystem_1,physical_unit_1,1,YES\n",
         )
-        outer.writestr("ESA-Mission1/anomaly_types.csv", "ID,Category\nid_1,Anomaly\n")
+        outer.writestr(
+            "ESA-Mission1/anomaly_types.csv",
+            "ID,Category\nid_0,Anomaly\nid_1,Anomaly\n",
+        )
         outer.writestr(
             "ESA-Mission1/labels.csv",
             "ID,Channel,StartTime,EndTime\n"
+            "id_0,channel_1,2000-01-02T06:00:00Z,2000-01-02T09:00:00Z\n"
             "id_1,channel_1,2000-01-04T13:00:00Z,2000-01-04T17:00:00Z\n",
         )
         outer.writestr("ESA-Mission1/telecommands.csv", "Telecommand,Priority\nnoop,low\n")
@@ -110,3 +116,63 @@ def test_train_mission1_zscore_uses_real_zip_layout(tmp_path: Path) -> None:
     metrics = outputs["metrics"].read_text(encoding="utf-8")
     assert '"active_training_performed": true' in metrics
     assert '"channels_trained": 1' in metrics
+
+
+def test_clean_preserves_raw_archive_and_committed_evidence(tmp_path: Path) -> None:
+    archive = tmp_path / "data" / "raw" / "ESA-Mission1.zip"
+    archive.parent.mkdir(parents=True)
+    archive.write_bytes(b"real archive placeholder")
+    evidence = tmp_path / "artifacts" / "esa_rebuild" / "full_rebuild_manifest.json"
+    evidence.parent.mkdir(parents=True)
+    evidence.write_text("{}", encoding="utf-8")
+    cache = tmp_path / ".pytest_cache"
+    cache.mkdir()
+    (cache / "junk").write_text("delete me", encoding="utf-8")
+
+    report_path = clean(tmp_path)
+    assert archive.exists()
+    assert evidence.exists()
+    assert not cache.exists()
+    assert report_path.exists()
+
+
+def test_full_rebuild_manifest_records_code_commit_and_source(tmp_path: Path) -> None:
+    source_zip = tmp_path / "ESA-Mission1.zip"
+    _write_small_mission1_zip(source_zip)
+    manifest_path = full_rebuild(tmp_path, tmp_path / "out", source_zip, None)
+    manifest = manifest_path.read_text(encoding="utf-8")
+    assert '"code_commit"' in manifest
+    assert '"source_zip_hash"' in manifest
+    assert "mission1_zscore_model.json" in manifest
+
+
+def test_xgboost_candidate_is_research_gated(tmp_path: Path) -> None:
+    pytest.importorskip("xgboost")
+    source_zip = tmp_path / "ESA-Mission1.zip"
+    _write_small_mission1_zip(source_zip)
+    outputs = train_mission1_xgboost_candidate(
+        source_zip,
+        tmp_path / "xgb",
+        max_rows_per_partition=40,
+    )
+    metrics = outputs["metrics"].read_text(encoding="utf-8")
+    attributions = outputs["feature_attributions"].read_text(encoding="utf-8")
+    assert '"status": "RESEARCH_GATED_NOT_ACTIVE_V0_9"' in metrics
+    assert "non-causal" in attributions
+
+
+def test_xgboost_candidate_manifest_is_not_active_v0_9(tmp_path: Path) -> None:
+    pytest.importorskip("xgboost")
+    source_zip = tmp_path / "ESA-Mission1.zip"
+    _write_small_mission1_zip(source_zip)
+    manifest_path = xgboost_candidate(
+        tmp_path,
+        tmp_path / "xgb-out",
+        source_zip,
+        None,
+        40,
+    )
+    manifest = manifest_path.read_text(encoding="utf-8")
+    assert '"active_training_performed": false' in manifest
+    assert "RESEARCH_GATED_NOT_ACTIVE_V0_9" in manifest
+    assert "not causal" in manifest

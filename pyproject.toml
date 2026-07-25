@@ -24,6 +24,7 @@ research = [
     "tensorflow>=2.15",
     "stable-baselines3>=2.0",
     "gymnasium>=0.29",
+    "xgboost>=2.0",
 ]
 dev = [
     "pytest>=7.4",
@@ -37,6 +38,7 @@ dev = [
     "tensorflow>=2.15",
     "stable-baselines3>=2.0",
     "gymnasium>=0.29",
+    "xgboost>=2.0",
 ]
 
 [project.scripts]

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
+import subprocess
 from pathlib import Path
 
 import pandas as pd
@@ -15,6 +17,7 @@ from ad_dss.data.esa_reproducible import (
     compare_unverified_inputs,
     hash_outputs,
     sha256_file,
+    train_mission1_xgboost_candidate,
     train_mission1_zscore,
     validate_esa_layout,
     verify_archives,
@@ -46,6 +49,75 @@ def _display_path(root: Path, path: Path) -> str:
         return path.relative_to(root).as_posix()
     except ValueError:
         return path.name
+
+
+def _code_commit(root: Path) -> str:
+    git = shutil.which("git")
+    if git is None:
+        return "UNCOMMITTED"
+    try:
+        result = subprocess.run(
+            [git, "-C", str(root), "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return "UNCOMMITTED"
+    return result.stdout.strip()
+
+
+def _ensure_under_root(root: Path, path: Path) -> Path:
+    resolved = path.resolve()
+    try:
+        resolved.relative_to(root)
+    except ValueError as exc:
+        raise ReproducibilityError(f"refusing to clean path outside repo root: {resolved}") from exc
+    return resolved
+
+
+def clean(root: Path, *, archive_generated: bool = False) -> Path:
+    """Remove local generated clutter while preserving raw data and committed evidence."""
+    targets = [
+        root / ".pytest_cache",
+        root / ".pytest-tmp",
+        root / ".ruff_cache",
+        root / ".mypy_cache",
+        root / "build",
+        root / "dist",
+    ]
+    targets.extend(root.glob("**/__pycache__"))
+    if archive_generated:
+        targets.extend((root / "artifacts").glob("esa_rebuild_tmp*"))
+    removed: list[str] = []
+    preserved = {
+        (root / "data" / "raw" / "ESA-Mission1.zip").resolve().as_posix(),
+        (root / "artifacts" / "esa_rebuild").resolve().as_posix(),
+        (root / "archive").resolve().as_posix(),
+    }
+    for target in sorted({item for item in targets}, key=lambda value: value.as_posix()):
+        if not target.exists():
+            continue
+        resolved = _ensure_under_root(root, target)
+        if resolved.as_posix() in preserved:
+            continue
+        if resolved.is_dir():
+            shutil.rmtree(resolved)
+        else:
+            resolved.unlink()
+        removed.append(_display_path(root, resolved))
+    report = {
+        "status": "clean_complete",
+        "removed": removed,
+        "preserved": sorted(_display_path(root, Path(item)) for item in preserved),
+        "raw_esa_archive_preserved": (root / "data" / "raw" / "ESA-Mission1.zip").exists(),
+        "committed_evidence_preserved": (root / "artifacts" / "esa_rebuild").exists(),
+    }
+    out = root / "artifacts" / "esa_rebuild" / "clean_report.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    return out
 
 
 def audit(root: Path, output_dir: Path) -> Path:
@@ -133,6 +205,7 @@ def full_rebuild(
         "active_training_performed": True,
         "source_zip": _display_path(root, source_zip),
         "source_zip_hash": sha256_file(source_zip),
+        "code_commit": _code_commit(root),
         "outputs": {key: _display_path(root, value) for key, value in outputs.items()},
         "output_hashes": output_hashes,
         "training_policy": (
@@ -142,6 +215,52 @@ def full_rebuild(
         ),
     }
     out = output_dir / "full_rebuild_manifest.json"
+    out.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    return out
+
+
+def xgboost_candidate(
+    root: Path,
+    output_dir: Path,
+    source_zip: Path | None,
+    channel_limit: int | None,
+    max_rows_per_partition: int,
+) -> Path:
+    if source_zip is None:
+        source_zip = root / "data" / "raw" / "ESA-Mission1.zip"
+    if not source_zip.exists():
+        raise ReproducibilityError(
+            "XGBoost candidate training requires the real ESA-Mission1.zip archive at "
+            f"{(root / 'data' / 'raw' / 'ESA-Mission1.zip').as_posix()} "
+            "or an explicit --source-zip path."
+        )
+    outputs = train_mission1_xgboost_candidate(
+        source_zip=source_zip,
+        output_dir=output_dir,
+        channel_limit=channel_limit,
+        max_rows_per_partition=max_rows_per_partition,
+    )
+    generated = hash_outputs(outputs.values())
+    manifest = {
+        "zenodo_record": "12528696",
+        "active_training_performed": False,
+        "research_candidate_trained": True,
+        "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+        "source_zip": _display_path(root, source_zip),
+        "source_zip_hash": sha256_file(source_zip),
+        "code_commit": _code_commit(root),
+        "outputs": {key: _display_path(root, value) for key, value in outputs.items()},
+        "output_hashes": {_display_path(root, Path(path)): digest for path, digest in generated.items()},
+        "explanation_policy": (
+            "XGBoost feature attributions are model sensitivity evidence only; they are "
+            "not causal, probabilistic confidence, certainty, or flight validation claims."
+        ),
+        "release_gate": (
+            "This candidate cannot become an active v0.9 detector unless it beats the "
+            "Z-score baseline on recorded acceptance metrics and receives model-risk approval."
+        ),
+    }
+    out = output_dir / "xgboost_candidate_manifest.json"
     out.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
     return out
 
@@ -165,7 +284,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="ESA reproducibility rebuild workflow")
     parser.add_argument(
         "command",
-        choices=["audit", "verify", "dry-run", "full-rebuild", "metrics-placeholder"],
+        choices=[
+            "audit",
+            "verify",
+            "dry-run",
+            "clean",
+            "full-rebuild",
+            "xgboost-candidate",
+            "metrics-placeholder",
+        ],
     )
     parser.add_argument("--root", default=".", help="Repository root")
     parser.add_argument("--output-dir", default="artifacts/esa_rebuild", help="Evidence output folder")
@@ -175,6 +302,17 @@ def main() -> None:
         type=int,
         default=None,
         help="Optional channel limit for smoke testing; omit for all Mission 1 channels",
+    )
+    parser.add_argument(
+        "--max-rows-per-partition",
+        type=int,
+        default=250_000,
+        help="Deterministic cap per train/validation/test partition for XGBoost research runs",
+    )
+    parser.add_argument(
+        "--archive-generated",
+        action="store_true",
+        help="Allow clean to remove temporary generated rebuild folders; committed evidence is preserved",
     )
     args = parser.parse_args()
 
@@ -186,8 +324,19 @@ def main() -> None:
         path = verify(root, output_dir)
     elif args.command == "dry-run":
         path = dry_run(root, output_dir)
+    elif args.command == "clean":
+        path = clean(root, archive_generated=args.archive_generated)
     elif args.command == "metrics-placeholder":
         path = write_metrics_placeholder(output_dir)
+    elif args.command == "xgboost-candidate":
+        source_zip = Path(args.source_zip).resolve() if args.source_zip else None
+        path = xgboost_candidate(
+            root,
+            output_dir,
+            source_zip,
+            args.channel_limit,
+            args.max_rows_per_partition,
+        )
     else:
         source_zip = Path(args.source_zip).resolve() if args.source_zip else None
         path = full_rebuild(root, output_dir, source_zip, args.channel_limit)
