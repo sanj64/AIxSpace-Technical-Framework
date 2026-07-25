@@ -17,6 +17,7 @@ from ad_dss.data.esa_reproducible import (
     compare_unverified_inputs,
     hash_outputs,
     sha256_file,
+    train_mission1_isolation_forest_candidate,
     train_mission1_lstm_candidate,
     train_mission1_xgboost_candidate,
     train_mission1_zscore,
@@ -266,6 +267,59 @@ def xgboost_candidate(
     return out
 
 
+def isolation_forest_candidate(
+    root: Path,
+    output_dir: Path,
+    source_zip: Path | None,
+    channel_limit: int | None,
+    max_rows_per_partition: int,
+) -> Path:
+    if source_zip is None:
+        source_zip = root / "data" / "raw" / "ESA-Mission1.zip"
+    if not source_zip.exists():
+        raise ReproducibilityError(
+            "Isolation Forest candidate training requires the real ESA-Mission1.zip archive at "
+            f"{(root / 'data' / 'raw' / 'ESA-Mission1.zip').as_posix()} "
+            "or an explicit --source-zip path."
+        )
+    outputs = train_mission1_isolation_forest_candidate(
+        source_zip=source_zip,
+        output_dir=output_dir,
+        channel_limit=channel_limit,
+        max_rows_per_partition=max_rows_per_partition,
+    )
+    generated = hash_outputs(outputs.values())
+    manifest = {
+        "zenodo_record": "12528696",
+        "active_training_performed": False,
+        "research_candidate_trained": True,
+        "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+        "source_zip": _display_path(root, source_zip),
+        "source_zip_hash": sha256_file(source_zip),
+        "code_commit": _code_commit(root),
+        "outputs": {key: _display_path(root, value) for key, value in outputs.items()},
+        "output_hashes": {
+            _display_path(root, Path(path)): digest for path, digest in generated.items()
+        },
+        "training_policy": (
+            "Isolation Forest is trained per channel on finite non-labelled samples in the "
+            "chronological training partition. Thresholds are calibrated on normal "
+            "calibration scores and metrics are evaluated once on untouched test samples."
+        ),
+        "explanation_policy": (
+            "Isolation Forest feature sensitivity is model evidence only; it is not causal, "
+            "probabilistic confidence, certainty, or flight validation."
+        ),
+        "release_gate": (
+            "This candidate cannot become an active v0.9 detector without model-risk "
+            "approval and commercial release integration, even if it beats the Z-score baseline."
+        ),
+    }
+    out = output_dir / "isolation_forest_candidate_manifest.json"
+    out.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    return out
+
+
 def lstm_candidate(
     root: Path,
     output_dir: Path,
@@ -351,6 +405,7 @@ def main() -> None:
             "clean",
             "full-rebuild",
             "xgboost-candidate",
+            "isolation-forest-candidate",
             "lstm-candidate",
             "metrics-placeholder",
         ],
@@ -403,6 +458,16 @@ def main() -> None:
         source_zip = Path(args.source_zip).resolve() if args.source_zip else None
         channel_limit = args.channel_limit if args.channel_limit is not None else args.max_channels
         path = xgboost_candidate(
+            root,
+            output_dir,
+            source_zip,
+            channel_limit,
+            args.max_rows_per_partition,
+        )
+    elif args.command == "isolation-forest-candidate":
+        source_zip = Path(args.source_zip).resolve() if args.source_zip else None
+        channel_limit = args.channel_limit if args.channel_limit is not None else args.max_channels
+        path = isolation_forest_candidate(
             root,
             output_dir,
             source_zip,

@@ -1,0 +1,3056 @@
+{
+  "candidate_limitations": [
+    "Feature sensitivity is model evidence, not causation.",
+    "Scores are not probabilities, confidence, certainty, or flight validation.",
+    "Binary joblib models remain local and are referenced by hash in this manifest."
+  ],
+  "channels": {
+    "channel_1": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.13791033625602722,
+        "rolling_std_24": 1.4363022018188995e-08,
+        "value": 0.13791033625602722
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_1.joblib",
+      "local_model_sha256": "5446ba6762d5fe1fcdaf6bef4657b32a9bea2098b384211257f630037e1c72c3",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.051594136540962454,
+      "training_feature_max": {
+        "delta_1": 0.07017096132040024,
+        "rolling_abs_z_24": 31984913.976050336,
+        "rolling_margin_24": 0.25303836787740386,
+        "rolling_mean_24": 0.42067497844497365,
+        "rolling_std_24": 0.14737592657338452,
+        "value": 0.42810505628585815
+      },
+      "training_feature_min": {
+        "delta_1": -0.03190532326698303,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.16630284177760285,
+        "rolling_mean_24": 0.1372644497702519,
+        "rolling_std_24": 3.9053959054741537e-10,
+        "value": 0.09217216074466705
+      }
+    },
+    "channel_10": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.03135963901877403,
+        "rolling_std_24": 1.0227446993067029e-10,
+        "value": 0.03135963901877403
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_10.joblib",
+      "local_model_sha256": "939202d4912e12ff54599fa2f112c4964fea03c380bdd84b3b31edfcfbb72ebe",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1526904190199354,
+      "training_feature_max": {
+        "delta_1": 0.000421866774559021,
+        "rolling_abs_z_24": 1242615.2310846827,
+        "rolling_margin_24": 0.005268746055662632,
+        "rolling_mean_24": 0.14504346251487732,
+        "rolling_std_24": 0.00298061767397034,
+        "value": 0.14504346251487732
+      },
+      "training_feature_min": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.030317269265651703,
+        "rolling_std_24": 3.049635659566453e-11,
+        "value": 0.030317269265651703
+      }
+    },
+    "channel_11": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.026308322325348854,
+        "rolling_std_24": 3.9566626547764546e-10,
+        "value": 0.026308322325348854
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_11.joblib",
+      "local_model_sha256": "f8b16da3d8cd69cd274537dc10e5ffdf73c05860ccd8872c1608553cbd9eb291",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.03688073489089194,
+      "training_feature_max": {
+        "delta_1": 0.00013807415962219238,
+        "rolling_abs_z_24": 91593.90236031063,
+        "rolling_margin_24": 0.001648973673582077,
+        "rolling_mean_24": 0.02994462288916111,
+        "rolling_std_24": 0.0009286634695888409,
+        "value": 0.02994462288916111
+      },
+      "training_feature_min": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.0182573851197958,
+        "rolling_std_24": 4.0135717270761843e-11,
+        "value": 0.0182573851197958
+      }
+    },
+    "channel_12": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.36689831232704534,
+        "rolling_margin_24": 0.0002599799384673529,
+        "rolling_mean_24": 0.2623910717666149,
+        "rolling_std_24": 0.0010602088066467969,
+        "value": 0.2625860571861267
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_12.joblib",
+      "local_model_sha256": "38210a73ae513e6d033dea786e1e129163d7c8dacfd78a9e1e387d9751ff008f",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1800578558047593,
+      "training_feature_max": {
+        "delta_1": 0.026514410972595215,
+        "rolling_abs_z_24": 33135602.722319707,
+        "rolling_margin_24": 0.014687467366456985,
+        "rolling_mean_24": 0.32224272936582565,
+        "rolling_std_24": 0.011080919551127055,
+        "value": 0.32341256737709045
+      },
+      "training_feature_min": {
+        "delta_1": -0.026516184210777283,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.02722937303284803,
+        "rolling_mean_24": 0.18778578688700995,
+        "rolling_std_24": 1.5147126663086244e-10,
+        "value": 0.17212361097335815
+      }
+    },
+    "channel_13": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3644602973948502,
+        "rolling_margin_24": 0.00032490243514377015,
+        "rolling_mean_24": 0.31665486097335815,
+        "rolling_std_24": 0.0011876709188157748,
+        "value": 0.3171748220920563
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_13.joblib",
+      "local_model_sha256": "64a69d2ee8fb2ab5676f7f4099e2e17a4fddb638470a3d66b926e02a85ac1df8",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.16547406065156667,
+      "training_feature_max": {
+        "delta_1": 0.031194090843200684,
+        "rolling_abs_z_24": 45368390.69130167,
+        "rolling_margin_24": 0.01462261751294136,
+        "rolling_mean_24": 0.3796912506222725,
+        "rolling_std_24": 0.01092166070220916,
+        "value": 0.38112106919288635
+      },
+      "training_feature_min": {
+        "delta_1": -0.031194090843200684,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.03119233250617981,
+        "rolling_mean_24": 0.2380849402397871,
+        "rolling_std_24": 1.541822421755799e-10,
+        "value": 0.22203272581100464
+      }
+    },
+    "channel_14": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.34774348086074625,
+        "rolling_margin_24": -0.0003142630060513907,
+        "rolling_mean_24": 0.23465581300357977,
+        "rolling_std_24": 0.0012319257342363514,
+        "value": 0.2353457361459732
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_14.joblib",
+      "local_model_sha256": "c0e2cafdb96a77bec625345f9ea49bcb3b31e8259eeab8618d0bdde7b5b65121",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.156876026886482,
+      "training_feature_max": {
+        "delta_1": 0.03213858604431152,
+        "rolling_abs_z_24": 71397033.38028312,
+        "rolling_margin_24": 0.03242187077800435,
+        "rolling_mean_24": 0.3764253382881482,
+        "rolling_std_24": 0.010186567785179146,
+        "value": 0.40271684527397156
+      },
+      "training_feature_min": {
+        "delta_1": -0.03213858604431152,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.004969879363973945,
+        "rolling_mean_24": 0.12232346305002768,
+        "rolling_std_24": 1.457720093853727e-10,
+        "value": 0.12219759076833725
+      }
+    },
+    "channel_15": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.35527405207979595,
+        "rolling_margin_24": -0.000268351286649704,
+        "rolling_mean_24": 0.08744034791986148,
+        "rolling_std_24": 0.0010719861700505882,
+        "value": 0.0876035988330841
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_15.joblib",
+      "local_model_sha256": "c60db7ac15f159594c6773398c59e86c3c88bcf284c7bc188647f2a3847ad2a1",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.16633813313793036,
+      "training_feature_max": {
+        "delta_1": 0.025761723518371582,
+        "rolling_abs_z_24": 123789329.5916315,
+        "rolling_margin_24": 0.02560085554917653,
+        "rolling_mean_24": 0.18841098497311273,
+        "rolling_std_24": 0.00784766594750974,
+        "value": 0.19468292593955994
+      },
+      "training_feature_min": {
+        "delta_1": -0.02447478473186493,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.004240476215879113,
+        "rolling_mean_24": 0.004027414805023,
+        "rolling_std_24": 1.2466440232136888e-10,
+        "value": 0.003866547020152211
+      }
+    },
+    "channel_16": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3382849457334562,
+        "rolling_margin_24": -0.000383034348487854,
+        "rolling_mean_24": 0.7226383437712988,
+        "rolling_std_24": 0.001432272332880856,
+        "value": 0.7226383090019226
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_16.joblib",
+      "local_model_sha256": "a58bb2a69293960b2ba2b6f714996ebac7666ba742462bc3a3b457f3c6c2e387",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1580052743831415,
+      "training_feature_max": {
+        "delta_1": 0.036775290966033936,
+        "rolling_abs_z_24": 31111522.005416844,
+        "rolling_margin_24": 0.03603771825631463,
+        "rolling_mean_24": 0.8632355034351349,
+        "rolling_std_24": 0.012214788091547878,
+        "value": 0.8854599595069885
+      },
+      "training_feature_min": {
+        "delta_1": -0.03672724962234497,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.0068187365929285315,
+        "rolling_mean_24": 0.6251832246780396,
+        "rolling_std_24": 1.7925403960997546e-10,
+        "value": 0.6251832246780396
+      }
+    },
+    "channel_17": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.4017129344246337,
+        "rolling_margin_24": 0.0003141351044178009,
+        "rolling_mean_24": 0.3022960436840852,
+        "rolling_std_24": 0.0012510585026145153,
+        "value": 0.30273547768592834
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_17.joblib",
+      "local_model_sha256": "e728756a75c1c30606ad4dd65791f394d013c2a9395796640953a1519583ab10",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.17045118018476296,
+      "training_feature_max": {
+        "delta_1": 0.03015345335006714,
+        "rolling_abs_z_24": 89330162.84489281,
+        "rolling_margin_24": 0.005277170489231764,
+        "rolling_mean_24": 0.3643617816269398,
+        "rolling_std_24": 0.012605678966244602,
+        "value": 0.36455026268959045
+      },
+      "training_feature_min": {
+        "delta_1": -0.028645634651184082,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.029399542758862196,
+        "rolling_mean_24": 0.22308165145417055,
+        "rolling_std_24": 1.4721750980734755e-10,
+        "value": 0.21378463506698608
+      }
+    },
+    "channel_18": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.4595362915361383,
+        "rolling_margin_24": 0.000314061840375246,
+        "rolling_mean_24": 0.3244719405968984,
+        "rolling_std_24": 0.0014954982290005605,
+        "value": 0.3238435983657837
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_18.joblib",
+      "local_model_sha256": "c774b6f44bc574b419d8a618bc20ee7968597f4e6063fb048e6730df0840a1c0",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15796385453406012,
+      "training_feature_max": {
+        "delta_1": 0.034676969051361084,
+        "rolling_abs_z_24": 98230790.09326476,
+        "rolling_margin_24": 0.008103250215450941,
+        "rolling_mean_24": 0.38716450333595276,
+        "rolling_std_24": 0.011131852565759007,
+        "value": 0.38716450333595276
+      },
+      "training_feature_min": {
+        "delta_1": -0.034676969051361084,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.03499025727311772,
+        "rolling_mean_24": 0.24004290252923965,
+        "rolling_std_24": 1.4659078278202648e-10,
+        "value": 0.23790672421455383
+      }
+    },
+    "channel_19": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.47026997071844373,
+        "rolling_margin_24": 0.00032490181426209075,
+        "rolling_mean_24": 0.2748033565779527,
+        "rolling_std_24": 0.0014530726482293844,
+        "value": 0.27506333589553833
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_19.joblib",
+      "local_model_sha256": "c11f51b9291fd318a387a21d04a935c11aa6efded16893288e1899825e158fde",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1759492502691743,
+      "training_feature_max": {
+        "delta_1": 0.03431382775306702,
+        "rolling_abs_z_24": 62758430.84680263,
+        "rolling_margin_24": 0.017481605211893736,
+        "rolling_mean_24": 0.34992700815200806,
+        "rolling_std_24": 0.014893947461893929,
+        "value": 0.34992700815200806
+      },
+      "training_feature_min": {
+        "delta_1": -0.03587371110916138,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.03600333506862324,
+        "rolling_mean_24": 0.15542173696060976,
+        "rolling_std_24": 1.5074010580493518e-10,
+        "value": 0.1471690535545349
+      }
+    },
+    "channel_2": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.12633411586284637,
+        "rolling_std_24": 1.4562316763000942e-08,
+        "value": 0.12633411586284637
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_2.joblib",
+      "local_model_sha256": "4b1bc2c7df0ced7c393665488eef8d097913b4eb3bc7c9cf726b8e4985f3aaa0",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.046633816183069166,
+      "training_feature_max": {
+        "delta_1": 0.2440260946750641,
+        "rolling_abs_z_24": 6394829.7281819675,
+        "rolling_margin_24": 0.6926314154018959,
+        "rolling_mean_24": 0.9698311736186346,
+        "rolling_std_24": 0.4378474110482638,
+        "value": 0.984882116317749
+      },
+      "training_feature_min": {
+        "delta_1": -0.09480062127113342,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.5500399113322297,
+        "rolling_mean_24": 0.12633411586284637,
+        "rolling_std_24": 1.4081553199918277e-11,
+        "value": 0.0
+      }
+    },
+    "channel_20": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.37002421074435543,
+        "rolling_margin_24": 0.0003896045188109265,
+        "rolling_mean_24": 0.3167198561131954,
+        "rolling_std_24": 0.0013650448673170575,
+        "value": 0.3171748220920563
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_20.joblib",
+      "local_model_sha256": "0d2f14dab197e3997a27000925de5a5a4fac502fcc56236fee9f40537982a970",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.16949000473612863,
+      "training_feature_max": {
+        "delta_1": 0.03431382775306702,
+        "rolling_abs_z_24": 23171567.529489018,
+        "rolling_margin_24": 0.006953436881303787,
+        "rolling_mean_24": 0.38261595740914345,
+        "rolling_std_24": 0.015142184290884684,
+        "value": 0.3826809525489807
+      },
+      "training_feature_min": {
+        "delta_1": -0.03431382775306702,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.033988857020934404,
+        "rolling_mean_24": 0.23119701445102692,
+        "rolling_std_24": 1.5201732944721818e-10,
+        "value": 0.22203272581100464
+      }
+    },
+    "channel_21": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3683382195277076,
+        "rolling_margin_24": -0.000376775860786438,
+        "rolling_mean_24": 0.24106722262998423,
+        "rolling_std_24": 0.0013101468896157518,
+        "value": 0.24138092994689941
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_21.joblib",
+      "local_model_sha256": "11819a7d2d957b0a18280401cecbc48d5564c942c1e87a54d209bb6f504f8124",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.156711740438564,
+      "training_feature_max": {
+        "delta_1": 0.03328397870063782,
+        "rolling_abs_z_24": 37922165.032767154,
+        "rolling_margin_24": 0.03195995216568309,
+        "rolling_mean_24": 0.38579855114221573,
+        "rolling_std_24": 0.01022112107611942,
+        "value": 0.40271684527397156
+      },
+      "training_feature_min": {
+        "delta_1": -0.03383326530456543,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.005357271681229292,
+        "rolling_mean_24": 0.12521852552890778,
+        "rolling_std_24": 1.4608746530371483e-10,
+        "value": 0.12521852552890778
+      }
+    },
+    "channel_22": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3488742203157613,
+        "rolling_margin_24": -0.00030052661895751953,
+        "rolling_mean_24": 0.3038513883948326,
+        "rolling_std_24": 0.0010371313151966886,
+        "value": 0.30445054173469543
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_22.joblib",
+      "local_model_sha256": "7dea5965c022e31c381c833e7a3aa867692b6d8df2190a23e4a1c8b68ab8ed54",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.16561647373616117,
+      "training_feature_max": {
+        "delta_1": 0.027443349361419678,
+        "rolling_abs_z_24": 7837629.671822736,
+        "rolling_margin_24": 0.027684529622395815,
+        "rolling_mean_24": 0.39406247685352963,
+        "rolling_std_24": 0.008687879581954418,
+        "value": 0.4026699662208557
+      },
+      "training_feature_min": {
+        "delta_1": -0.02889043092727661,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.004816964268684387,
+        "rolling_mean_24": 0.22073945961892605,
+        "rolling_std_24": 1.4373669819887995e-10,
+        "value": 0.2206791639328003
+      }
+    },
+    "channel_23": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.36346638185419483,
+        "rolling_margin_24": -0.0002693043400843892,
+        "rolling_mean_24": 0.09393249607334535,
+        "rolling_std_24": 0.0011059433859321338,
+        "value": 0.094044029712677
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_23.joblib",
+      "local_model_sha256": "221cc58122b05ecb7f9bfa00eead78388a04d5cc7ddc29935a79bd37a2d4cca0",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1576499210493374,
+      "training_feature_max": {
+        "delta_1": 0.02576744556427002,
+        "rolling_abs_z_24": 115771678.0117036,
+        "rolling_margin_24": 0.02571382311483225,
+        "rolling_mean_24": 0.1901948396116495,
+        "rolling_std_24": 0.007886641278379469,
+        "value": 0.19468292593955994
+      },
+      "training_feature_min": {
+        "delta_1": -0.02576744556427002,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.004616549859444305,
+        "rolling_mean_24": 0.011326046388906738,
+        "rolling_std_24": 1.2425754515387844e-10,
+        "value": 0.010306978598237038
+      }
+    },
+    "channel_24": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.34610827520127463,
+        "rolling_margin_24": -0.00038310388724005495,
+        "rolling_mean_24": 0.7158961544434229,
+        "rolling_std_24": 0.0015316244577766288,
+        "value": 0.7152832746505737
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_24.joblib",
+      "local_model_sha256": "b60674bd8ce17aa0021e02483b2438d4231438c6d32f9c47aa215c44c40fb0c7",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1653298394018392,
+      "training_feature_max": {
+        "delta_1": 0.03861379623413086,
+        "rolling_abs_z_24": 63133652.06639409,
+        "rolling_margin_24": 0.038077548146247864,
+        "rolling_mean_24": 0.8543948754668236,
+        "rolling_std_24": 0.012510252860900217,
+        "value": 0.8568206429481506
+      },
+      "training_feature_min": {
+        "delta_1": -0.03861379623413086,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.006580933928489685,
+        "rolling_mean_24": 0.6188240473469099,
+        "rolling_std_24": 1.837183212750203e-10,
+        "value": 0.6178281903266907
+      }
+    },
+    "channel_25": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.41983074959672934,
+        "rolling_margin_24": 0.0002513087044159479,
+        "rolling_mean_24": 0.26058422153194744,
+        "rolling_std_24": 0.0013089790299921833,
+        "value": 0.26052266359329224
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_25.joblib",
+      "local_model_sha256": "280e2ac85e342368c3b2d1de39342098c42896d7481bbb1460282bfdb0cf3f14",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1484678416171311,
+      "training_feature_max": {
+        "delta_1": 0.03015345335006714,
+        "rolling_abs_z_24": 8387860.898364314,
+        "rolling_margin_24": 0.006647208084662765,
+        "rolling_mean_24": 0.33169616758823395,
+        "rolling_std_24": 0.012440392960923504,
+        "value": 0.31932005286216736
+      },
+      "training_feature_min": {
+        "delta_1": -0.03015345335006714,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.030215998490651458,
+        "rolling_mean_24": 0.1782525231440862,
+        "rolling_std_24": 1.9771801104542438e-10,
+        "value": 0.16590850055217743
+      }
+    },
+    "channel_26": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.4019028283666851,
+        "rolling_margin_24": 0.0003769621253013611,
+        "rolling_mean_24": 0.36291690667470294,
+        "rolling_std_24": 0.0014043297599535206,
+        "value": 0.363042414188385
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_26.joblib",
+      "local_model_sha256": "ee1597360404cf035d0607b795202796be521b45504cbd7718c8e322e3f0c09b",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15202674388581738,
+      "training_feature_max": {
+        "delta_1": 0.034676969051361084,
+        "rolling_abs_z_24": 111172775.05717699,
+        "rolling_margin_24": 0.0072241611778736115,
+        "rolling_mean_24": 0.42184150218963623,
+        "rolling_std_24": 0.011403730640787944,
+        "value": 0.42184150218963623
+      },
+      "training_feature_min": {
+        "delta_1": -0.034676969051361084,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.03342045098543167,
+        "rolling_mean_24": 0.28828730682531994,
+        "rolling_std_24": 1.546592185421634e-10,
+        "value": 0.28615260124206543
+      }
+    },
+    "channel_27": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3820327630722044,
+        "rolling_margin_24": 0.00032468202213445374,
+        "rolling_mean_24": 0.23327684899171194,
+        "rolling_std_24": 0.0012733030860691465,
+        "value": 0.23295187950134277
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_27.joblib",
+      "local_model_sha256": "bf21a5f50ac723ba628fe42804a4799f9878cf0e47aea48bb8e8b2425bccbfb8",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.17680320497507176,
+      "training_feature_max": {
+        "delta_1": 0.03119407594203949,
+        "rolling_abs_z_24": 62254959.192021824,
+        "rolling_margin_24": 0.005783973261713982,
+        "rolling_mean_24": 0.316654484719038,
+        "rolling_std_24": 0.020087138102827858,
+        "value": 0.29689812660217285
+      },
+      "training_feature_min": {
+        "delta_1": -0.02963419258594513,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.032688360661268234,
+        "rolling_mean_24": 0.14834350099166235,
+        "rolling_std_24": 1.6101730866546892e-10,
+        "value": 0.1471690535545349
+      }
+    },
+    "channel_28": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.44072775459168373,
+        "rolling_margin_24": 0.000324901814262063,
+        "rolling_mean_24": 0.17992132777969042,
+        "rolling_std_24": 0.001373544594838179,
+        "value": 0.1799212545156479
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_28.joblib",
+      "local_model_sha256": "6c7b505e6ed9122ab67a57aadb247879f1884503250cdaedbf7b27befb6a19a6",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1900764317662933,
+      "training_feature_max": {
+        "delta_1": 0.03119407594203949,
+        "rolling_abs_z_24": 74999073.52265799,
+        "rolling_margin_24": 0.006258232519030571,
+        "rolling_mean_24": 0.246924032146732,
+        "rolling_std_24": 0.015222652257181368,
+        "value": 0.24698902666568756
+      },
+      "training_feature_min": {
+        "delta_1": -0.03119407594203949,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.031258484969536454,
+        "rolling_mean_24": 0.08530577085912228,
+        "rolling_std_24": 1.5110612845421118e-10,
+        "value": 0.07355645298957825
+      }
+    },
+    "channel_29": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.34869685726665267,
+        "rolling_margin_24": -0.0003148205578327179,
+        "rolling_mean_24": 0.257728202889363,
+        "rolling_std_24": 0.0012168301999344131,
+        "value": 0.2579793930053711
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_29.joblib",
+      "local_model_sha256": "bf7d61e61c7201f6c89184321bb71ce44d3d8fa01a9f8c8c87758ee52c10544d",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15141082244104986,
+      "training_feature_max": {
+        "delta_1": 0.03479111194610596,
+        "rolling_abs_z_24": 14517699.820241673,
+        "rolling_margin_24": 0.03460244213541347,
+        "rolling_mean_24": 0.38389788071314496,
+        "rolling_std_24": 0.010267905497276072,
+        "value": 0.40271684527397156
+      },
+      "training_feature_min": {
+        "delta_1": -0.03383326530456543,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.0054702963680028915,
+        "rolling_mean_24": 0.1497988806416591,
+        "rolling_std_24": 1.5436128103076223e-10,
+        "value": 0.1493593007326126
+      }
+    },
+    "channel_3": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.12633411586284637,
+        "rolling_std_24": 2.314792357095889e-09,
+        "value": 0.12633411586284637
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_3.joblib",
+      "local_model_sha256": "9c52291bcc39c990ec499133e7df40aa30a385e714ca3cfdb99303178d7f1b86",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.30291092274868486,
+      "training_feature_max": {
+        "delta_1": 0.21201066300272942,
+        "rolling_abs_z_24": 94902457.52954708,
+        "rolling_margin_24": 0.7237154810378948,
+        "rolling_mean_24": 0.975198765595754,
+        "rolling_std_24": 0.43795893326375845,
+        "value": 0.9890934228897095
+      },
+      "training_feature_min": {
+        "delta_1": -0.09399190545082092,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.4864064839979013,
+        "rolling_mean_24": 0.12633411586284637,
+        "rolling_std_24": 2.524813928357323e-12,
+        "value": 0.0
+      }
+    },
+    "channel_30": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3519321794265607,
+        "rolling_margin_24": -0.00031454224760333466,
+        "rolling_mean_24": 0.115096523736914,
+        "rolling_std_24": 0.001278324207358068,
+        "value": 0.1146552711725235
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_30.joblib",
+      "local_model_sha256": "211a430ad9f02d3b9fb94580b52961fc3622b6fd99df224f6a2940b4fa046312",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1490790638178755,
+      "training_feature_max": {
+        "delta_1": 0.030175961554050446,
+        "rolling_abs_z_24": 123572906.06249727,
+        "rolling_margin_24": 0.02960381346444288,
+        "rolling_mean_24": 0.22862340634067854,
+        "rolling_std_24": 0.00939315120950873,
+        "value": 0.24892324209213257
+      },
+      "training_feature_min": {
+        "delta_1": -0.03016926348209381,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.0051524078783889635,
+        "rolling_mean_24": 0.034697335213422775,
+        "rolling_std_24": 1.4577200938537274e-10,
+        "value": 0.03319021314382553
+      }
+    },
+    "channel_31": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3598286761557543,
+        "rolling_margin_24": -0.00030123814940452576,
+        "rolling_mean_24": 0.30204372107982635,
+        "rolling_std_24": 0.0011116847593771093,
+        "value": 0.30300915241241455
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_31.joblib",
+      "local_model_sha256": "4035b54977aba11bac8a499b106be6d5b58a0a03d0f7f2d7a6030c8d7207bb16",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15841686412790398,
+      "training_feature_max": {
+        "delta_1": 0.02889043092727661,
+        "rolling_abs_z_24": 74190856.11102004,
+        "rolling_margin_24": 0.028529372066259384,
+        "rolling_mean_24": 0.3923796700934569,
+        "rolling_std_24": 0.008719157360535716,
+        "value": 0.4026699662208557
+      },
+      "training_feature_min": {
+        "delta_1": -0.02889043092727661,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.005173978706200899,
+        "rolling_mean_24": 0.21797086484730244,
+        "rolling_std_24": 1.4206153827239747e-10,
+        "value": 0.21779069304466248
+      }
+    },
+    "channel_32": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3461934442799667,
+        "rolling_margin_24": -0.00038306911786401,
+        "rolling_mean_24": 0.730606235563755,
+        "rolling_std_24": 0.0015015104352581465,
+        "value": 0.7318319082260132
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_32.joblib",
+      "local_model_sha256": "2c88f6b9009cb2b4443120ef303692880bbd84f8cd8cf6b9755472b19a0297af",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.16074784920385313,
+      "training_feature_max": {
+        "delta_1": 0.03856581449508667,
+        "rolling_abs_z_24": 23158789.577023882,
+        "rolling_margin_24": 0.03764653205871582,
+        "rolling_mean_24": 0.8702406659722328,
+        "rolling_std_24": 0.013096500588491785,
+        "value": 0.8854599595069885
+      },
+      "training_feature_min": {
+        "delta_1": -0.03856581449508667,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.006427769859631893,
+        "rolling_mean_24": 0.6341470032930374,
+        "rolling_std_24": 1.814491730060535e-10,
+        "value": 0.6325382590293884
+      }
+    },
+    "channel_33": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.35575494051932605,
+        "rolling_margin_24": -0.00038306663433707033,
+        "rolling_mean_24": 0.764700248837471,
+        "rolling_std_24": 0.0014322846695290652,
+        "value": 0.7649300694465637
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_33.joblib",
+      "local_model_sha256": "b3fab116cddd9c4aa30444dee0811ee6fd47ff43d1451c0a6edebb46a7f438a4",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.16147188499641674,
+      "training_feature_max": {
+        "delta_1": 0.03861379623413086,
+        "rolling_abs_z_24": 53326260.07954275,
+        "rolling_margin_24": 0.03833599388599396,
+        "rolling_mean_24": 0.9050711244344711,
+        "rolling_std_24": 0.01326629726600552,
+        "value": 0.914090633392334
+      },
+      "training_feature_min": {
+        "delta_1": -0.03677523136138916,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.006282423933347103,
+        "rolling_mean_24": 0.665636420249939,
+        "rolling_std_24": 1.8615771753686488e-10,
+        "value": 0.665636420249939
+      }
+    },
+    "channel_34": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3696899836234841,
+        "rolling_margin_24": 0.00030862198521693085,
+        "rolling_mean_24": 0.1524535392721494,
+        "rolling_std_24": 0.0011598235619444041,
+        "value": 0.15257707238197327
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_34.joblib",
+      "local_model_sha256": "1e1db703cd2d4249a06bb0026247fee9c85e8dae0481bc7c9e88d92ce61e4e22",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.19437610388342685,
+      "training_feature_max": {
+        "delta_1": 0.02962598204612732,
+        "rolling_abs_z_24": 23786299.96208417,
+        "rolling_margin_24": 0.006049601982037217,
+        "rolling_mean_24": 0.20926110446453094,
+        "rolling_std_24": 0.012530775941795668,
+        "value": 0.20926110446453094
+      },
+      "training_feature_min": {
+        "delta_1": -0.02962598204612732,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.030058347930510848,
+        "rolling_mean_24": 0.08085637415448825,
+        "rolling_std_24": 1.541225163386843e-10,
+        "value": 0.07110437005758286
+      }
+    },
+    "channel_35": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.40913316078266554,
+        "rolling_margin_24": 0.00030529871582984924,
+        "rolling_mean_24": 0.19996443515022597,
+        "rolling_std_24": 0.0013996008977283072,
+        "value": 0.20021574199199677
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_35.joblib",
+      "local_model_sha256": "44afd3781cfec57e9a5a658ad27cefd30acc3ee5c09227616ce1307c231c7f0e",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1698781872813183,
+      "training_feature_max": {
+        "delta_1": 0.03015345335006714,
+        "rolling_abs_z_24": 21674818.69831046,
+        "rolling_margin_24": 0.010176310315728188,
+        "rolling_mean_24": 0.2619033008813858,
+        "rolling_std_24": 0.009183112611166206,
+        "value": 0.2620288133621216
+      },
+      "training_feature_min": {
+        "delta_1": -0.03015345335006714,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.030152820671598107,
+        "rolling_mean_24": 0.11276644313087066,
+        "rolling_std_24": 1.4513904065764017e-10,
+        "value": 0.09480582922697067
+      }
+    },
+    "channel_36": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.4746104425482249,
+        "rolling_margin_24": 0.0003249756991863251,
+        "rolling_mean_24": 0.24165951584776243,
+        "rolling_std_24": 0.0013654994615648155,
+        "value": 0.24230939149856567
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_36.joblib",
+      "local_model_sha256": "72a689adc2b1b9002340e188a407130dbda6f0fb5bd3625bd35346ab6ca44da5",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1636447524237562,
+      "training_feature_max": {
+        "delta_1": 0.031194061040878296,
+        "rolling_abs_z_24": 134296589.1082934,
+        "rolling_margin_24": 0.005783814936876297,
+        "rolling_mean_24": 0.3136649380127589,
+        "rolling_std_24": 0.021056166711953702,
+        "value": 0.31405505537986755
+      },
+      "training_feature_min": {
+        "delta_1": -0.031194061040878296,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.03158403436342874,
+        "rolling_mean_24": 0.1428396183376511,
+        "rolling_std_24": 1.5098421949652376e-10,
+        "value": 0.13485495746135712
+      }
+    },
+    "channel_37": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.4275883594201708,
+        "rolling_margin_24": 0.0003898224482933865,
+        "rolling_mean_24": 0.27753176043430966,
+        "rolling_std_24": 0.0013541577220746916,
+        "value": 0.2781813442707062
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_37.joblib",
+      "local_model_sha256": "9acd99b48df9704299d36113fdf81987134aa9142820d987034d481ef494220b",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1723694024443706,
+      "training_feature_max": {
+        "delta_1": 0.03587371110916138,
+        "rolling_abs_z_24": 74224297.63702536,
+        "rolling_margin_24": 0.010008116563161196,
+        "rolling_mean_24": 0.3546718545258045,
+        "rolling_std_24": 0.017248595039450636,
+        "value": 0.34524911642074585
+      },
+      "training_feature_min": {
+        "delta_1": -0.03587371110916138,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.03580856944123906,
+        "rolling_mean_24": 0.18603106898566088,
+        "rolling_std_24": 1.5334396357916504e-10,
+        "value": 0.17212361097335815
+      }
+    },
+    "channel_38": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.35184465648669083,
+        "rolling_margin_24": -0.0003148216443757193,
+        "rolling_mean_24": 0.11471862625330687,
+        "rolling_std_24": 0.0012834448751124876,
+        "value": 0.1146552711725235
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_38.joblib",
+      "local_model_sha256": "e137b0962148df359fab23d758525dbf3aba78f841637386ddf999d4717b6447",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15126986377099527,
+      "training_feature_max": {
+        "delta_1": 0.03016926348209381,
+        "rolling_abs_z_24": 33119454.92747746,
+        "rolling_margin_24": 0.029918077091375977,
+        "rolling_mean_24": 0.22912605976065,
+        "rolling_std_24": 0.009737569992989407,
+        "value": 0.24892324209213257
+      },
+      "training_feature_min": {
+        "delta_1": -0.030175961554050446,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.005152966516713299,
+        "rolling_mean_24": 0.03319021314382553,
+        "rolling_std_24": 1.4513904065764017e-10,
+        "value": 0.03319021314382553
+      }
+    },
+    "channel_39": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.354169874735872,
+        "rolling_margin_24": -0.00030123814940452576,
+        "rolling_mean_24": 0.30541478966673213,
+        "rolling_std_24": 0.0011277393805397672,
+        "value": 0.30589762330055237
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_39.joblib",
+      "local_model_sha256": "a48c3cf1cb08704c94d43f840d298c9641a92dff404f7de3058013662a7eecdd",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1520845026938702,
+      "training_feature_max": {
+        "delta_1": 0.027443349361419678,
+        "rolling_abs_z_24": 42680870.583224446,
+        "rolling_margin_24": 0.02738329147299129,
+        "rolling_mean_24": 0.3969535604119301,
+        "rolling_std_24": 0.00876815389095094,
+        "value": 0.4026699662208557
+      },
+      "training_feature_min": {
+        "delta_1": -0.027443349361419678,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.005176366617282213,
+        "rolling_mean_24": 0.21929236315190792,
+        "rolling_std_24": 1.6368268203096254e-10,
+        "value": 0.21923206746578217
+      }
+    },
+    "channel_4": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.041668545454740524,
+        "rolling_std_24": 2.8249519223627543e-10,
+        "value": 0.041668545454740524
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_4.joblib",
+      "local_model_sha256": "81aec546d192305ec63ba05b3a83d7a984fdea340e86f920c86f906621319585",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.19204551884784105,
+      "training_feature_max": {
+        "delta_1": 0.0004214346408843994,
+        "rolling_abs_z_24": 161611.8264419944,
+        "rolling_margin_24": 0.08251781513293584,
+        "rolling_mean_24": 0.19086836278438568,
+        "rolling_std_24": 0.04581785581115937,
+        "value": 0.19086836278438568
+      },
+      "training_feature_min": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.03682688996195793,
+        "rolling_std_24": 8.676965604376663e-12,
+        "value": 0.03682688996195793
+      }
+    },
+    "channel_40": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3495702332826592,
+        "rolling_margin_24": -0.00038306911786401,
+        "rolling_mean_24": 0.7685312132040659,
+        "rolling_std_24": 0.0015013004313353738,
+        "value": 0.768608033657074
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_40.joblib",
+      "local_model_sha256": "52cbf7742ebc5ac3a89e2f7533d9d3d1341e635935c43387d23592914e5cecc2",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1631802994503806,
+      "training_feature_max": {
+        "delta_1": 0.03672724962234497,
+        "rolling_abs_z_24": 43944015.669639744,
+        "rolling_margin_24": 0.03802953412135446,
+        "rolling_mean_24": 0.9082041283448538,
+        "rolling_std_24": 0.012050497800538693,
+        "value": 0.914090633392334
+      },
+      "training_feature_min": {
+        "delta_1": -0.03677523136138916,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.006274953484535217,
+        "rolling_mean_24": 0.6693135499954224,
+        "rolling_std_24": 1.9589353042549513e-10,
+        "value": 0.6693135499954224
+      }
+    },
+    "channel_41": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 1.0620846037353855,
+        "rolling_margin_24": -9.826322396599974e-05,
+        "rolling_mean_24": 0.811008649567763,
+        "rolling_std_24": 0.0029389027701151515,
+        "value": 0.8110092282295227
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_41.joblib",
+      "local_model_sha256": "68bbf3d4f139bd7b04c0517c3619745af71a6a4da255d3039c24d98dd6fb8544",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15611763662847122,
+      "training_feature_max": {
+        "delta_1": 0.8165028095245361,
+        "rolling_abs_z_24": 13.543662563935117,
+        "rolling_margin_24": 0.14292701830466592,
+        "rolling_mean_24": 0.9481651882330576,
+        "rolling_std_24": 0.23045984432070413,
+        "value": 0.824351966381073
+      },
+      "training_feature_min": {
+        "delta_1": -0.021191895008087158,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.12852300206820166,
+        "rolling_mean_24": 0.6712215865651766,
+        "rolling_std_24": 0.000640953807125914,
+        "value": 0.7968813180923462
+      }
+    },
+    "channel_42": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.9349942959400123,
+        "rolling_margin_24": -6.653616825735842e-05,
+        "rolling_mean_24": 0.7846702734629313,
+        "rolling_std_24": 0.004498397045973488,
+        "value": 0.784737765789032
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_42.joblib",
+      "local_model_sha256": "c388d0198eafb789574380ce774a5049ef99c67ede34e08e37df04615a8be2a0",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.13308929195331312,
+      "training_feature_max": {
+        "delta_1": 0.0337369441986084,
+        "rolling_abs_z_24": 14.471701640857091,
+        "rolling_margin_24": 0.13952666272719705,
+        "rolling_mean_24": 0.9035851061344147,
+        "rolling_std_24": 0.22236317625894045,
+        "value": 0.8056219220161438
+      },
+      "training_feature_min": {
+        "delta_1": -0.06265377998352051,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.11563482880592346,
+        "rolling_mean_24": 0.6444079900781313,
+        "rolling_std_24": 0.0013043237605983543,
+        "value": 0.7622460126876831
+      }
+    },
+    "channel_43": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 1.0637997894049342,
+        "rolling_margin_24": -6.532172362005984e-05,
+        "rolling_mean_24": 0.7720973963538805,
+        "rolling_std_24": 0.0029072564278643347,
+        "value": 0.7719001173973083
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_43.joblib",
+      "local_model_sha256": "b7873e634c441f4912be01c5abf1999d879d51a080fe8c1af7a8070d4ec27fd8",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15015960780199167,
+      "training_feature_max": {
+        "delta_1": 0.01978158950805664,
+        "rolling_abs_z_24": 9.727633022846268,
+        "rolling_margin_24": 0.11924630155165994,
+        "rolling_mean_24": 0.8296297192573547,
+        "rolling_std_24": 0.08492537455470023,
+        "value": 0.7853518724441528
+      },
+      "training_feature_min": {
+        "delta_1": -0.020573675632476807,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.05298256874084473,
+        "rolling_mean_24": 0.6518617297212282,
+        "rolling_std_24": 0.0006795614869039417,
+        "value": 0.7576562762260437
+      }
+    },
+    "channel_44": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.9355344069789746,
+        "rolling_margin_24": -3.5762786865234375e-07,
+        "rolling_mean_24": 0.7970790440837542,
+        "rolling_std_24": 0.003799986235066834,
+        "value": 0.7968164682388306
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_44.joblib",
+      "local_model_sha256": "03ada18138d322b36b536b758679ee412cd260666aa2a2594ed5f7753fc73fe6",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1356927312340149,
+      "training_feature_max": {
+        "delta_1": 0.7897318005561829,
+        "rolling_abs_z_24": 10.377255247898068,
+        "rolling_margin_24": 0.7612218335270882,
+        "rolling_mean_24": 0.8560189207394918,
+        "rolling_std_24": 0.22432778301265946,
+        "value": 0.8149213790893555
+      },
+      "training_feature_min": {
+        "delta_1": -0.029125213623046875,
+        "rolling_abs_z_24": 1.2879766931994695e-06,
+        "rolling_margin_24": -0.05920245250066125,
+        "rolling_mean_24": 0.03323351591825485,
+        "rolling_std_24": 0.001267348668117958,
+        "value": 0.7755625247955322
+      }
+    },
+    "channel_45": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 1.0663527407124676,
+        "rolling_margin_24": -3.558645645773684e-05,
+        "rolling_mean_24": 0.8132511228322983,
+        "rolling_std_24": 0.0033119984762603194,
+        "value": 0.8134627938270569
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_45.joblib",
+      "local_model_sha256": "e6ac7b8e85662dc2d9af4d58c028c241d820a304241db1c45e9ec5e8ee73308c",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1634108525996354,
+      "training_feature_max": {
+        "delta_1": 0.023740649223327637,
+        "rolling_abs_z_24": 11.680550094406916,
+        "rolling_margin_24": 0.14756987243890762,
+        "rolling_mean_24": 0.8706252202391624,
+        "rolling_std_24": 0.08093894949993824,
+        "value": 0.8278777003288269
+      },
+      "training_feature_min": {
+        "delta_1": -0.03561091423034668,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.07157602161169052,
+        "rolling_mean_24": 0.6574145182967186,
+        "rolling_std_24": 0.0006359714552527601,
+        "value": 0.7973532676696777
+      }
+    },
+    "channel_46": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.9249363668009885,
+        "rolling_margin_24": -3.511955340707029e-05,
+        "rolling_mean_24": 0.7684269100427628,
+        "rolling_std_24": 0.0044798013608260395,
+        "value": 0.7686724066734314
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_46.joblib",
+      "local_model_sha256": "094b7c4fdcf7e60dbab8b57d47151b4394eb0f6a66d9eea6fc484e9c05e816ca",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.12942742546446806,
+      "training_feature_max": {
+        "delta_1": 0.03462427854537964,
+        "rolling_abs_z_24": 9.518158167252384,
+        "rolling_margin_24": 0.15672547121842706,
+        "rolling_mean_24": 0.823917547861735,
+        "rolling_std_24": 0.2159378560985707,
+        "value": 0.7906301617622375
+      },
+      "training_feature_min": {
+        "delta_1": -0.03209066390991211,
+        "rolling_abs_z_24": 1.2417213500575405e-06,
+        "rolling_margin_24": -0.04848889509836829,
+        "rolling_mean_24": 0.6187031815449396,
+        "rolling_std_24": 0.0010991356898436418,
+        "value": 0.7416489124298096
+      }
+    },
+    "channel_47": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.36360925131646626,
+        "rolling_margin_24": -5.281375100214553e-07,
+        "rolling_mean_24": 0.0017836303159128875,
+        "rolling_std_24": 2.1432839587615173e-06,
+        "value": 0.0017835251055657864
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_47.joblib",
+      "local_model_sha256": "e048d127af90ec3eec691af210f2dbf4a55863844c8ad0ec5010267035cb8222",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1561444631594373,
+      "training_feature_max": {
+        "delta_1": 4.554050974547863e-05,
+        "rolling_abs_z_24": 16344660.261318123,
+        "rolling_margin_24": 4.5330089051276445e-05,
+        "rolling_mean_24": 0.0018475160662395258,
+        "rolling_std_24": 1.5469097474185824e-05,
+        "value": 0.0018670210847631097
+      },
+      "training_feature_min": {
+        "delta_1": -4.554050974547863e-05,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -8.54073732625693e-06,
+        "rolling_mean_24": 0.0017127794853877276,
+        "rolling_std_24": 2.759407980881958e-13,
+        "value": 0.0017126742750406265
+      }
+    },
+    "channel_48": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3634411730543532,
+        "rolling_margin_24": -5.264688904087472e-07,
+        "rolling_mean_24": 0.0018418259860482067,
+        "rolling_std_24": 1.8140539251462552e-06,
+        "value": 0.0018417207757011056
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_48.joblib",
+      "local_model_sha256": "a7dc47de9390892a9cc57bb71f4b1fe0b09495df599933ec6fdc35f1bff431d0",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1581226578479542,
+      "training_feature_max": {
+        "delta_1": 4.554050974547863e-05,
+        "rolling_abs_z_24": 4716757.822104375,
+        "rolling_margin_24": 4.522446639991062e-05,
+        "rolling_mean_24": 0.0019022356379233922,
+        "rolling_std_24": 1.4350702918036031e-05,
+        "value": 0.0019075014861300588
+      },
+      "training_feature_min": {
+        "delta_1": -4.554050974547863e-05,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -8.325747330673039e-06,
+        "rolling_mean_24": 0.0017727691495868687,
+        "rolling_std_24": 3.125826293015525e-13,
+        "value": 0.001773405005224049
+      }
+    },
+    "channel_49": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3546980373316388,
+        "rolling_margin_24": -5.264494878549648e-07,
+        "rolling_mean_24": 0.0017948041786439717,
+        "rolling_std_24": 1.825480189384872e-06,
+        "value": 0.0017961702542379498
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_49.joblib",
+      "local_model_sha256": "abd63165b0d4511059a1c8bbfefdf8c4d1e01bf516649efb7629f98217c1e8bc",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1597821478862943,
+      "training_feature_max": {
+        "delta_1": 4.3015461415052414e-05,
+        "rolling_abs_z_24": 10081452.917751582,
+        "rolling_margin_24": 4.2698593460954726e-05,
+        "rolling_mean_24": 0.0018556317760764311,
+        "rolling_std_24": 1.3446052382004919e-05,
+        "value": 0.0018670210847631097
+      },
+      "training_feature_min": {
+        "delta_1": -4.3015461415052414e-05,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -7.693224082079954e-06,
+        "rolling_mean_24": 0.0017265927890548483,
+        "rolling_std_24": 2.565494396337879e-13,
+        "value": 0.0017253294354304671
+      }
+    },
+    "channel_5": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.04002261161804199,
+        "rolling_std_24": 1.0391058152235818e-09,
+        "value": 0.04002261161804199
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_5.joblib",
+      "local_model_sha256": "1c1b0cae0af9a255fba76b043a878c5fafc640e5d04a47be3939f23d092f8fa3",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.20396434890991832,
+      "training_feature_max": {
+        "delta_1": 0.0005349516868591309,
+        "rolling_abs_z_24": 170477.35103168804,
+        "rolling_margin_24": 0.07714898822208247,
+        "rolling_mean_24": 0.2578141689300537,
+        "rolling_std_24": 0.04283632563745881,
+        "value": 0.2578141689300537
+      },
+      "training_feature_min": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.034820929169654846,
+        "rolling_std_24": 5.6121325117188705e-11,
+        "value": 0.034820929169654846
+      }
+    },
+    "channel_50": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3660528850047859,
+        "rolling_margin_24": -0.00022189070781075682,
+        "rolling_mean_24": 0.7494273111224174,
+        "rolling_std_24": 0.0009009129360633795,
+        "value": 0.7501820921897888
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_50.joblib",
+      "local_model_sha256": "d3714ee1898def74fcf02c109a9199268886ad9c1fc54576ab0dc53863a11190",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.16980505148568326,
+      "training_feature_max": {
+        "delta_1": 0.01913321018218994,
+        "rolling_abs_z_24": 12312524.053639421,
+        "rolling_margin_24": 0.01900060474872589,
+        "rolling_mean_24": 0.7765791515509287,
+        "rolling_std_24": 0.007432780183028543,
+        "value": 0.7852617502212524
+      },
+      "training_feature_min": {
+        "delta_1": -0.01913321018218994,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.003544054925441742,
+        "rolling_mean_24": 0.7204150557518005,
+        "rolling_std_24": 1.2034293507338205e-10,
+        "value": 0.7204150557518005
+      }
+    },
+    "channel_51": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3698718809558756,
+        "rolling_margin_24": -0.00022118538618087769,
+        "rolling_mean_24": 0.7740987911820412,
+        "rolling_std_24": 0.0007660487142713208,
+        "value": 0.7746321558952332
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_51.joblib",
+      "local_model_sha256": "c5370e723079090150dbd2a38b1e3bc9a743cb734afaea375468205f92af9185",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15535539514272811,
+      "training_feature_max": {
+        "delta_1": 0.01913321018218994,
+        "rolling_abs_z_24": 10588807.622981302,
+        "rolling_margin_24": 0.01900060474872589,
+        "rolling_mean_24": 0.8003664215405782,
+        "rolling_std_24": 0.009610011720334308,
+        "value": 0.8022690415382385
+      },
+      "training_feature_min": {
+        "delta_1": -0.01913321018218994,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.006734338899453518,
+        "rolling_mean_24": 0.7465490798155466,
+        "rolling_std_24": 1.0994832085170785e-10,
+        "value": 0.7459302544593811
+      }
+    },
+    "channel_52": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.36344364055685124,
+        "rolling_margin_24": -0.00022100905577338015,
+        "rolling_mean_24": 0.7544780746102333,
+        "rolling_std_24": 0.0007671039277321844,
+        "value": 0.7544338703155518
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_52.joblib",
+      "local_model_sha256": "e39941786be7055b3d2f33ae1a5d5bb9323e5319c1d987d59fe36b3cb26a928f",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15242456853608566,
+      "training_feature_max": {
+        "delta_1": 0.01807236671447754,
+        "rolling_abs_z_24": 53157094.86493006,
+        "rolling_margin_24": 0.017939232289791107,
+        "rolling_mean_24": 0.7806110382080078,
+        "rolling_std_24": 0.00822184901223701,
+        "value": 0.7852617502212524
+      },
+      "training_feature_min": {
+        "delta_1": -0.01807236671447754,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.01284388204415643,
+        "rolling_mean_24": 0.7259975324074427,
+        "rolling_std_24": 1.0779184748932662e-10,
+        "value": 0.7257319688796997
+      }
+    },
+    "channel_53": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.2674895314117785,
+        "rolling_margin_24": 0.018229174117247227,
+        "rolling_mean_24": 0.834349604944388,
+        "rolling_std_24": 0.10304460872742055,
+        "value": 0.8582317233085632
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_53.joblib",
+      "local_model_sha256": "cfa15eb995cf52f39cd26ae2b04d04b1e792678009d2d976af3ed8ccd2f531f0",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1482504738267899,
+      "training_feature_max": {
+        "delta_1": 1.0,
+        "rolling_abs_z_24": 9412152.047642637,
+        "rolling_margin_24": 0.33847814053297043,
+        "rolling_mean_24": 1.0,
+        "rolling_std_24": 0.38398394983403145,
+        "value": 1.0
+      },
+      "training_feature_min": {
+        "delta_1": -1.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.9583968495329221,
+        "rolling_mean_24": 0.6316056996583939,
+        "rolling_std_24": 1.368207915069363e-08,
+        "value": 0.0
+      }
+    },
+    "channel_54": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3879835022639307,
+        "rolling_margin_24": 0.0249966333309809,
+        "rolling_mean_24": 0.7751483470201492,
+        "rolling_std_24": 0.08330976961771257,
+        "value": 0.8001618385314941
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_54.joblib",
+      "local_model_sha256": "fc82e9fb0e57ed7cb7b14baeb859b3a290e0a49b177a9ba3cfdaf264f8c1075a",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.11961879374435758,
+      "training_feature_max": {
+        "delta_1": 0.5,
+        "rolling_abs_z_24": 19.819879230711788,
+        "rolling_margin_24": 0.16661609709262848,
+        "rolling_mean_24": 0.8917543292045593,
+        "rolling_std_24": 0.1767657664672397,
+        "value": 0.9000809192657471
+      },
+      "training_feature_min": {
+        "delta_1": -0.5,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.46253034472465515,
+        "rolling_mean_24": 0.66262137144804,
+        "rolling_std_24": 9.655181569695993e-09,
+        "value": 0.40008091926574707
+      }
+    },
+    "channel_55": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3888122026062234,
+        "rolling_margin_24": 0.029852638641993168,
+        "rolling_mean_24": 0.5358866800864538,
+        "rolling_std_24": 0.11825786263680003,
+        "value": 0.5716463327407837
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_55.joblib",
+      "local_model_sha256": "29416f8b70667dc9a8cd65e77b44d121f8196674bb434054f3da65d1028039cb",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.10824299504836199,
+      "training_feature_max": {
+        "delta_1": 0.7149389982223511,
+        "rolling_abs_z_24": 19.339679075154887,
+        "rolling_margin_24": 0.2325965240597725,
+        "rolling_mean_24": 0.6314151249825954,
+        "rolling_std_24": 0.25602376500080914,
+        "value": 0.7149389982223511
+      },
+      "training_feature_min": {
+        "delta_1": -0.7149389982223511,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.5895579159259796,
+        "rolling_mean_24": 0.36922001590331394,
+        "rolling_std_24": 0.02924949285942749,
+        "value": 0.0
+      }
+    },
+    "channel_56": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.5903260166752287,
+        "rolling_margin_24": 0.03330636024475098,
+        "rolling_mean_24": 0.8500876625378927,
+        "rolling_std_24": 0.10205202608059571,
+        "value": 0.9000809192657471
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_56.joblib",
+      "local_model_sha256": "480c65224219fea5078f33c5f1398c4e3b069564ff8bdca4bd0779105d40d628",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.11157816437070112,
+      "training_feature_max": {
+        "delta_1": 0.5,
+        "rolling_abs_z_24": 9902169.034906166,
+        "rolling_margin_24": 0.17913969606161118,
+        "rolling_mean_24": 0.9042442142963409,
+        "rolling_std_24": 0.21802912994181517,
+        "value": 1.0
+      },
+      "training_feature_min": {
+        "delta_1": -0.5,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.5,
+        "rolling_mean_24": 0.7209412232041359,
+        "rolling_std_24": 1.0090625637880738e-08,
+        "value": 0.40008091926574707
+      }
+    },
+    "channel_57": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3641431136475487,
+        "rolling_margin_24": -0.00022858629624045168,
+        "rolling_mean_24": 0.7772650644183159,
+        "rolling_std_24": 0.0007951012924757753,
+        "value": 0.7774561643600464
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_57.joblib",
+      "local_model_sha256": "6a942cabe3103e7d0942d4565bc93f78bb4acd8505b3c4901866f62af41842c3",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.17338123852988604,
+      "training_feature_max": {
+        "delta_1": 0.01923149824142456,
+        "rolling_abs_z_24": 10436059.373492628,
+        "rolling_margin_24": 0.01904040326674783,
+        "rolling_mean_24": 0.8151571800311407,
+        "rolling_std_24": 0.005911693073092127,
+        "value": 0.818666398525238
+      },
+      "training_feature_min": {
+        "delta_1": -0.01923149824142456,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.003472919265429142,
+        "rolling_mean_24": 0.726245845357577,
+        "rolling_std_24": 8.864576674470094e-11,
+        "value": 0.7261694073677063
+      }
+    },
+    "channel_58": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3541698745076248,
+        "rolling_margin_24": -0.0002196580171585083,
+        "rolling_mean_24": 0.7093410243590673,
+        "rolling_std_24": 0.0007867832921375306,
+        "value": 0.7096853256225586
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_58.joblib",
+      "local_model_sha256": "8a5232ff8a605f049b6ad8a83b6e173dd11cd176ce909be7037517f961f65a1b",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.16380301524335017,
+      "training_feature_max": {
+        "delta_1": 0.020148634910583496,
+        "rolling_abs_z_24": 42664814.99167663,
+        "rolling_margin_24": 0.020148634910583496,
+        "rolling_mean_24": 0.74746190259854,
+        "rolling_std_24": 0.006748491467699453,
+        "value": 0.7600548267364502
+      },
+      "training_feature_min": {
+        "delta_1": -0.020148634910583496,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.003700991471608517,
+        "rolling_mean_24": 0.6581641410787901,
+        "rolling_std_24": 8.864576674470094e-11,
+        "value": 0.6583471894264221
+      }
+    },
+    "channel_59": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.3540896189603003,
+        "rolling_margin_24": -0.0001910900076230737,
+        "rolling_mean_24": 0.8789203489820162,
+        "rolling_std_24": 0.0007631603173704304,
+        "value": 0.8791123628616333
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_59.joblib",
+      "local_model_sha256": "467acc2598791c470a4626c3c369fa086fc04293a532335ceeb1ac7c0dc77c5f",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1651106662746663,
+      "training_feature_max": {
+        "delta_1": 0.018142759799957275,
+        "rolling_abs_z_24": 34317372.183857694,
+        "rolling_margin_24": 0.018066326777140262,
+        "rolling_mean_24": 0.9175850475827853,
+        "rolling_std_24": 0.005672753067866873,
+        "value": 0.9227741956710815
+      },
+      "training_feature_min": {
+        "delta_1": -0.018142759799957275,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.0032063076893488196,
+        "rolling_mean_24": 0.8289330502351125,
+        "rolling_std_24": 9.203439287865998e-11,
+        "value": 0.8287428617477417
+      }
+    },
+    "channel_6": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.06273363530635834,
+        "rolling_std_24": 1.5156377428596281e-09,
+        "value": 0.06273363530635834
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_6.joblib",
+      "local_model_sha256": "e3fb57348baadb3e47be529e2c433a1ed70d5c26294b1cc98803f1268ac24ea1",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.19525116189495406,
+      "training_feature_max": {
+        "delta_1": 0.0005112327635288239,
+        "rolling_abs_z_24": 731512.2126930176,
+        "rolling_margin_24": 0.10428476892411709,
+        "rolling_mean_24": 0.2416376918554306,
+        "rolling_std_24": 0.05790391442342189,
+        "value": 0.2416376918554306
+      },
+      "training_feature_min": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.050777092576026917,
+        "rolling_std_24": 3.47794646312227e-12,
+        "value": 0.050777092576026917
+      }
+    },
+    "channel_60": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.36341506061076406,
+        "rolling_margin_24": -0.0002285937468210486,
+        "rolling_mean_24": 0.7076256896058718,
+        "rolling_std_24": 0.0008013263665450366,
+        "value": 0.7078551650047302
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_60.joblib",
+      "local_model_sha256": "1e5df2d815cfb3b3f2e1b1d8d1c70753c2dcf0709324d562107ae2c7785d0fbb",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.1566830100572737,
+      "training_feature_max": {
+        "delta_1": 0.021978795528411865,
+        "rolling_abs_z_24": 20946228.36318625,
+        "rolling_margin_24": 0.021864498655001285,
+        "rolling_mean_24": 0.7450208514928818,
+        "rolling_std_24": 0.006782223636295434,
+        "value": 0.7454008460044861
+      },
+      "training_feature_min": {
+        "delta_1": -0.021065831184387207,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.0037788401047388342,
+        "rolling_mean_24": 0.6573951616883278,
+        "rolling_std_24": 1.0334399179097878e-10,
+        "value": 0.656589925289154
+      }
+    },
+    "channel_61": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.5733994245529175,
+        "rolling_std_24": 3.101641324862029e-08,
+        "value": 0.5733994245529175
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_61.joblib",
+      "local_model_sha256": "29661badcfa488ab048d9d30a755a80569985963e96b6c683b5c3a9109df140b",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.06973260617994015,
+      "training_feature_max": {
+        "delta_1": 0.4742722511291504,
+        "rolling_abs_z_24": 7920564.230661781,
+        "rolling_margin_24": 0.021805425484975216,
+        "rolling_mean_24": 0.9993674755096436,
+        "rolling_std_24": 0.09719308858571764,
+        "value": 0.9993674755096436
+      },
+      "training_feature_min": {
+        "delta_1": -0.008612394332885742,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.008612394332885742,
+        "rolling_mean_24": 0.0013432889245450497,
+        "rolling_std_24": 4.2996993803998976e-10,
+        "value": 0.0013432889245450497
+      }
+    },
+    "channel_62": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.4660004675388336,
+        "rolling_std_24": 1.7389547433810376e-08,
+        "value": 0.4660004675388336
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_62.joblib",
+      "local_model_sha256": "57db809a850fa3e9e8db81226cb2d5d1654f336c1087bf8c8c59675eaa76b664",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.06934050708652655,
+      "training_feature_max": {
+        "delta_1": 0.0076043009757995605,
+        "rolling_abs_z_24": 9914266.177008329,
+        "rolling_margin_24": 0.0076043009757995605,
+        "rolling_mean_24": 0.9682908654212952,
+        "rolling_std_24": 0.0239751714625075,
+        "value": 0.9682908654212952
+      },
+      "training_feature_min": {
+        "delta_1": -0.11745387315750122,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.008142471313476562,
+        "rolling_mean_24": 0.04560459032654762,
+        "rolling_std_24": 7.538532081570361e-11,
+        "value": 0.04560459032654762
+      }
+    },
+    "channel_63": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.4897438883781433,
+        "rolling_std_24": 1.634026294394627e-08,
+        "value": 0.4897438883781433
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_63.joblib",
+      "local_model_sha256": "3b2148001525327a591f1dc8d0719aceef2c207f5bba37847929f39c1648da49",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.07355194884235086,
+      "training_feature_max": {
+        "delta_1": 0.0033341050148010254,
+        "rolling_abs_z_24": 9164523.401806798,
+        "rolling_margin_24": 0.0033341050148010254,
+        "rolling_mean_24": 0.7078813314437866,
+        "rolling_std_24": 0.010530131088142849,
+        "value": 0.7078813314437866
+      },
+      "training_feature_min": {
+        "delta_1": -0.05158689618110657,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.0034897923469543457,
+        "rolling_mean_24": 0.307904988527298,
+        "rolling_std_24": 1.9310065623635807e-10,
+        "value": 0.307904988527298
+      }
+    },
+    "channel_64": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.9670743346214294,
+        "rolling_std_24": 1.4154286212623483e-08,
+        "value": 0.9670743346214294
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_64.joblib",
+      "local_model_sha256": "dc9d277d6e6969fab420df7552c34b1a3113dee00da4adeeaf6a972daff7b3ca",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.15567918186173313,
+      "training_feature_max": {
+        "delta_1": 0.0006271600723266602,
+        "rolling_abs_z_24": 22156.009952913082,
+        "rolling_margin_24": 0.24013537168502808,
+        "rolling_mean_24": 0.9671919271349907,
+        "rolling_std_24": 0.42892087341410634,
+        "value": 0.9673879146575928
+      },
+      "training_feature_min": {
+        "delta_1": -0.0006271600723266602,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.00032664587100350584,
+        "rolling_mean_24": 0.7272525429725647,
+        "rolling_std_24": 1.4153272039043314e-08,
+        "value": 0.9667607545852661
+      }
+    },
+    "channel_65": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.9680150747299194,
+        "rolling_std_24": 4.656861741743597e-09,
+        "value": 0.9680150747299194
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_65.joblib",
+      "local_model_sha256": "c514a2882feee42f30c65e3e441cc09fd6c5260af40c4b717b1350f4e55f80ee",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.21365588755572495,
+      "training_feature_max": {
+        "delta_1": 0.0006271600723266602,
+        "rolling_abs_z_24": 67337.2065814647,
+        "rolling_margin_24": 0.24043588836987817,
+        "rolling_mean_24": 0.9681457330783209,
+        "rolling_std_24": 0.42929768227535164,
+        "value": 0.9683286547660828
+      },
+      "training_feature_min": {
+        "delta_1": -0.0003135800361633301,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.00032664587100350584,
+        "rolling_mean_24": 0.7278927663962046,
+        "rolling_std_24": 4.656861371045445e-09,
+        "value": 0.9677014946937561
+      }
+    },
+    "channel_66": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.20412414486887287,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.9925788640975952,
+        "rolling_std_24": 6.310891764496286e-05,
+        "value": 0.9925788640975952
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_66.joblib",
+      "local_model_sha256": "49381f2fa33229c19aebcf81ee1ce3c18d123ec3a51f08bdb4cafc867db716b3",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.09625610787787398,
+      "training_feature_max": {
+        "delta_1": 0.00030922889709472656,
+        "rolling_abs_z_24": 4039288.6253612842,
+        "rolling_margin_24": 0.0007859145601590845,
+        "rolling_mean_24": 0.9941249489784241,
+        "rolling_std_24": 0.000507513247209586,
+        "value": 0.9941249489784241
+      },
+      "training_feature_min": {
+        "delta_1": -0.00030922889709472656,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.00030922889709472656,
+        "rolling_mean_24": 0.9862270678083102,
+        "rolling_std_24": 7.653677097875456e-11,
+        "value": 0.9870129823684692
+      }
+    },
+    "channel_67": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.7582875444051368,
+        "rolling_margin_24": -3.220885992050171e-05,
+        "rolling_mean_24": 0.9962275698781013,
+        "rolling_std_24": 0.00011963803778234906,
+        "value": 0.9961309432983398
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_67.joblib",
+      "local_model_sha256": "d69a545095cd7610ec9f2aa6ee3a22abeb138a5ae1392ed4679046b5aba8e383",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.12175030053287861,
+      "training_feature_max": {
+        "delta_1": 0.00025975704193115234,
+        "rolling_abs_z_24": 4.694855340334424,
+        "rolling_margin_24": 0.25005386769771576,
+        "rolling_mean_24": 0.9979044571518898,
+        "rolling_std_24": 0.44107800114662987,
+        "value": 0.9979366660118103
+      },
+      "training_feature_min": {
+        "delta_1": -0.00025975704193115234,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.788603663444519,
+        "rolling_mean_24": 0.7478827983140945,
+        "rolling_std_24": 1.2595020445118463e-10,
+        "value": 0.0
+      }
+    },
+    "channel_68": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.20412414499223225,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.7093859910964966,
+        "rolling_std_24": 5.263334824283932e-05,
+        "value": 0.7093859910964966
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_68.joblib",
+      "local_model_sha256": "ba0f888dbe215aa8395c105a5e70bc33b4d464dbadb8c6380236868d621ba463",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.11526231289003852,
+      "training_feature_max": {
+        "delta_1": 0.00025784969329833984,
+        "rolling_abs_z_24": 101089.12894059137,
+        "rolling_margin_24": 0.17746467888355255,
+        "rolling_mean_24": 0.7099016904830933,
+        "rolling_std_24": 0.3138621908851801,
+        "value": 0.7099016904830933
+      },
+      "training_feature_min": {
+        "delta_1": -0.00025784969329833984,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.5615972429513931,
+        "rolling_mean_24": 0.5321791619062424,
+        "rolling_std_24": 2.5507163430983207e-09,
+        "value": 0.0
+      }
+    },
+    "channel_69": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.211964413523674,
+        "rolling_std_24": 2.0984465703798363e-10,
+        "value": 0.211964413523674
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_69.joblib",
+      "local_model_sha256": "d0c7351a8f7e5a8d61804445aa396eaa67e8f9acb8d143c220c249ce1f5d4439",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.19915196770890686,
+      "training_feature_max": {
+        "delta_1": 0.0002576559782028198,
+        "rolling_abs_z_24": 5541449.492804022,
+        "rolling_margin_24": 0.052379179125030845,
+        "rolling_mean_24": 0.21202882751822472,
+        "rolling_std_24": 0.09351147365130565,
+        "value": 0.21222206950187683
+      },
+      "training_feature_min": {
+        "delta_1": -0.0002576559782028198,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.16780516070624193,
+        "rolling_mean_24": 0.15855462538699308,
+        "rolling_std_24": 4.649613400562524e-11,
+        "value": 0.0
+      }
+    },
+    "channel_7": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.04684057831764221,
+        "rolling_std_24": 7.177698967631886e-10,
+        "value": 0.04684057831764221
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_7.joblib",
+      "local_model_sha256": "c93d8a4670b7d2df5e821dc0bd598a45364bb00b309203836f25ecbb8b0256a0",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.17428927003643646,
+      "training_feature_max": {
+        "delta_1": 0.0005332566797733307,
+        "rolling_abs_z_24": 1520850.168835374,
+        "rolling_margin_24": 0.08597204461693764,
+        "rolling_mean_24": 0.2958053946495056,
+        "rolling_std_24": 0.047738377712297005,
+        "value": 0.2958053946495056
+      },
+      "training_feature_min": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.04118188098073006,
+        "rolling_std_24": 5.840071266393101e-11,
+        "value": 0.04118188098073006
+      }
+    },
+    "channel_70": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": -0.0013673901557922363,
+        "rolling_abs_z_24": 0.6991339753897566,
+        "rolling_margin_24": -0.0009493182102838782,
+        "rolling_mean_24": 0.7799546072880427,
+        "rolling_std_24": 0.004624209171238776,
+        "value": 0.7790430188179016
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_70.joblib",
+      "local_model_sha256": "eb7a8b1bd2ed0ebc14a00a35fc135b2d3d7efe5c8c943cb2334a4136e522d7aa",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.05612404849803642,
+      "training_feature_max": {
+        "delta_1": 0.019134104251861572,
+        "rolling_abs_z_24": 3.705968406458177,
+        "rolling_margin_24": 0.3515966683626175,
+        "rolling_mean_24": 0.784149336318175,
+        "rolling_std_24": 0.3965285367952735,
+        "value": 0.794079601764679
+      },
+      "training_feature_min": {
+        "delta_1": -0.0163993239402771,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.008901658157507542,
+        "rolling_mean_24": 0.42198143899440765,
+        "rolling_std_24": 0.0022259452895248143,
+        "value": 0.7603662610054016
+      }
+    },
+    "channel_71": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.8629237851350466,
+        "rolling_margin_24": -0.00018999973932898317,
+        "rolling_mean_24": 0.8131550078590711,
+        "rolling_std_24": 0.004009985547058873,
+        "value": 0.8132137656211853
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_71.joblib",
+      "local_model_sha256": "ce20c210e1501fa64bfd1cc89a6f435dfe0c5e5f4d807c105a7a0a15cd1dab7f",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.07440703190227314,
+      "training_feature_max": {
+        "delta_1": 0.01640397310256958,
+        "rolling_abs_z_24": 3.18726486339563,
+        "rolling_margin_24": 0.010915393630663517,
+        "rolling_mean_24": 0.8170082742969195,
+        "rolling_std_24": 0.0053786214016511985,
+        "value": 0.8259682655334473
+      },
+      "training_feature_min": {
+        "delta_1": -0.013669192790985107,
+        "rolling_abs_z_24": 4.678573809399974e-06,
+        "rolling_margin_24": -0.00884755452473962,
+        "rolling_mean_24": 0.8032840316494306,
+        "rolling_std_24": 0.002501581641469094,
+        "value": 0.7986344695091248
+      }
+    },
+    "channel_72": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": -0.00045734643936157227,
+        "rolling_abs_z_24": 0.8265026286960111,
+        "rolling_margin_24": -0.0010265111923217773,
+        "rolling_mean_24": 0.8239177614450455,
+        "rolling_std_24": 0.004423190764064283,
+        "value": 0.8232334852218628
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_72.joblib",
+      "local_model_sha256": "4b1797fafd96ee3f5dcec27542ba5a0f69390ac185395f33f9c94a56a34895eb",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.07086407598761767,
+      "training_feature_max": {
+        "delta_1": 0.019586801528930664,
+        "rolling_abs_z_24": 2.933221678947172,
+        "rolling_margin_24": 0.3855543186267217,
+        "rolling_mean_24": 0.8279612039526304,
+        "rolling_std_24": 0.41941488804569865,
+        "value": 0.8382700681686401
+      },
+      "training_feature_min": {
+        "delta_1": -0.016856729984283447,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.009016777078310612,
+        "rolling_mean_24": 0.4463362048069636,
+        "rolling_std_24": 0.003167964593140147,
+        "value": 0.8150337934494019
+      }
+    },
+    "channel_73": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": -0.0031874775886535645,
+        "rolling_abs_z_24": 0.8303703660162718,
+        "rolling_margin_24": -0.00032201409339904785,
+        "rolling_mean_24": 0.9376616949836413,
+        "rolling_std_24": 0.004478516369927047,
+        "value": 0.9380428194999695
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_73.joblib",
+      "local_model_sha256": "e84fdf109eb8bdf3ac7abdff9fdfe45c063d70471a52e08e56eadc67a90bcf15",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.08508885349538305,
+      "training_feature_max": {
+        "delta_1": 0.019586801528930664,
+        "rolling_abs_z_24": 3.770186278776964,
+        "rolling_margin_24": 0.271943174302578,
+        "rolling_mean_24": 0.9436029816667239,
+        "rolling_std_24": 0.4354436819980291,
+        "value": 0.9526174068450928
+      },
+      "training_feature_min": {
+        "delta_1": -0.017771363258361816,
+        "rolling_abs_z_24": 5.659415939539829e-07,
+        "rolling_margin_24": -0.009037956595420837,
+        "rolling_mean_24": 0.6642749086022377,
+        "rolling_std_24": 0.002931688929062191,
+        "value": 0.9179940223693848
+      }
+    },
+    "channel_74": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": -0.0022774338722229004,
+        "rolling_abs_z_24": 0.6950276974659206,
+        "rolling_margin_24": -0.0001711025834083557,
+        "rolling_mean_24": 0.9840358545382818,
+        "rolling_std_24": 0.004470783085651053,
+        "value": 0.984053373336792
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_74.joblib",
+      "local_model_sha256": "46632804a3371a3cbd0ee43e15ce94dc044aa2c83a25d28211772b9a5ca86bbc",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.07037237504541934,
+      "training_feature_max": {
+        "delta_1": 0.019138753414154053,
+        "rolling_abs_z_24": 3.6497289440752847,
+        "rolling_margin_24": 0.6150728339950244,
+        "rolling_mean_24": 0.9906602601210276,
+        "rolling_std_24": 0.5009626098337115,
+        "value": 0.9990899562835693
+      },
+      "training_feature_min": {
+        "delta_1": -0.019586801528930664,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.010213812192281124,
+        "rolling_mean_24": 0.3694378857811292,
+        "rolling_std_24": 0.00263950657275151,
+        "value": 0.9744862914085388
+      }
+    },
+    "channel_75": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": -0.0009100437164306641,
+        "rolling_abs_z_24": 0.7062740935311238,
+        "rolling_margin_24": -0.0005674213171005249,
+        "rolling_mean_24": 0.9095675945281982,
+        "rolling_std_24": 0.003032083854293787,
+        "value": 0.9093416333198547
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_75.joblib",
+      "local_model_sha256": "a78d29bd5f5b27274f31b39fc9a9de8dbd6263199221c998a81df9035bd62c9d",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.08145370583868768,
+      "training_feature_max": {
+        "delta_1": 0.014579296112060547,
+        "rolling_abs_z_24": 4.9890515334875545,
+        "rolling_margin_24": 0.6485394338766735,
+        "rolling_mean_24": 0.9150908341010412,
+        "rolling_std_24": 0.4645537134289356,
+        "value": 0.9220961928367615
+      },
+      "training_feature_min": {
+        "delta_1": -0.014126598834991455,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.0071768611669540405,
+        "rolling_mean_24": 0.26535706718762714,
+        "rolling_std_24": 0.0016982827802155345,
+        "value": 0.8929376602172852
+      }
+    },
+    "channel_76": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": -0.0009100437164306641,
+        "rolling_abs_z_24": 0.7328708647577278,
+        "rolling_margin_24": 0.00024461994568503176,
+        "rolling_mean_24": 0.9689253345131874,
+        "rolling_std_24": 0.0027434862549163166,
+        "value": 0.9694740772247314
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_76.joblib",
+      "local_model_sha256": "f18f0de3dc882b8ecb51394b638aae483df42b716bb3bf7e7022e9ff532da763",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.12726900917240486,
+      "training_feature_max": {
+        "delta_1": 0.014126598834991455,
+        "rolling_abs_z_24": 3.4986622368897193,
+        "rolling_margin_24": 0.48466118921836215,
+        "rolling_mean_24": 0.974867026011149,
+        "rolling_std_24": 0.4943162335540744,
+        "value": 0.9804085493087769
+      },
+      "training_feature_min": {
+        "delta_1": -0.01321190595626831,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": -0.008409644166628483,
+        "rolling_mean_24": 0.4839028442899386,
+        "rolling_std_24": 0.0018216917564823588,
+        "value": 0.948062539100647
+      }
+    },
+    "channel_8": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.07025512307882309,
+        "rolling_std_24": 8.15864753432363e-10,
+        "value": 0.07025512307882309
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_8.joblib",
+      "local_model_sha256": "a5fa5a69b46bc02557618437d6c23299367607752581ad13280b8410be23d318",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.019344020151532137,
+      "training_feature_max": {
+        "delta_1": 0.00042185932397842407,
+        "rolling_abs_z_24": 256487.47440178308,
+        "rolling_margin_24": 0.1343581254283587,
+        "rolling_mean_24": 0.30012157559394836,
+        "rolling_std_24": 0.07460208693137257,
+        "value": 0.30012157559394836
+      },
+      "training_feature_min": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.00011406438716221601,
+        "rolling_std_24": 1.138235751285644e-10,
+        "value": 0.00011406438716221601
+      }
+    },
+    "channel_9": {
+      "features": [
+        "value",
+        "delta_1",
+        "rolling_mean_24",
+        "rolling_std_24",
+        "rolling_margin_24",
+        "rolling_abs_z_24"
+      ],
+      "fill_values": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.06961385905742645,
+        "rolling_std_24": 5.816530333329204e-10,
+        "value": 0.06961385905742645
+      },
+      "fill_values_fit_on": "finite non-labelled chronological training partition",
+      "local_model_path": "C:/Users/benja/Documents/SATISH v1 2/AIxSpace-Technical-Framework-v1-polished/artifacts/esa_rebuild/local_model_binaries/channel_9.joblib",
+      "local_model_sha256": "7d0e88c9a22f8c295f658c729ce7edcf45aab19821c4f51dce97d4e10f26f920",
+      "max_rows_per_partition": 250000,
+      "status": "research_candidate",
+      "threshold": 0.04145436911792677,
+      "training_feature_max": {
+        "delta_1": 0.00041678547859191895,
+        "rolling_abs_z_24": 106511.70645323876,
+        "rolling_margin_24": 0.1327783204615116,
+        "rolling_mean_24": 0.2965962886810303,
+        "rolling_std_24": 0.07372490330667157,
+        "value": 0.2965962886810303
+      },
+      "training_feature_min": {
+        "delta_1": 0.0,
+        "rolling_abs_z_24": 0.0,
+        "rolling_margin_24": 0.0,
+        "rolling_mean_24": 0.0,
+        "rolling_std_24": 1.3711105598971964e-10,
+        "value": 0.0
+      }
+    }
+  },
+  "contamination": 0.05,
+  "model": "mission1_isolation_forest_research_candidate",
+  "n_estimators": 100,
+  "seed": 42,
+  "source_zip_sha256": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+  "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+  "zenodo_record": "12528696"
+}

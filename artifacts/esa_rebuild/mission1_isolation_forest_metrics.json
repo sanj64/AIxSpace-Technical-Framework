@@ -1,0 +1,21 @@
+{
+  "active_training_performed": false,
+  "artifact_sha256": "a7ed23df8d1b79d8d2e50065dc1d3ab11745ffaffaae55d481dcf1ea82a19d7e",
+  "channels_attempted": 76,
+  "channels_trained": 76,
+  "f0_5": 0.012829329864304633,
+  "f1": 0.010468490294954502,
+  "false_alarms_per_sample": 0.009803924212266616,
+  "fn": 345092,
+  "fp": 181789,
+  "model": "mission1_isolation_forest_research_candidate",
+  "positive_samples": 347879,
+  "precision": 0.015099471220527046,
+  "recall": 0.008011406264821963,
+  "research_candidate_trained": true,
+  "samples": 18542473,
+  "source_zip_sha256": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+  "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+  "tn": 18012805,
+  "tp": 2787
+}

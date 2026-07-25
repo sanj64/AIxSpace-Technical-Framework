@@ -27,6 +27,16 @@ python -m ad_dss.pipeline.esa_rebuild xgboost-candidate
 
 The XGBoost path is research-gated for v0.9. It uses chronological train/validation/test partitions, train-only feature filling, validation threshold selection, and feature attribution labelled as model sensitivity evidence rather than causation. The Mission 1 full run trained 58 of 76 attempted channels and remains inactive because it did not beat the Z-score baseline on aggregate precision, F1, or F0.5. It is not an active paid-evaluation detector unless model-risk release gates approve it.
 
+## Isolation Forest Research Candidate
+
+```bash
+python -m ad_dss.pipeline.esa_rebuild isolation-forest-candidate
+```
+
+The Isolation Forest path is research-gated for v0.9. It trains per-channel models on finite, non-labelled chronological training samples, calibrates thresholds on normal calibration scores, and evaluates once on untouched test samples. Feature sensitivities are model evidence rather than causation. Joblib binaries remain local/ignored; manifests record their hashes.
+
+The Mission 1 full run trained all 76 attempted channels and remains inactive because it did not beat the Z-score baseline on aggregate precision, recall, F1, or F0.5.
+
 ## LSTM Gate
 
 LSTM remains excluded from active v0.9 evidence. Before it can become an active detector, it must pass overfitting checks, independent reproduction, acceptance-threshold review, explanation review, and a model-risk approval record.

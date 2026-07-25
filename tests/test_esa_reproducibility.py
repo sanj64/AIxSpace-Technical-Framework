@@ -16,6 +16,7 @@ from ad_dss.data.esa_reproducible import (
     chronological_split,
     fit_train_only_scaler,
     reject_forbidden_training_input,
+    train_mission1_isolation_forest_candidate,
     train_mission1_lstm_candidate,
     train_mission1_xgboost_candidate,
     train_mission1_zscore,
@@ -25,6 +26,7 @@ from ad_dss.pipeline.esa_rebuild import (
     clean,
     dry_run,
     full_rebuild,
+    isolation_forest_candidate,
     lstm_candidate,
     xgboost_candidate,
 )
@@ -183,6 +185,47 @@ def test_xgboost_candidate_manifest_is_not_active_v0_9(tmp_path: Path) -> None:
     assert '"active_training_performed": false' in manifest
     assert "RESEARCH_GATED_NOT_ACTIVE_V0_9" in manifest
     assert "not causal" in manifest
+
+
+def test_isolation_forest_candidate_is_research_gated_and_normal_only(
+    tmp_path: Path,
+) -> None:
+    source_zip = tmp_path / "ESA-Mission1.zip"
+    _write_small_mission1_zip(source_zip)
+    outputs = train_mission1_isolation_forest_candidate(
+        source_zip,
+        tmp_path / "iforest",
+        max_rows_per_partition=40,
+        sensitivity_rows=10,
+    )
+    metrics = outputs["metrics"].read_text(encoding="utf-8")
+    artifact = outputs["artifact"].read_text(encoding="utf-8")
+    sensitivity = outputs["feature_sensitivity"].read_text(encoding="utf-8")
+    assert '"status": "RESEARCH_GATED_NOT_ACTIVE_V0_9"' in metrics
+    assert "finite non-labelled chronological training partition" in artifact
+    assert "local_model_binaries" in artifact
+    assert "non-causal" in sensitivity
+
+
+def test_isolation_forest_candidate_manifest_records_hashes(tmp_path: Path) -> None:
+    source_zip = tmp_path / "ESA-Mission1.zip"
+    _write_small_mission1_zip(source_zip)
+    manifest_path = isolation_forest_candidate(
+        tmp_path,
+        tmp_path / "iforest-out",
+        source_zip,
+        None,
+        40,
+    )
+    manifest = manifest_path.read_text(encoding="utf-8")
+    artifact = (tmp_path / "iforest-out" / "mission1_isolation_forest_candidate.json").read_text(
+        encoding="utf-8"
+    )
+    assert '"active_training_performed": false' in manifest
+    assert "RESEARCH_GATED_NOT_ACTIVE_V0_9" in manifest
+    assert "source_zip_hash" in manifest
+    assert "output_hashes" in manifest
+    assert "local_model_sha256" in artifact
 
 
 def test_lstm_candidate_is_research_gated_and_split_safe(tmp_path: Path) -> None:

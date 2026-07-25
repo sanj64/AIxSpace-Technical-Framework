@@ -1,0 +1,24 @@
+{
+  "active_training_performed": false,
+  "code_commit": "cc0aab9fa8729204b3ccc00221b4a1a856801716",
+  "explanation_policy": "Isolation Forest feature sensitivity is model evidence only; it is not causal, probabilistic confidence, certainty, or flight validation.",
+  "output_hashes": {
+    "artifacts/esa_rebuild/mission1_isolation_forest_candidate.json": "a7ed23df8d1b79d8d2e50065dc1d3ab11745ffaffaae55d481dcf1ea82a19d7e",
+    "artifacts/esa_rebuild/mission1_isolation_forest_channel_metrics.csv": "e885e800340a5cac2043d9b4b9780374a536625af94cd5d775158d6a84a6705c",
+    "artifacts/esa_rebuild/mission1_isolation_forest_feature_sensitivity.csv": "6099a8db0ac282e98b33db19db77875160741af91b2969e51e2e98f63516b757",
+    "artifacts/esa_rebuild/mission1_isolation_forest_metrics.json": "2ab102a9939d0f0dcd19af6c57fada03c3158d22743b0766a88f77bc5d163c84"
+  },
+  "outputs": {
+    "artifact": "artifacts/esa_rebuild/mission1_isolation_forest_candidate.json",
+    "channel_metrics": "artifacts/esa_rebuild/mission1_isolation_forest_channel_metrics.csv",
+    "feature_sensitivity": "artifacts/esa_rebuild/mission1_isolation_forest_feature_sensitivity.csv",
+    "metrics": "artifacts/esa_rebuild/mission1_isolation_forest_metrics.json"
+  },
+  "release_gate": "This candidate cannot become an active v0.9 detector without model-risk approval and commercial release integration, even if it beats the Z-score baseline.",
+  "research_candidate_trained": true,
+  "source_zip": "data/raw/ESA-Mission1.zip",
+  "source_zip_hash": "8c81edb1e81af9084f38a3cc06fa06dbea73b504c99ce1b0fb92bda996b801a7",
+  "status": "RESEARCH_GATED_NOT_ACTIVE_V0_9",
+  "training_policy": "Isolation Forest is trained per channel on finite non-labelled samples in the chronological training partition. Thresholds are calibrated on normal calibration scores and metrics are evaluated once on untouched test samples.",
+  "zenodo_record": "12528696"
+}
